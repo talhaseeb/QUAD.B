@@ -5,6 +5,10 @@ const userController = require('../controllers/user.controller');
 // Route for creating a new user
 router.post('/', userController.createUser);
 
-// Other routes for user-related operations below
+// Route for getting all users
+router.get('/', userController.getUsers);
+
+// Route for updating a user by userId
+router.put('/:userId', userController.updateUser);
 
 module.exports = router;
