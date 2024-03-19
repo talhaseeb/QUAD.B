@@ -8,9 +8,17 @@ const app = express()
 const PORT = process.env.PORT || 8000
 const url = process.env.ATLAS_URI
 
+//Importing user-defined routes
+const userRoutes = require('./routes/user.routes');
+const partnerRoutes = require('./routes/partner.routes');
+
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
+
+//Mounting user-defined routes
+app.use('/users', userRoutes);
+app.use('/partners', partnerRoutes);
 
 mongoose.connect(url)
     .then(() => {
