@@ -25,10 +25,11 @@ const itemSchema = new mongoose.Schema({
     images: [{
         type: String
     }],
-    // postId: [{
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'Post',
-    // }],
+    postId: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Post',
+        required: true
+    }],
 }, {
     timestamps: true
 });

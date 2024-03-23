@@ -26,7 +26,7 @@ exports.updateItem = async (req, res) => {
     const itemId = req.params.itemId;
     const updates = req.body;
     try {
-        const updatedItem = await User.findOneAndUpdate({ itemId }, updates, { new: true });
+        const updatedItem = await Item.findOneAndUpdate({ itemId }, updates, { new: true });
         res.status(200).json(updatedItem);
     } catch (error) {
         res.status(500).json({ message: error.message });
