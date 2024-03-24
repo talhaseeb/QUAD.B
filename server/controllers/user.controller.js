@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt'); // Import bcrypt for password encryption
 const User = require('../models/user.model');
 const Partner = require('../models/partner.model');
 
@@ -14,11 +15,25 @@ async function generatePartnerId() {
 
 /* Controller function - CREATE (POST) a new user */
 exports.createUser = async (req, res) => {
-    // Assuming req.body contains user data
+    // Assuming req.body contains user data including plaintext password
     try {
-        const newUser = new User(req.body);
+        // Encrypt the password before saving the user
+        const hashedPassword = await bcrypt.hash(req.body.password, 10); // 10 is the salt rounds
+
+        // Create a new user object with the encrypted password
+        const newUser = new User({
+            address: req.body.address,
+            name: req.body.name,
+            email: req.body.email,
+            phone: req.body.phone,
+            password: hashedPassword, // Save the hashed password
+            myFavs: [],
+            isPartner: req.body.isPartner || false, // Set default value if not provided
+            active: true // Assuming all new users are active
+        });
+
         const savedUser = await newUser.save();
-        
+
         // Check if the user is a partner
         if (req.body.isPartner) {
             // Generate a new partnerId
@@ -33,7 +48,7 @@ exports.createUser = async (req, res) => {
             await newPartner.save();
         }
         
-        res.status(201).json(savedUser);
+        res.status(201).json({ message: "User created successfully", user: savedUser });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -43,7 +58,7 @@ exports.createUser = async (req, res) => {
 exports.getUsers = async (req, res) => {
     try {
         const users = await User.find();
-        res.status(200).json(users);
+        res.status(200).json({ message: "Users retrieved successfully", users: users });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -54,11 +69,16 @@ exports.updateUser = async (req, res) => {
     const userId = req.params.userId;
     const updates = req.body;
     try {
-        const updatedUser = await User.findOneAndUpdate({ userId }, updates, { new: true });
-        res.status(200).json(updatedUser);
+        // Check if the user exists
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        // Update the user
+        const updatedUser = await User.findByIdAndUpdate(userId, updates, { new: true });
+        res.status(200).json({ message: "User updated successfully", user: updatedUser });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
-
-// Other functions for user-related operations TBD

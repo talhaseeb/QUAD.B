@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 //Fields - userID,  address, name, email, phone, password, myFavs, isPartner, active
 const userSchema = new mongoose.Schema({
-    userId: {
-        type: Number,
-        required: true,
-        unique: true
-    },
+    // userId: {
+    //     type: Number,
+    //     required: true,
+    //     unique: true
+    // },
     address: {
         type: String,
         required: true
@@ -44,6 +44,9 @@ const userSchema = new mongoose.Schema({
 }, {
     timestamps: true
 });
+
+// Set _id as primary key
+userSchema.set('_id', mongoose.Schema.Types.ObjectId);
 
 const User = mongoose.model('User', userSchema);
 
