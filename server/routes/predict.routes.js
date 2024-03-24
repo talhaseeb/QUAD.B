@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const predictController = require('./predict.controller');
+const predictController = require('../controllers/predict.controller');
 
 const router = express.Router();
 

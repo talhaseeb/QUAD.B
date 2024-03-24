@@ -11,7 +11,7 @@ const url = process.env.ATLAS_URI
 //Importing user-defined routes
 const userRoutes = require('./routes/user.routes');
 const partnerRoutes = require('./routes/partner.routes');
-const predictRoutes = require('./predict.routes');
+const predictRoutes = require('./routes/predict.routes');
 const predictController = require('./predict.controller');
 
 // Load the model when the server starts
