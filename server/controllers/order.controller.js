@@ -21,15 +21,36 @@ exports.getOrders = async (req, res) => {
     }
 };
 
+
+
 /* Controller function - UPDATE a order by orderId */
 exports.updateOrder = async (req, res) => {
     const orderId = req.params.orderId;
     const updates = req.body;
     try {
-        const updatedOrder = await User.findOneAndUpdate({ orderId }, updates, { new: true });
-        res.status(200).json(orderItem);
+        const order = await Order.findById(orderId);
+        if (!order) {
+            return res.status(404).json({ error: "Order not found!" });
+        }
+
+        // Update other fields
+        for (const key in updates) {
+            if (key !== 'postId') {
+                order[key] = updates[key];
+            }
+        }
+
+        // Update postId array
+        if (updates.postId) {
+            order.postId.push(updates.postId);
+        }
+
+        // Save the updated order
+        const updatedOrder = await order.save();
+
+        return res.status(200).json({ message: "Order updated successfully!", updatedOrder });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ error: "Error: " + error.message });
     }
 };
 

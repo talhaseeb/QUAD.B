@@ -1,15 +1,9 @@
 const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({
-    orderId: {
-        type: Number,
-        required: true,
-        unique: true
-    },
-    PID: {
+    partnerId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Partner',
-        required: true
+        ref: 'User'
     },
     userId: {
         type: mongoose.Schema.Types.ObjectId,

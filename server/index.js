@@ -13,6 +13,8 @@ const userRoutes = require('./routes/user.routes');
 const partnerRoutes = require('./routes/partner.routes');
 const itemRoutes = require('./routes/item.routes');
 const orderRoutes = require('./routes/order.routes');
+const postRoutes = require('./routes/post.routes');
+const notificationRoutes = require('./routes/notification.routes');
 
 app.use(cors())
 app.use(express.json())
@@ -23,6 +25,8 @@ app.use('/users', userRoutes);
 app.use('/partners', partnerRoutes);
 app.use('/items', itemRoutes);
 app.use('/orders', orderRoutes);
+app.use('/notifications', notificationRoutes);
+app.use('/posts', postRoutes);
 
 mongoose.connect(url)
     .then(() => {

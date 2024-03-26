@@ -1,11 +1,7 @@
 const mongoose = require('mongoose');
 
 const itemSchema = new mongoose.Schema({
-    itemId: {
-        type: Number,
-        required: true,
-        unique: true
-    },
+
     quantity: {
         type: Number,
         required: true
@@ -25,11 +21,11 @@ const itemSchema = new mongoose.Schema({
     images: [{
         type: String
     }],
-    postId: [{
+    postId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Post',
         required: true
-    }],
+    },
 }, {
     timestamps: true
 });
