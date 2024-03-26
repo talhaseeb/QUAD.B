@@ -1,24 +1,33 @@
-import { useState, useEffect } from 'react'
 import { ToastContainer } from 'react-toastify';
-import { getAllUsers } from './apis/apis';
+import 'react-toastify/dist/ReactToastify.css';
+import {
+  Route,
+  BrowserRouter as Router,
+  Routes
+} from 'react-router-dom'
+import Navbar from './components/navbar/Navbar';
+import Home from './components/homepage/Home';
+import Signup from './components/userauth/Signup';
+import Signin from './components/userauth/Signin';
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  useEffect(() => {
-    getAllUsers();
-  }, [])
 
   return (
-    <>
-      <h1>QUAD.B</h1>
-      <div
-        className='text-blue-400 font-semibold tracking-wide underline underline-offset-4 text-2xl leading-none mt-4'
-      >
-        Advanced Database Topics
-      </div>
+    <div className='w-screen h-screen text-white'>
+      <Router>
+        <Navbar />
+        <div
+          className='h-[calc(100vh-64px)] w-full'
+        >
+          <Routes>
+            <Route exact path="/" element={<Home />} />
+            <Route exact path="/signin" element={<Signin />} />
+            <Route exact path="/signup" element={<Signup />} />
+          </Routes>
+        </div>
+      </Router>
       <ToastContainer />
-    </>
+    </div>
   )
 }
 
