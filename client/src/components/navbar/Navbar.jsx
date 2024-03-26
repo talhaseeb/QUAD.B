@@ -28,6 +28,12 @@ function Navbar() {
                     Contact
                 </Link>
                 <Link
+                    to={'/predict'}
+                    className='text-blue-300 tracking-wide font-normal hover:text-gray-200'
+                >
+                    Predict
+                </Link>
+                <Link
                     to={'/signin'}
                     className='text-blue-300 tracking-wide font-normal hover:text-gray-200'
                 >
@@ -38,12 +44,6 @@ function Navbar() {
                     className='text-blue-300 tracking-wide font-normal hover:text-gray-200'
                 >
                     Signup
-                </Link>
-                <Link
-                    to={'/'}
-                    className='text-blue-300 tracking-wide font-normal hover:text-gray-200'
-                >
-                    Guest
                 </Link>
             </div>
         </div>
