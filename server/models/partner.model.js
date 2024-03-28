@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 //Fields - partnerID, bannerImage, socials, ordersPlaced, userId
 const partnerSchema = new mongoose.Schema({
-    partnerId: {
-        type: Number,
-        required: true,
-        unique: true
-    },
+    // partnerId: {
+    //     type: Number,
+    //     required: true,
+    //     unique: true
+    // },
     bannerImage: {
         type: String,
         required: false
@@ -16,6 +16,10 @@ const partnerSchema = new mongoose.Schema({
     ordersPlaced: {
         type: Number,
         default: 0
+    },
+    partnerType: {
+        type: String,
+        enum: ['store', 'restaurant', 'donation center'] // Assuming predefined partner types
     },
     userId: {
         type: mongoose.Schema.Types.ObjectId,
