@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const predictController = require('../controllers/predict.controller');
+// const { spawn } = require('child_process');
 
 const router = express.Router();
 
@@ -8,20 +9,6 @@ const router = express.Router();
 router.use(bodyParser.json());
 
 // Route to handle POST requests for predictions
-router.post('/predict', async (req, res) => {
-    try {
-        // Assuming user input is in req.body.data
-        const inputData = req.body.data;
-
-        // Make predictions using the controller function
-        const predictions = await predictController.predict(inputData);
-
-        // Send the predictions as the response
-        res.json({ predictions });
-    } catch (error) {
-        console.error('Prediction error:', error);
-        res.status(500).json({ error: 'Failed to make predictions' });
-    }
-});
+router.post('/predict', predictController.predict);
 
 module.exports = router;

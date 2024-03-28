@@ -12,10 +12,10 @@ const url = process.env.ATLAS_URI
 const userRoutes = require('./routes/user.routes');
 const partnerRoutes = require('./routes/partner.routes');
 const predictRoutes = require('./routes/predict.routes');
-const predictController = require('./predict.controller');
 
 // Load the model when the server starts
-predictController.loadModel();
+const postRoutes = require('./routes/post.routes');
+const notificationRoutes = require('./routes/notification.routes');
 
 app.use(cors())
 app.use(express.json())
@@ -26,6 +26,8 @@ app.use('/users', userRoutes);
 app.use('/partners', partnerRoutes);
 // Use predictRoutes for handling prediction requests
 app.use('/api', predictRoutes);
+app.use('/notifications', notificationRoutes);
+app.use('/posts', postRoutes);
 
 mongoose.connect(url)
     .then(() => {

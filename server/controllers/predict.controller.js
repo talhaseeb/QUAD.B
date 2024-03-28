@@ -1,32 +1,46 @@
-const tf = require('@tensorflow/tfjs-node');
-const { loadLayersModel } = require('@tensorflow/tfjs-layers');
+const fs = require('fs');
 
-let model;
+const { spawn } = require('child_process');
 
-async function loadModel() {
-    // Load the model from the .h5 file
-    model = await loadLayersModel('C:\Users\Arnab\Documents\GitHub\QUAD.B\server\ml_models\ann_model_v1.h5');
-}
+// Define a function to handle the predict route
+const predict = (req, res) => {
+    // Define input data
+    const inputData = req.body;
 
-async function predict(inputData) {
-    try {
-        // Convert input data to a tensor
-        const inputTensor = tf.tensor(inputData);
+    // Call the main.py script using spawn
+    const pythonProcess = spawn('python', ['./ml_scripts/main.py']);
 
-        // Make predictions using the model
-        const predictions = model.predict(inputTensor);
+    let predictionData = '';
 
-        // Convert predictions tensor to JSON
-        const predictionsJson = predictions.arraySync();
-        
-        return predictionsJson;
-    } catch (error) {
-        console.error('Prediction error:', error);
-        throw new Error('Failed to make predictions');
-    }
-}
+    // Send input data to Python script
+    pythonProcess.stdin.write(JSON.stringify(inputData));
+    pythonProcess.stdin.end();
+
+    // Handle data from Python script
+    pythonProcess.stdout.on('data', (data) => {
+        console.log(`Data received from Python script: ${data}`);
+        predictionData += data.toString();
+    });
+
+    // Handle errors from Python script
+    pythonProcess.stderr.on('data', (data) => {
+        console.error(`Error from Python script: ${data}`);
+        res.status(500).json({ error: 'Internal Server Error' }); // Send error response
+    });
+
+    // Handle completion of Python script
+    pythonProcess.on('close', (code) => {
+        if (code === 0) {
+        // If Python script executed successfully, send prediction as JSON response
+        res.json({ prediction: predictionData });
+        } else {
+        // If Python script encountered an error, send error response
+        console.error(`Python script exited with code ${code}`);
+        res.status(500).json({ error: 'Internal Server Error' });
+        }
+    });
+};
 
 module.exports = {
-    loadModel,
-    predict
+  predict,
 };
