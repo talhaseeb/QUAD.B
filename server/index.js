@@ -14,6 +14,10 @@ const partnerRoutes = require('./routes/partner.routes');
 const predictRoutes = require('./routes/predict.routes');
 
 // Load the model when the server starts
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> aef788e3ce8ba803a98e4d5297d0f996cf647f3b
 const itemRoutes = require('./routes/item.routes');
 const orderRoutes = require('./routes/order.routes');
 const postRoutes = require('./routes/post.routes');
@@ -28,6 +32,10 @@ app.use('/users', userRoutes);
 app.use('/partners', partnerRoutes);
 // Use predictRoutes for handling prediction requests
 app.use('/api', predictRoutes);
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> aef788e3ce8ba803a98e4d5297d0f996cf647f3b
 app.use('/items', itemRoutes);
 app.use('/orders', orderRoutes);
 app.use('/notifications', notificationRoutes);
