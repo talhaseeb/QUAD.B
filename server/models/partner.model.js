@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 //Fields - partnerID, bannerImage, socials, ordersPlaced, userId
 const partnerSchema = new mongoose.Schema({
-    partnerId: {
-        type: Number,
-        required: true,
-        unique: true
-    },
+    // partnerId: {
+    //     type: Number,
+    //     required: true,
+    //     unique: true
+    // },
     bannerImage: {
         type: String,
         required: false
@@ -17,6 +17,14 @@ const partnerSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    netItemsCount: {
+        type: Number,
+        default: 0
+    },
+    partnerType: {
+        type: String,
+        enum: ['store', 'restaurant', 'donation center'] // Assuming predefined partner types
+    },
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
@@ -25,6 +33,9 @@ const partnerSchema = new mongoose.Schema({
 }, {
     timestamps: true
 });
+
+// Set _id as primary key
+ partnerSchema.set('_id', mongoose.Schema.Types.ObjectId);
 
 const Partner = mongoose.model('Partner', partnerSchema);
 

@@ -1,11 +1,6 @@
 const mongoose = require('mongoose');
-//Fields - userID,  address, name, email, phone, password, myFavs, isPartner, active
+
 const userSchema = new mongoose.Schema({
-    // userId: {
-    //     type: Number,
-    //     required: true,
-    //     unique: true
-    // },
     address: {
         type: String,
         required: true
@@ -26,8 +21,7 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
     myFavs: [{
         type: mongoose.Schema.Types.ObjectId,
@@ -47,6 +41,10 @@ const userSchema = new mongoose.Schema({
 
 // Set _id as primary key
 userSchema.set('_id', mongoose.Schema.Types.ObjectId);
+
+// // Define unique index only for email and phone fields
+// userSchema.index({ email: 1 }, { unique: true });
+// userSchema.index({ phone: 1 }, { unique: true });
 
 const User = mongoose.model('User', userSchema);
 
