@@ -5,7 +5,7 @@ const Notification = require('../models/notification.model');
 
 exports.getAllPosts = async (req, res) => {
     try {
-        const posts = await Post.find({});
+        const posts = await Post.find({}).sort({ createdAt: -1 });
         return res.status(200).json(posts);
     } catch (error) {
         res.status(500).json({ error: "Error: " + error });
@@ -63,9 +63,9 @@ exports.updatePost = async (req, res) => {
             description,
             image: imageUrl
         }
-        await Post.findByIdAndUpdate(
-            postId,
-            updatedPost,
+        await Post.updateOne(
+            { _id: postId },
+            { $set: updatedPost },
             { new: true }
         )
         return res.status(200).json({ message: "Post updated successfully!" });
