@@ -26,6 +26,10 @@ const itemSchema = new mongoose.Schema({
         ref: 'Post',
         required: true
     },
+    partnerId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Partner'
+    }
 }, {
     timestamps: true
 });
