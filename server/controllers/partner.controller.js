@@ -15,7 +15,7 @@ exports.updatePartner = async (req, res) => {
     const partnerId = req.params.partnerId;
     const updates = req.body;
     try {
-        const updatedPartner = await Partner.findOneAndUpdate({ partnerId }, updates, { new: true });
+        const updatedPartner = await Partner.findByIdAndUpdate(id, req.body, { new: true });
         res.status(200).json(updatedPartner);
     } catch (error) {
         res.status(500).json({ message: error.message });
