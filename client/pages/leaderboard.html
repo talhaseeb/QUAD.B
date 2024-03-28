@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald|Overpass+Mono&display=swap">
+    <link rel="stylesheet" href="../styles/leaderboard.css">
+</head>
+<body>
+    <div class="l-wrapper">
+        <div class="c-header">
+            <img class="c-logo" src="../assets/images/leaderboard.png" draggable="false"/>
+            <button class="c-button c-button--primary" style="color: white;">Send Kudos</button>
+        </div>
+        <p class="c-subheader">
+            *Discover the Leaders: Recognizing restaurants and stores making 
+            significant contributions towards eradicating hunger, 
+            reducing waste, and fostering societal well-being.          
+        </p>
+        <div class="l-grid">
+            <div class="l-grid__item l-grid__item--sticky">
+                <div class="c-card u-bg--light-gradient u-text--dark">
+                    <div class="c-card__body">
+                        <div class="u-display--flex u-justify--space-between">
+                            <div class="u-text--left">
+                                <div class="u-text--small">Community's Top Pick</div>
+                                <h2>store_name_here</h2>
+                            </div>
+                            <div class="u-text--right">
+                                <div class="u-text--small">Score</div>
+                                <h2>24</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="c-card">
+                    <div class="c-card__body">
+                        <div class="u-text--center" id="winner"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="l-grid__item">
+                <div class="c-card">
+                    <div class="c-card__header">
+                        <h3>Featured Partners</h3>
+                        <select class="c-select">
+                            <option selected="selected">Sunday, Feb. 23 - Sunday, Feb. 30</option>
+                        </select>
+                    </div>
+                    <div class="c-card__body">
+                        <ul class="c-list" id="list">
+                            <li class="c-list__item">
+                                <div class="c-list__grid">
+                                    <div class="u-text--left u-text--small u-text--medium">Rank</div>
+                                    <div class="u-text--left u-text--small u-text--medium">Commodity</div>
+                                    <div class="u-text--right u-text--small u-text--medium"># of Points</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../scripts/leaderboard.js"></script>
+</body>
+</html>
