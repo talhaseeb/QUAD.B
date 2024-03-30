@@ -30,6 +30,7 @@ exports.createUser = async (req, res) => {
             // Create a new partner
             const newPartner = new Partner({
                 bannerImage: req.body.bannerImage || null,
+                logo: req.body.logo || null,
                 socials: req.body.socials || null,
                 partnerType: partnerType,
                 userId: newUser._id // Assign the user's ID

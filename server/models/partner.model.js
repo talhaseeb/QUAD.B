@@ -10,6 +10,22 @@ const partnerSchema = new mongoose.Schema({
         type: String,
         required: false
     },
+    logo: {
+        type: String,
+        required: false
+    },
+    short_description: {
+        type: String,
+        required: false
+    },
+    description: {
+        type: String,
+        required: false
+    },
+    tags: {
+        type: [String], // Array of strings
+        default: [] // Default empty array
+    },
     socials: {
         type: String
     },

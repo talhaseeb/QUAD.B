@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | QUAD.B</title>
+    <!-- favicon -->
+    <!-- <link rel="icon" href=""> -->
+    <link rel="stylesheet" href="../styles/partner_profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- fontfamily -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="navbar-left">
+            <a href="index.html">
+                <img src="../assets/images/test_images/icons/love.png" class="logo">
+            </a>
+            <div class="search-box">
+                <img src="./../assets/images/test_images/icons/search.png">
+                <input type="text" placeholder="Search">
+            </div>
+        </div>
+        <div class="navbar-center">
+            <ul>
+                <li><a href="" class="active-link"><img src="../assets/images/test_images/icons/home.png"><span>Home</span></a></li>
+                <li><a href=""><img src="../assets/images/test_images/icons/network.png"><span>About</span></a></li>
+                <li><a href=""><img src="../assets/images/test_images/icons/jobs.png"><span>Leaderboard</span></a></li>
+                <li><a href=""><img src="../assets/images/test_images/icons/message.png"><span>Feed</span></a></li>
+                <li><a href=""><img src="../assets/images/test_images/icons/notification.png"><span>Discover</span></a></li>
+            </ul>
+        </div>
+        <div class="navbar-right">
+            <div class="online">
+                <img src="../assets/images/test_images/logo_starbucks.png"
+                    class="nav-profile-img" onclick="toggleMenu()">
+            </div>
+        </div>
+        <div class="profile-menu-wrap" id="profileMenu">
+            <div class="profile-menu">
+                <div class="user-info">
+                    <img src="" class="profile-pic">
+                    <div>
+                        <h3 class="partnerName"></h3>
+                        <a href="../pages/partner_profile.html">See Your Proflie</a>
+                    </div>
+                </div>
+                <hr>
+                <a href="" class="profile-menu-link">
+                    <img src="../assets/images/test_images/icons/feedback.png">
+                    <p>Give Feedback</p>
+                    <span>></span>
+                </a>
+                <a href="" class="profile-menu-link">
+                    <img src="../assets/images/test_images/icons/setting.png">
+                    <p>Settings and Privacy</p>
+                    <span>></span>
+                </a>
+                <a href="#" class="profile-menu-link" target="_blank">
+                    <img src="../assets/images/test_images/icons/logout.png">
+                    <p>Log Out</p>
+                    <span>></span>
+                </a>
+            </div>
+        </div>
+    </nav>
+    <!-- navbar ended -->
+    <div class="container">
+        <div class="profile-main">
+            <div class="profile-container">
+                <img src=""
+                    width="100%" class="bannerImage">
+                <div class="profile-container-inner">
+                    <img src=""
+                        class="profile-pic">
+                    <h1 class="partnerName"></h1>
+                    <b class="shortDescription"></b>
+                    <p class="partnerAddress"> &middot; <a href="">Contact Info</a></p>
+                    <div id="createItemModal" class="modal">
+                        <div class="modal-content">
+                          <span class="close">&times;</span>
+                          <h2>Create Item</h2>
+                          <form id="createItemForm">
+                            <label for="title">Title:</label>
+                            <input type="text" id="title" name="title" required><br>
+                      
+                            <label for="description">Description:</label>
+                            <textarea id="description" name="description" required></textarea><br>
+
+                            <label for="image">Image:</label>
+                            <input type="file" id="image" name="image" accept="image/*" required><br>
+                      
+                            <label for="price">Price:</label>
+                            <input type="number" id="price" name="price" step="0.01" min="0" required><br>
+                      
+                            <label for="quantity">Quantity:</label>
+                            <input type="number" id="quantity" name="quantity" min="0" required><br>
+                      
+                            <button type="submit">Create</button>
+                          </form>
+                        </div>
+                      </div>
+                      <div id="createPostModal" class="modal">
+                        <div class="modal-content">
+                          <span class="close">&times;</span>
+                          <h2>Create Modal</h2>
+                          <form id="createPostForm">
+                            <label for="post_title">Title:</label>
+                            <input type="text" id="post_title" name="post_title" required><br>
+                      
+                            <label for="post_description">Description:</label>
+                            <textarea id="post_description" name="post_description" required></textarea><br>
+
+                            <label for="post_image">Image:</label>
+                            <input type="file" id="post_image" name="post_image" accept="image/*" required><br>
+                                            
+                            <button type="submit">Create</button>
+                          </form>
+                        </div>
+                      </div>
+                    <div class="profile-btn">
+                        <a href="" class="primary-btn" id="createItemsBtn"><img src="../assets/images/test_images/icons/connect.png" alt="">Create Items</a>
+                        <a href="" id="createPostsBtn"><img src="../assets/images/test_images/icons/message.png" alt="">Create Posts</a>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-description">
+                <h2>Description</h2>
+                <p class="description">
+                </p>
+                <a class="see-more-link" onclick="show()">See <span id="more">More...</span></a>
+            </div>
+
+            <div class="profile-description">
+                <div class="tabset">
+                    <!-- Tab 1 -->
+                    <input type="radio" name="tabset" id="tab1" aria-controls="items" checked>
+                    <label for="tab1">Items</label>
+                    <!-- Tab 2 -->
+                    <input type="radio" name="tabset" id="tab2" aria-controls="posts">
+                    <label for="tab2">Posts</label>
+                    <!-- Tab 3 -->
+                    <!-- <input type="radio" name="tabset" id="tab3" aria-controls="dunkles">
+                    <label for="tab3">Dunkles Bock</label> -->
+                    
+                    <div class="tab-panels">
+                      <section id="items" class="tab-panel">
+                            <div class="card-container" id="itemsCardContainer">
+                                <!-- <div class="card">
+                                    <img src="../assets/images/test_images/logo_starbucks.png" alt="item_image">
+                                    <div class="card-body">
+                                        <h2>French Vanilla</h2>
+                                        <p>Chocolate Topping</p>
+                                        <a href="https://www.linkedin.com/in/mohammad-saad-ali-33074123a/" target="_blank">+ Add</a>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <img src="../assets/images/test_images/logo_starbucks.png" alt="Muhammad Saad Ali">
+                                    <div class="card-body">
+                                        <h2>French Vanilla</h2>
+                                        <p>Chocolate Topping</p>
+                                        <a href="https://www.linkedin.com/in/mohammad-saad-ali-33074123a/" target="_blank">+ Add</a>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <img src="../assets/images/test_images/logo_starbucks.png" alt="Muhammad Saad Ali">
+                                    <div class="card-body">
+                                        <h2>French Vanilla</h2>
+                                        <p>Chocolate Topping</p>
+                                        <a href="https://www.linkedin.com/in/mohammad-saad-ali-33074123a/" target="_blank">+ Add</a>
+                                    </div>
+                                </div> -->
+                            </div>
+                    </section>
+                    <section id="posts" class="tab-panel">
+                        <div class="card-container" id="postsCardContainer">
+                            
+                        </div>
+                </section>
+                      <!-- <section id="dunkles" class="tab-panel">
+                        <h2>6C. Dunkles Bock</h2>
+                        <p><strong>Overall Impression:</strong> A dark, strong, malty German lager beer that emphasizes the malty-rich and somewhat toasty qualities of continental malts without being sweet in the finish.</p>
+                        <p><strong>History:</strong> Originated in the Northern German city of Einbeck, which was a brewing center and popular exporter in the days of the Hanseatic League (14th to 17th century). Recreated in Munich starting in the 17th century. The name “bock” is based on a corruption of the name “Einbeck” in the Bavarian dialect, and was thus only used after the beer came to Munich. “Bock” also means “Ram” in German, and is often used in logos and advertisements.</p>
+                      </section> -->
+                    </div>
+                    
+                  </div>
+                  
+                  <!-- <p><small>Source: <cite><a href="https://www.bjcp.org/stylecenter.php">BJCP Style Guidelines</a></cite></small></p> -->
+            </div>
+            <div class="profile-description profile-description-tags">
+            </div>
+            <div class="profile-description">
+                <h2><b>Top Reviews</b></h2>
+                <div class="sidebar-people-row">
+                    <img src="../assets/images/user_profile_default.jpg">
+                    <div>
+                        <h2><b>Arnab Sinha</b></h2>
+                        <p>The coffee, especially hot chocolate is amazing! Highly Recommended!</p>
+                    </div>
+                </div>
+                <div class="sidebar-people-row">
+                    <img src="../assets/images/user_profile_default.jpg">
+                    <div>
+                        <h2><b>Abdul Rahman</b></h2>
+                        <p>The coffee here is top-notch! Loved the ambiance too, perfect for catching up with friends.</p>
+                    </div>
+                </div>
+                <div class="sidebar-people-row">
+                    <img src="../assets/images/user_profile_default.jpg">
+                    <div>
+                        <h2><b>Talha Haseeb</b></h2>
+                        <p>Excellent service and tasty treats. Highly recommend trying their desserts!</p>
+                    </div>
+                </div>
+                <div class="sidebar-people-row">
+                    <img src="../assets/images/user_profile_default.jpg">
+                    <div>
+                        <h2><b>Lisa Johnson</b></h2>
+                        <p>Delicious coffee and cozy atmosphere. Perfect for studying or meetings.</p>
+                    </div>
+                </div>
+                <div class="sidebar-people-row">
+                    <img src="../assets/images/user_profile_default.jpg">
+                    <div>
+                        <h2><b>Amy Wilson</b></h2>
+                        <p>The food here is fantastic, especially the pastries! Would definitely come back again.</p>
+                    </div>
+                </div>
+                <div class="sidebar-people-row">
+                    <img src="../assets/images/user_profile_default.jpg">
+                    <div>
+                        <h2><b>Rudra Patel</b></h2>
+                        <p>Great place for a quick bite. Loved the sandwiches!</p>
+                    </div>
+                </div>
+                <!-- <a href="#" class="lang-btn">CSS 3</a> -->
+            </div>
+            
+        </div>
+        <div class="profile-sidebar">
+            <div class="sidebar-ad">
+                <b style="font-size: medium;">Check out upcoming orders</b>
+                <span style="color: #2D72FC;">*Verification and Validation of Unique QUAD.B ID is necessary prior to order completion</span>
+                <div>
+                    <img src="../assets/images/test_images/icons/message.png"
+                        alt="">
+                    <img src="../assets/images/test_images/icons/send.png" alt="">
+                </div>
+                <a href="" class="ad-link">Active Orders</a>
+            </div>
+            <div class="sidebar-people">
+                <h3>My Posts - Trending in Feed</h3>
+                <div class="card">
+                    <img src="../assets/images/test_images/logo_starbucks.png" alt="item_image">
+                    <div class="card-body">
+                        <h2>French Vanilla</h2>
+                        <p>Chocolate Topping</p>
+                        <a href="https://www.linkedin.com/in/mohammad-saad-ali-33074123a/" target="_blank">+ Add</a>
+                    </div>
+                </div>
+                
+
+            </div>
+        </div>
+    </div>
+    <div class="profile-footer">
+        <div class="sidebar-useful-links">
+            <a href="">About</a>
+            <a href="">Leaderboard</a>
+            <a href="">Clearance Store</a>
+            <a href="">Privacy Policy</a>
+            <a href="">Advertising</a>
+            <a href="">Get the App</a>
+            <a href="">More</a>
+        </div>
+    </div>
+    <script>
+        var profileMenu = document.getElementById('profileMenu')
+        var seeMore = document.getElementById('hidden')
+        function toggleMenu() {
+            profileMenu.classList.toggle("open-menu");
+        }
+        function show() {
+            if (seeMore.style.display == "none") {
+                seeMore.style.display = "inline-block"
+                document.getElementById('more').innerHTML = "Less..."
+            }
+            else {
+                seeMore.style.display = "none";
+                document.getElementById('more').innerHTML = "More..."
+            }
+        }
+    </script>
+    <script src="../scripts/partner_profile.js"></script>
+</body>
+
+</html>
