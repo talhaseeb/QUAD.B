@@ -4,19 +4,15 @@ const itemSchema = new mongoose.Schema({
 
     quantity: {
         type: Number,
-        required: true
     },
     price: {
         type: Number,
-        required: true
     },
     title: {
         type: String,
-        required: true
     },
     description: {
         type: String,
-        required: true
     },
     images: [{
         type: String
@@ -24,7 +20,6 @@ const itemSchema = new mongoose.Schema({
     postId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Post',
-        required: true
     },
     partnerId: {
         type: mongoose.Schema.Types.ObjectId,
