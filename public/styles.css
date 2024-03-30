@@ -1,0 +1,103 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.top-icons {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.cart-icon,
+.filter-icon {
+    margin-left: 10px; /* Adjust as needed */
+}
+
+
+.card {
+    background: white;
+    padding: 60px;
+    border-radius: 4px;
+    box-shadow: 0 2px 3px #C8D0D8;
+    display: inline-block;
+    margin: 0 auto;
+  }
+
+#fetch-items-btn {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#fetch-items-btn:hover {
+    background-color: #0056b3;
+}
+
+
+
+.item {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.item h3 {
+    margin-top: 0;
+}
+
+.item h4 {
+    margin-top: 0;
+}
+
+.item p {
+    margin: 5px 0;
+}
+
+.item hr {
+    margin-top: 10px;
+}
+
+.filter-icon {
+    position: relative;
+}
+
+.icon_filter_alt {
+    /* Add styles for the filter icon */
+    /* Example styles: */
+    font-size: 24px;
+    color: #333;
+    cursor: pointer;
+}
+
+.filter-options {
+    position: absolute;
+    top: 30px; /* Adjust the distance from the icon */
+    left: 0;
+    background-color: #fff; /* Background color for options */
+    border: 1px solid #ccc; /* Border for options */
+    padding: 5px;
+    display: none; /* Hide options by default */
+}
+
+.filter-option {
+    display: block;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: #333;
+}
+
+.filter-option:hover {
+    background-color: #f0f0f0; /* Background color on hover */
+}
