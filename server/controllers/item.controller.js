@@ -15,16 +15,41 @@ exports.createItems = async (req, res) => {
     }
 };
 
-/* Controller function - GET all items */
+/* Controller function - GET items */
 exports.getItems = async (req, res) => {
     try {
-        const items = await Item.find();
-        res.status(200).json(items);
+        const itemId = req.params.itemId;
+        let items;
+        if (itemId) {
+            // If itemId is provided, fetch a single item by ID
+            items = await Item.findById(itemId);
+            if (!items) {
+                return res.status(404).json({ message: 'Item not found' });
+            } else {
+                return res.status(200).json({ message: 'Item found', item: items });
+            }
+        } else {
+            // If itemId is not provided, fetch all items
+            items = await Item.find();
+            return res.status(200).json({ message: 'All items fetched successfully', items: items });
+        }
     } catch (error) {
-        res.status(500).json({ message: error.message }); 
+        res.status(500).json({ message: error.message });
     }
 };
 
+// Controller function - GET all items belonging to a specific partner
+exports.getItemsByPartnerId = async (req, res) => {
+    const partnerId = req.params.partnerId;
+    try {
+        const items = await Item.find({ partnerId: partnerId });
+        res.status(200).json({ success: true, message: "Items belonging to partner fetched successfully", items });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message }); 
+    }
+};
+
+/* Controller function - UPDATE a item by itemId */
 /* Controller function - UPDATE a item by itemId */
 exports.updateItem = async (req, res) => {
     const { quantity, price, title, description, imageUrl, postId, partnerId } = req.body;
@@ -34,19 +59,26 @@ exports.updateItem = async (req, res) => {
         if (!item) {
             return res.status(404).json({ error: "Item not found!" });
         }
-
-        // Get the difference in quantity for updating netItemsCount
-        const oldQuantity = item.quantity;
-        const quantityDifference = quantity - oldQuantity;
-
-        // Update other fields
-        item.quantity = quantity;
-        item.price = price;
-        item.title = title;
-        item.description = description;
-        item.postId = postId; // Update postId field
-
-        // Push new imageUrl to the existing images array
+        var quantityDifference = 0;
+        // Update fields only if they are provided in the request body
+        if (quantity !== undefined) {
+            // Get the difference in quantity for updating netItemsCount
+            const oldQuantity = item.quantity;
+            quantityDifference = quantity - oldQuantity;
+            item.quantity = quantity;
+        }
+        if (price !== undefined) {
+            item.price = price;
+        }
+        if (title !== undefined) {
+            item.title = title;
+        }
+        if (description !== undefined) {
+            item.description = description;
+        }
+        if (postId !== undefined) {
+            item.postId = postId;
+        }
         if (imageUrl) {
             item.images.push(imageUrl);
         }
@@ -55,9 +87,17 @@ exports.updateItem = async (req, res) => {
         await item.save();
 
         // Update netItemsCount for the respective Partner
-        await Partner.findByIdAndUpdate(partnerId, { $inc: { netItemsCount: quantityDifference } });
+        if (quantityDifference) {
+            var pID = item.partnerId
+            // console.log("Difference: ", quantityDifference);
+            await Partner.findByIdAndUpdate(pID, { $inc: { netItemsCount: quantityDifference } });
+        }
 
-        return res.status(200).json({ message: "Item updated successfully!" });
+    return res.status(200).json({
+        message: "Item updated successfully!",
+        quantityDifference: quantityDifference,
+        partnerId: pID
+    });
     } catch (error) {
         res.status(500).json({ error: "Error: " + error });
     }
