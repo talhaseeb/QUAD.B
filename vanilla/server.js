@@ -41,7 +41,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Define a catch-all route to serve the HTML file
 app.get('*', (_, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, 'public', 'clearance.html'));
 });
 
 app.get('/cart', (_, res) => {

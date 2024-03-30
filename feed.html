@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Feed</title>
+</head>
+
+<body class="h-screen w-screen bg-white text-gray-800 flex flex-col gap-0 justify-start">
+    <div class="w-full min-h-16 max-h-16 flex items-center border-b-[0.5px]">
+        <div class="w-1/3 h-full tracking-wide flex items-center justify-center cursor-pointer" id="tabfeed">Feed</div>
+        <div class="w-1/3 h-full tracking-wide flex items-center justify-center cursor-pointer" id="tabdiscover">
+            Discover</div>
+        <div class="w-1/3 h-full tracking-wide flex items-center justify-center cursor-pointer" id="tabclearance">
+            Clearance</div>
+    </div>
+    <div id="feed" class="h-[calc(100%-64px)] w-full flex items-center justify-between gap-x-4">
+        <div class="bg-white h-full min-w-[25%] max-w-[25%] p-3 flex flex-col gap-y-4 border-r border-r-gray-300">
+            <div class="text-xl leading-none font-semibold text-center underline underline-offset-8">Featured
+                Restaurants</div>
+        </div>
+        <div id="innerfeed" class="h-full flex-1 overflow-y-auto py-4 px-6 grid grid-cols-1 place-items-center gap-4"
+            style="scrollbar-width: none;"></div>
+        <div class="bg-white h-full min-w-[25%] max-w-[25%] p-3 flex flex-col gap-y-4 border-l border-l-gray-300">
+            <div class="text-xl leading-none font-semibold text-center underline underline-offset-8">Donate</div>
+        </div>
+    </div>
+    <div id="discover" class="h-full w-full overflow-y-auto p-6">
+        Discover
+    </div>
+    <div id="clearance" class="h-full w-full overflow-y-auto p-6">
+
+    </div>
+    <script src="feed.js"></script>
+</body>
+
+</html>

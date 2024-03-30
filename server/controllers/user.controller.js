@@ -1,84 +1,72 @@
-const bcrypt = require('bcrypt'); // Import bcrypt for password encryption
 const User = require('../models/user.model');
 const Partner = require('../models/partner.model');
+const bcrypt = require('bcrypt');
 
-// Function to generate a new partnerId
-async function generatePartnerId() {
-    // Find the maximum partnerId in the collection
-    const maxPartner = await Partner.findOne().sort({ partnerId: -1 });
-    let nextPartnerId = 1;
-    if (maxPartner) {
-        nextPartnerId = maxPartner.partnerId + 1;
-    }
-    return nextPartnerId;
-}
-
-/* Controller function - CREATE (POST) a new user */
+// POST - Create a new user and partner if applicable
 exports.createUser = async (req, res) => {
-    // Assuming req.body contains user data including plaintext password
     try {
-        // Encrypt the password before saving the user
-        const hashedPassword = await bcrypt.hash(req.body.password, 10); // 10 is the salt rounds
+        // Hash the password
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
-        // Create a new user object with the encrypted password
+        // Create a new user with hashed password
         const newUser = new User({
             address: req.body.address,
             name: req.body.name,
             email: req.body.email,
             phone: req.body.phone,
-            password: hashedPassword, // Save the hashed password
-            myFavs: [],
-            isPartner: req.body.isPartner || false, // Set default value if not provided
-            active: true // Assuming all new users are active
+            password: hashedPassword, // Store the hashed password
+            isPartner: req.body.isPartner || false // Default to false if isPartner not provided
         });
+        await newUser.save();
 
-        const savedUser = await newUser.save();
-
-        // Check if the user is a partner
+        // Check if user should be a partner
         if (req.body.isPartner) {
-            // Generate a new partnerId
-            const partnerId = await generatePartnerId();
-            
-            // Create a corresponding partner
+            // Validate partner type
+            const partnerType = req.body.partnerType;
+            if (!['store', 'restaurant', 'donation center'].includes(partnerType)) {
+                return res.status(400).json({ message: 'Invalid partner type' });
+            }
+
+            // Create a new partner
             const newPartner = new Partner({
-                partnerId: partnerId,
-                bannerImage: req.body.bannerImage,
-                userId: savedUser._id // Save the user's ObjectId as userId in the partner document
+                bannerImage: req.body.bannerImage || null,
+                socials: req.body.socials || null,
+                partnerType: partnerType,
+                userId: newUser._id // Assign the user's ID
             });
             await newPartner.save();
+
+            // Update user to be a partner
+            newUser.isPartner = true;
+            await newUser.save();
         }
-        
-        res.status(201).json({ message: "User created successfully", user: savedUser });
+
+        res.status(201).json(newUser);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(400).json({ message: error.message });
     }
 };
 
-/* Controller function - GET all users */
+// GET - Retrieve all users
 exports.getUsers = async (req, res) => {
     try {
         const users = await User.find();
-        res.status(200).json({ message: "Users retrieved successfully", users: users });
+        res.status(200).json({ success: true, message: 'Users retrieved successfully', data: users });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ success: false, message: error.message });
     }
 };
 
-/* Controller function - UPDATE a user by userId */
+// PUT - Update a user by ID
 exports.updateUser = async (req, res) => {
-    const userId = req.params.userId;
-    const updates = req.body;
+    const { id } = req.params;
     try {
-        // Check if the user exists
-        const user = await User.findById(userId);
-        if (!user) {
-            return res.status(404).json({ message: "User not found" });
+        const updatedUser = await User.findByIdAndUpdate(id, req.body, { new: true });
+        if (!updatedUser) {
+            return res.status(404).json({ success: false, message: 'User not found' });
         }
-
-        // Update the user
-        const updatedUser = await User.findByIdAndUpdate(userId, updates, { new: true });
-        res.status(200).json({ message: "User updated successfully", user: updatedUser });
+        res.status(200).json({ success: true, message: 'User updated successfully', data: updatedUser });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ success: false, message: error.message });
     }
 };
