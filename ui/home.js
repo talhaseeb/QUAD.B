@@ -40,8 +40,12 @@ document.getElementById('myForm').addEventListener('submit', function(event) {
         // Select the output div
         const outputDiv = document.getElementById('prediction_output');
 
-        // Set the innerHTML of the output div to the prediction value
-        outputDiv.value = predictionValue;
+        // Calculate the range of wastage
+        const minWastage = predictionValue;
+        const maxWastage = predictionValue + 5;
+
+        // Set the innerHTML of the output div to the wastage range message
+        outputDiv.value = "Wastage between " + minWastage + " to " + maxWastage + " kgs";
     })
     .catch(error => {
       console.error('Error:', error);
