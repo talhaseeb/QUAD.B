@@ -12,6 +12,8 @@ const url = process.env.ATLAS_URI
 const userRoutes = require('./routes/user.routes');
 const partnerRoutes = require('./routes/partner.routes');
 const predictRoutes = require('./routes/predict.routes');
+const authRoutes = require('./routes/auth.routes')
+
 
 // Load the model when the server starts
 const itemRoutes = require('./routes/item.routes');
@@ -32,6 +34,7 @@ app.use('/items', itemRoutes);
 app.use('/orders', orderRoutes);
 app.use('/notifications', notificationRoutes);
 app.use('/posts', postRoutes);
+app.use('/', authRoutes);
 
 mongoose.connect(url)
     .then(() => {

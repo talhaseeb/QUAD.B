@@ -1,78 +1,40 @@
 console.clear();
 
-const team = [
-	{
-		rank: 1,
-		name: 'Lewis Hamilton',
-		handle: 'lewishamilton',
-		img: 'https://www.formula1.com/content/dam/fom-website/drivers/L/LEWHAM01_Lewis_Hamilton/lewham01.png.transform/2col-retina/image.png',
-		quadb_ratio: 36,
-		community_votes: 31
-	}, {
-		rank: 2,
-		name: 'Kimi Raikkonen',
-		handle: 'kimimatiasraikkonen',
-		img: 'https://www.formula1.com/content/dam/fom-website/drivers/K/KIMRAI01_Kimi_R%C3%A4ikk%C3%B6nen/kimrai01.png.transform/2col-retina/image.png',
-		quadb_ratio: 31,
-		community_votes: 21
-	}, {
-		rank: 3,
-		name: 'Sebastian Vettel',
-		handle: 'vettelofficial',
-		img: 'https://www.formula1.com/content/dam/fom-website/drivers/S/SEBVET01_Sebastian_Vettel/sebvet01.png.transform/2col-retina/image.png',
-		quadb_ratio: 24,
-		community_votes: 7
-	}, {
-		rank: 4,
-		name: 'Max Verstappen',
-		handle: 'maxverstappen1',
-		img: 'https://www.formula1.com/content/dam/fom-website/drivers/M/MAXVER01_Max_Verstappen/maxver01.png.transform/2col-retina/image.png',
-		quadb_ratio: 22,
-		community_votes: 4
-	}, {
-		rank: 5,
-		name: 'Lando Norris',
-		handle: 'landonorris',
-		img: 'https://www.formula1.com/content/dam/fom-website/drivers/L/LANNOR01_Lando_Norris/lannor01.png.transform/2col-retina/image.png',
-		quadb_ratio: 18,
-		community_votes: 16
-	}, {
-		rank: 6,
-		name: 'Charles Leclerc',
-		handle: 'charles_leclerc',
-		img: 'https://www.formula1.com/content/dam/fom-website/drivers/C/CHALEC01_Charles_Leclerc/chalec01.png.transform/2col-retina/image.png',
-		quadb_ratio: 16,
-		community_votes: 6
-	}, {
-		rank: 7,
-		name: 'George Russell',
-		handle: 'georgerussell63',
-		img: 'https://www.formula1.com/content/dam/fom-website/drivers/G/GEORUS01_George_Russell/georus01.png.transform/2col-retina/image.png',
-		quadb_ratio: 10,
-		community_votes: 21
-	}, {
-		rank: 8,
-		name: 'Daniel Ricciardo',
-		handle: 'danielricciardo',
-		img: 'https://www.formula1.com/content/dam/fom-website/drivers/D/DANRIC01_Daniel_Ricciardo/danric01.png.transform/2col-retina/image.png',
-		quadb_ratio: 7,
-		community_votes: 46
-	}, {
-		rank: 9,
-		name: 'Alexander Albon',
-		handle: 'alex_albon',
-		img: 'https://www.formula1.com/content/dam/fom-website/drivers/A/ALEALB01_Alexander_Albon/alealb01.png.transform/2col-retina/image.png',
-		quadb_ratio: 4,
-		community_votes: 2
-	}, {
-		rank: 10,
-		name: 'Carlos Sainz Jr.',
-		handle: 'carlossainz55',
-		img: 'https://www.formula1.com/content/dam/fom-website/drivers/C/CARSAI01_Carlos_Sainz/carsai01.png.transform/2col-retina/image.png',
-		quadb_ratio: 1,
-		community_votes: 24
-	}
-];
+// Function to fetch partners data from the API
+async function fetchPartnersData() {
+    try {
+        const response = await fetch('http://localhost:8000/partners');
+        if (!response.ok) {
+            throw new Error('Failed to fetch partners data');
+        }
+        const partners = await response.json(); console.log(partners);
+        return partners;
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
+}
+
+// Function to calculate leaderboard ranking for each partner
+function calculateLeaderboard(partners) {
+    const w1 = 0.3; // Weight for item count
+    const w2 = 0.4; // Weight for order count
+    const w3 = 0.4; // Weight for vote count
+    const maxVotes = Math.max(...partners.map(partner => 1));
+    const maxItems = Math.max(...partners.map(partner => partner.netItemsCount));
+    const maxOrders = Math.max(...partners.map(partner => partner.ordersPlaced));
+
+    partners.forEach(partner => {
+        const normalizedItemCount = (partner.netItemsCount - 0) / (maxItems - 0);
+        const normalizedOrderCount = (partner.ordersPlaced - 0) / (maxOrders - 0);
+        const normalizedVoteCount = (1 - 0) / (maxVotes - 0);
+        partner.leaderboardRanking = 100 * ((w1 * normalizedItemCount) + (w2 * normalizedOrderCount) + (w3 * normalizedVoteCount));
+    });
+
+    // Sort partners based on leaderboard ranking
+    partners.sort((a, b) => b.leaderboardRanking - a.leaderboardRanking);
+    return partners;
+}
 
 const randomEmoji = () => {
 	const emojis = ['👏','👍','🙌','🤩','🔥','⭐️','🏆','💯'];
@@ -80,51 +42,79 @@ const randomEmoji = () => {
 	return emojis[randomNumber]
 }
 
-team.forEach(member => {
-	let newRow = document.createElement('li');
-	newRow.classList = 'c-list__item';
-	newRow.innerHTML = `
-		<div class="c-list__grid">
-			<div class="c-flag c-place u-bg--transparent">${member.rank}</div>
-			<div class="c-media">
-				<img class="c-avatar c-media__img" src="${member.img}" />
-				<div class="c-media__content">
-					<div class="c-media__title">${member.name}</div>
-					<a class="c-media__link u-text--small" href="https://instagram.com/${member.handle}" target="_blank">@${member.handle}</a>
-				</div>
-			</div>
-			<div class="u-text--right c-quadb_ratio">
-				<div class="u-mt--8">
-					<strong>${member.quadb_ratio}</strong> ${randomEmoji()}
-				</div>
-			</div>
-		</div>
-	`;
-	if(member.rank === 1) {
-		newRow.querySelector('.c-place').classList.add('u-text--dark')
-		newRow.querySelector('.c-place').classList.add('u-bg--yellow')
-		newRow.querySelector('.c-quadb_ratio').classList.add('u-text--yellow')
-	} else if(member.rank === 2) {
-		newRow.querySelector('.c-place').classList.add('u-text--dark')
-		newRow.querySelector('.c-place').classList.add('u-bg--teal')
-		newRow.querySelector('.c-quadb_ratio').classList.add('u-text--teal')
-	} else if(member.rank === 3) {
-		newRow.querySelector('.c-place').classList.add('u-text--dark')
-		newRow.querySelector('.c-place').classList.add('u-bg--orange')
-		newRow.querySelector('.c-quadb_ratio').classList.add('u-text--orange')
-	}
-	list.appendChild(newRow)
-})
+// Render leaderboard with updated data
+async function renderLeaderboard() {
+    const partners = await fetchPartnersData();
+    const rankedPartners = calculateLeaderboard(partners);
 
-// Find Winner from community_votes quadb_ratio by sorting the drivers in the team array
-let sortedTeam = team.sort((a, b) => b.community_votes - a.community_votes)
-let winner = sortedTeam[0]
+    const list = document.getElementById('list');
+    list.innerHTML = ''; // Clear existing list
 
-// Render winner card
-const winnerCard = document.getElementById('winner')
-winnerCard.innerHTML = `
-	<div class="u-text-small u-text--medium u-mb--16">Top Voted Last Week</div>
-	<img class="c-avatar c-avatar--lg" src="${winner.img}"/>
-	<h3 class="u-mt--16">${winner.name}</h3>
-	<span class="u-text--teal u-text--small">${winner.name}</span>
-`
+    // Create a list item for the headings
+    const headingRow = document.createElement('li');
+    headingRow.classList = 'c-list__item';
+    headingRow.innerHTML = `
+        <div class="c-list__grid">
+            <div class="u-text--left u-text--small u-text--medium">Rank</div>
+            <div class="u-text--left u-text--small u-text--medium">Commodity</div>
+            <div class="u-text--right u-text--small u-text--medium"># of Points</div>
+        </div>
+    `;
+    // Append the headings row to the list
+    list.appendChild(headingRow);
+
+    // Loop through ranked partners and render each partner
+    rankedPartners.forEach((partner, index) => {
+        const newRow = document.createElement('li');
+        newRow.classList = 'c-list__item';
+        newRow.innerHTML = `
+            <div class="c-list__grid">
+                <div class="c-flag c-place u-bg--transparent">${index + 1}</div>
+                <div class="c-media">
+                    <img class="c-avatar c-media__img" src="${partner.logo ?? ''}" />
+                    <div class="c-media__content">
+                        <div class="c-media__title">${partner.userId?.name ?? ''}</div>
+                        <a class="c-media__link u-text--small" href="https://instagram.com/${partner.socials ?? ''}" target="_blank">@${partner.socials ?? ''}</a>
+                    </div>
+                </div>
+                <div class="u-text--right c-quadb_ratio">
+                    <div class="u-mt--8">
+                        <strong>${partner.leaderboardRanking.toFixed(2)}</strong> ${randomEmoji()}
+                    </div>
+                </div>
+            </div>
+        `;
+        if (index === 0) {
+            newRow.querySelector('.c-place').classList.add('u-text--dark');
+            newRow.querySelector('.c-place').classList.add('u-bg--yellow');
+        } else if (index === 1) {
+            newRow.querySelector('.c-place').classList.add('u-text--dark');
+            newRow.querySelector('.c-place').classList.add('u-bg--teal');
+        } else if (index === 2) {
+            newRow.querySelector('.c-place').classList.add('u-text--dark');
+            newRow.querySelector('.c-place').classList.add('u-bg--orange');
+        }
+        list.appendChild(newRow);
+    });
+
+    // Find the partner with the highest order count
+    const partnerWithMaxOrders = rankedPartners.reduce((prevPartner, currentPartner) => {
+        return prevPartner.ordersPlaced > currentPartner.ordersPlaced ? prevPartner : currentPartner;
+    }, {});
+
+    // Render winner card with the partner who has the highest order count
+    const winnerCard = document.getElementById('winner');
+    if (partnerWithMaxOrders) {
+        winnerCard.innerHTML = `
+            <div class="u-text-small u-text--medium u-mb--16">Top Order Contributor</div>
+            <img class="c-avatar c-avatar--lg" src="${partnerWithMaxOrders.logo ?? ''}" />
+            <h3 class="u-mt--16">${partnerWithMaxOrders.userId?.name ?? ''}</h3>
+            <span class="u-text--teal u-text--small">${partnerWithMaxOrders.userId?.name ?? ''}</span>
+        `;
+    }
+
+}
+
+
+// Call renderLeaderboard to initiate rendering
+renderLeaderboard();
