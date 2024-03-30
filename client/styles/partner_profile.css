@@ -1265,3 +1265,18 @@ a {
     }
   }
   
+  .update-message {
+    background-color: #dff0d8; /* Light green background */
+    color: #3c763d; /* Dark green text color */
+    padding: 5px 10px; /* Padding around the message */
+    border-radius: 5px; /* Rounded corners */
+    margin-top: -20px; /* Spacing above the message */
+}
+
+.update-message-post {
+    background-color: #dff0d8; /* Light green background */
+    color: #3c763d; /* Dark green text color */
+    padding: 5px 10px; /* Padding around the message */
+    border-radius: 5px; /* Rounded corners */
+    margin-top: -20px; /* Spacing above the message */
+}

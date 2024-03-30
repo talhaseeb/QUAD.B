@@ -88,10 +88,16 @@ exports.updateItem = async (req, res) => {
 
         // Update netItemsCount for the respective Partner
         if (quantityDifference) {
-            await Partner.findByIdAndUpdate(partnerId, { $inc: { netItemsCount: quantityDifference } });
+            var pID = item.partnerId
+            // console.log("Difference: ", quantityDifference);
+            await Partner.findByIdAndUpdate(pID, { $inc: { netItemsCount: quantityDifference } });
         }
 
-        return res.status(200).json({ message: "Item updated successfully!" });
+    return res.status(200).json({
+        message: "Item updated successfully!",
+        quantityDifference: quantityDifference,
+        partnerId: pID
+    });
     } catch (error) {
         res.status(500).json({ error: "Error: " + error });
     }

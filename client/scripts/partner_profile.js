@@ -353,7 +353,11 @@ const updatedAt = new Date().toLocaleString();
         .then(response => {
             if (response.ok) {
                 console.log('Item updated successfully');
-                // Optionally, you can update the UI to reflect the changes
+                // Display success message on the UI card
+                const messageElement = document.createElement('p');
+                messageElement.textContent = 'Item updated successfully';
+                messageElement.classList.add('update-message');
+                cardElement.appendChild(messageElement);
             } else {
                 console.error('Failed to update item');
             }
@@ -392,7 +396,10 @@ function updatePost(posts) {
             .then(response => {
                 if (response.ok) {
                     console.log('posts updated successfully');
-                    // Optionally, you can update the UI to reflect the changes
+                    const messageElement = document.createElement('p');
+                    messageElement.textContent = 'Post updated successfully';
+                    messageElement.classList.add('update-message-post');
+                    cardElement.appendChild(messageElement);
                 } else {
                     console.error('Failed to update posts');
                 }

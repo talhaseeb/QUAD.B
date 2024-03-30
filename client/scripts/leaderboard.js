@@ -36,6 +36,12 @@ function calculateLeaderboard(partners) {
     return partners;
 }
 
+const randomEmoji = () => {
+	const emojis = ['👏','👍','🙌','🤩','🔥','⭐️','🏆','💯'];
+	let randomNumber = Math.floor(Math.random() * emojis.length);
+	return emojis[randomNumber]
+}
+
 // Render leaderboard with updated data
 async function renderLeaderboard() {
     const partners = await fetchPartnersData();
@@ -73,7 +79,7 @@ async function renderLeaderboard() {
                 </div>
                 <div class="u-text--right c-quadb_ratio">
                     <div class="u-mt--8">
-                        <strong>${partner.leaderboardRanking.toFixed(2)}</strong>
+                        <strong>${partner.leaderboardRanking.toFixed(2)}</strong> ${randomEmoji()}
                     </div>
                 </div>
             </div>
