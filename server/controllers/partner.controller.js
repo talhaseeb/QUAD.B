@@ -7,7 +7,7 @@ exports.getPartners = async (req, res) => {
             .populate({
                 path: "userId",
                 model: "User",
-                select: "name email"
+                select: "name email address"
             });
         res.status(200).json(partners);
     } catch (error) {
