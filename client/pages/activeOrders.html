@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch Orders</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Set max-height for card body */
+        .order-details {
+            max-height: 600px;
+            /* Adjust as needed */
+            border: 2px solid #ccc;
+            /* Add border */
+        }
+    </style>
+</head>
+
+<body class="overflow-x-hidden">
+    <div id="navbar"></div>
+    <div class="container w-screen flex justify-center bg-[#f3f2ef]"
+        style="scrollbar-width: none; font-family: Poppins, sans-serif;">
+        <div class="orderBody p-4 w-[80%]">
+            <!-- <button id="fetch-orders-btn" class="btn btn-primary">Fetch Orders</button> -->
+
+            <!-- Container for orders -->
+            <div id="orders-container" class="row mt-3">
+                <!-- Orders will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap JS and jQuery -->
+    <script src="../scripts/navbar.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="../scripts/activeOrders.js"></script>
+
+
+</body>
+
+</html>

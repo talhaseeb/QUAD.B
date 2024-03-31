@@ -6,7 +6,7 @@ import xgboost as xgb
 
 # Load the XGBoost model
 booster = xgb.Booster()
-booster.load_model("./ml_models/xgboost_model_v1.json")
+booster.load_model("./ml_models/xgboost_model_v2.json")
 
 input_data = sys.stdin.read()
 

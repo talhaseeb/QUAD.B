@@ -6,14 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="../styles/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="../styles/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="../styles/style.css" type="text/css">
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>Feed</title>
+    <title>Feed | QUAD.B</title>
 </head>
 
 <body class="h-screen w-screen bg-[#f3f2ef] text-gray-800 flex flex-col items-center gap-0 justify-start" id="body"
     style="scrollbar-width: none; font-family: Poppins, sans-serif;">
     <div id="navbar"></div>
-    <div class="min-h-[100%-50px] w-[80%] flex flex-col overflow-hidden py-3 px-12">
+    <div class="min-h-[100%-64px] w-[80%] flex flex-col overflow-hidden pt-3 px-12">
         <div class="w-full min-h-[50px] max-h-16 flex items-center border-b-[0.5px] rounded overflow-hidden bg-white">
             <div class="w-1/3 h-full tracking-wide text-base leading-none flex items-center justify-center cursor-pointer"
                 id="tabfeed">Feed</div>
@@ -46,12 +50,42 @@
         <div id="discover" class="h-[calc(100%-50px)] w-full overflow-y-auto py-4 px-2 flex flex-col gap-y-4"
             style="scrollbar-width: none;">
         </div>
-        <div id="clearance" class="h-full w-full overflow-y-auto p-6">
-            Clearance
+        <div id="clearance" class="h-full w-full overflow-y-auto p-6 relative">
+            <div class="flex flex-col gap-y-3 items-center w-full">
+                <div class="w-full px-3 flex items-center justify-between">
+                    <div class="flex items-center gap-x-3">
+                        <select name="ptype" id="ptype" class="p-2 cursor-pointer" onchange="">
+                            <option value="restaurant">Restaurant</option>
+                            <option value="store">Store</option>
+                            <option value="dcentre">Donation Centre</option>
+                        </select>
+                        <select name="pid" id="pid" onchange="">
+                        </select>
+                    </div>
+                    <div class="cart-icon">
+                        <span id="cart-count">0</span>
+                        <a href="cart.html" id="cart-icon-link"><span class="icon_bag_alt"></span></a>
+                    </div>
+                </div>
+                <section class="shop spad">
+                    <div class="container">
+                        <div class="w-full">
+                            <div class="row" id="items-list">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div id="noItems"></div>
+            </div>
         </div>
     </div>
     <div id="footer"></div>
     <script src="../scripts/feed.js"></script>
+    <!-- <script src="../scripts/clearance.js"></script> -->
+    <script src="../scripts/app.js"></script>
+    <script src="../scripts/navbar.js"></script>
+    <script src="../scripts/jquery-3.3.1.min.js"></script>
+    <script src="../scripts/bootstrap.min.js"></script>
 </body>
 
 </html>

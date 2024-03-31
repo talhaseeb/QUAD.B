@@ -38,7 +38,7 @@ const initialFormHTML = '<h1>Register</h1>' +
     '</div>';
 
 // Add event listener to the register link
-document.getElementById('registerLink').addEventListener('click', function(event) {
+document.getElementById('registerLink').addEventListener('click', function (event) {
     event.preventDefault(); // Prevent default link behavior
 
     // Replace the form content with the initial HTML
@@ -99,7 +99,7 @@ function handleDropdownChange() {
         // Add event listener to the "Back" button
         document.getElementById('backButton').addEventListener('click', handleBackButtonClick);
     }
-    
+
     // Add event listener to revert back to login form
     document.getElementById('loginLink').addEventListener('click', handleLoginLinkClick);
 }
@@ -164,16 +164,19 @@ function handleLoginFormSubmit(event) {
             if (response.ok) {
                 // If login is successful, extract user data from response and save to local storage
                 response.json().then(data => {
-                    const { _id, isPartner } = data;
+                    const { _id, isPartner, partnerId } = data;
                     localStorage.setItem('userId', _id);
                     localStorage.setItem('isPartner', isPartner);
                     // Redirect to index.html or perform other actions as needed
-                    window.location.href = '/index.html';
+                    if (isPartner) {
+                        window.location.href = '../pages/partner_profile.html?id=' + data?.partnerId;
+                    }
+                    else
+                        window.location.href = '../pages/feed.html';
                 });
             } else {
                 // If login fails, handle error or redirect back to the login page
-                console.log("Error from login");
-                // window.location.href = '/login.html';
+                window.location.href = '/login.html';
             }
         })
         .catch(error => {

@@ -1,3 +1,15 @@
+let userId = localStorage.getItem("userId");
+let isPartner = localStorage.getItem("isPartner");
+
+let activeOrders = document.getElementById("active-orders");
+let trendingPosts = document.getElementById("trending-posts");
+let profileBtns = document.getElementById("profile-btns");
+if (!isPartner) {
+    activeOrders.style.display = "none";
+    trendingPosts.style.marginTop = "0px";
+    profileBtns.style.display = "none";
+}
+
 function populatePartnerInfo(partner_id) {
     // Fetch data from the API using the partner_id
     fetch(`http://localhost:8000/partners/${partner_id}`)
@@ -107,10 +119,10 @@ function generateCards(items) {
         const images = item.images; // Array of image URLs
         const image = document.createElement('img');
         let mainImage = '';
-        if(images){
+        if (images) {
             mainImage = images[0]; // Assuming the first image is the main image
             image.src = mainImage;
-        }else {
+        } else {
             // Default image if no image available
             image.src = '../assets/images/default_image.png';
         }
@@ -144,8 +156,8 @@ function generateCards(items) {
         quantityLabel.style.display = 'inline';
         quantityValue.style.display = 'inline';
 
-const lineBreak = document.createElement('br'); // Create a line break to move the value to the next line
-quantityContainer.appendChild(lineBreak); // Add line break
+        const lineBreak = document.createElement('br'); // Create a line break to move the value to the next line
+        quantityContainer.appendChild(lineBreak); // Add line break
 
         const priceContainer = document.createElement('span');
         const priceLabel = document.createElement('strong');
@@ -182,20 +194,20 @@ quantityContainer.appendChild(lineBreak); // Add line break
         editIcon.classList.add('fas', 'fa-pencil-alt', 'edit-icon');
         editIcon.addEventListener('click', () => toggleEditMode(editIcon, profileBtnDiv));
 
-// Create an anchor element
-const profileBtnDiv = document.createElement('div');
-const updateButton = document.createElement('a');
-updateButton.classList.add('primary-btn');
-updateButton.textContent = 'Update Item';
-const img = document.createElement('img');
-img.src = '../assets/images/test_images/icons/connect.png';
-img.alt = 'Update Items';
-updateButton.appendChild(img);
+        // Create an anchor element
+        const profileBtnDiv = document.createElement('div');
+        const updateButton = document.createElement('a');
+        updateButton.classList.add('primary-btn');
+        updateButton.textContent = 'Update Item';
+        const img = document.createElement('img');
+        img.src = '../assets/images/test_images/icons/connect.png';
+        img.alt = 'Update Items';
+        updateButton.appendChild(img);
 
-// Add an event listener to the anchor element
-updateButton.addEventListener('click', () => updateItem(item));
-profileBtnDiv.classList.add('profile-btn');
-profileBtnDiv.appendChild(updateButton);
+        // Add an event listener to the anchor element
+        updateButton.addEventListener('click', () => updateItem(item));
+        profileBtnDiv.classList.add('profile-btn');
+        profileBtnDiv.appendChild(updateButton);
 
         // Append all elements to card body
         cardBody.appendChild(title);
@@ -203,7 +215,8 @@ profileBtnDiv.appendChild(updateButton);
         cardBody.appendChild(quantityContainer);
         cardBody.appendChild(priceContainer);
         cardBody.appendChild(updatedAtContainer);
-        cardBody.appendChild(editIcon);
+        if (isPartner)
+            cardBody.appendChild(editIcon);
         // Append image and card body to card div
         cardDiv.appendChild(image);
         cardDiv.appendChild(cardBody);
@@ -225,7 +238,7 @@ function generatePostCards(items) {
         const images = item.image; // Image URL
 
         const image = document.createElement('img');
-        if(images){
+        if (images) {
             image.src = images;
         } else {
             // Default image if no image available
@@ -282,28 +295,28 @@ function generatePostCards(items) {
 // Function to generate tags dynamically
 async function generateTags(partnerData) {
     if (!partnerData || !partnerData.tags) return;
-  
+
     // Get the parent container
     const profileDescription = document.querySelector('.profile-description-tags');
     if (!profileDescription) return;
-  
+
     // Clear previous content
     profileDescription.innerHTML = '';
-  
+
     // Create and append h2 element
     const h2 = document.createElement('h2');
     h2.textContent = 'Tags';
     profileDescription.appendChild(h2);
-  
+
     // Iterate over the tags array and create <a> elements
     partnerData.tags.forEach(tag => {
-      const a = document.createElement('a');
-      a.href = '#';
-      a.classList.add('skill-btn');
-      a.textContent = tag;
-      profileDescription.appendChild(a);
+        const a = document.createElement('a');
+        a.href = '#';
+        a.classList.add('skill-btn');
+        a.textContent = tag;
+        profileDescription.appendChild(a);
     });
-  }
+}
 
 
 function toggleEditMode(icon, profileBtnDiv) {
@@ -328,14 +341,14 @@ function toggleEditMode(icon, profileBtnDiv) {
 }
 
 function updateItem(item) {
-// Get the card element corresponding to the item
-const cardElement = document.querySelector(`.card[data-item-id="${item._id}"]`);
+    // Get the card element corresponding to the item
+    const cardElement = document.querySelector(`.card[data-item-id="${item._id}"]`);
 
-// Retrieve updated values from input fields or elements
-const updatedDescription = cardElement.querySelector('p.class_item_description').textContent;
-const updatedQuantity = cardElement.querySelector('p.class_item_quantity').textContent;
-const updatedPrice = cardElement.querySelector('p.class_item_price').textContent;
-const updatedAt = new Date().toLocaleString();
+    // Retrieve updated values from input fields or elements
+    const updatedDescription = cardElement.querySelector('p.class_item_description').textContent;
+    const updatedQuantity = cardElement.querySelector('p.class_item_quantity').textContent;
+    const updatedPrice = cardElement.querySelector('p.class_item_price').textContent;
+    const updatedAt = new Date().toLocaleString();
 
     // Compare with the original values of the item
     if (
@@ -356,21 +369,21 @@ const updatedAt = new Date().toLocaleString();
                 updatedAt: updatedAt
             })
         })
-        .then(response => {
-            if (response.ok) {
-                console.log('Item updated successfully');
-                // Display success message on the UI card
-                const messageElement = document.createElement('p');
-                messageElement.textContent = 'Item updated successfully';
-                messageElement.classList.add('update-message');
-                cardElement.appendChild(messageElement);
-            } else {
-                console.error('Failed to update item');
-            }
-        })
-        .catch(error => {
-            console.error('Error updating item:', error);
-        });
+            .then(response => {
+                if (response.ok) {
+                    console.log('Item updated successfully');
+                    // Display success message on the UI card
+                    const messageElement = document.createElement('p');
+                    messageElement.textContent = 'Item updated successfully';
+                    messageElement.classList.add('update-message');
+                    cardElement.appendChild(messageElement);
+                } else {
+                    console.error('Failed to update item');
+                }
+            })
+            .catch(error => {
+                console.error('Error updating item:', error);
+            });
     } else {
         console.log('No changes to update');
     }
@@ -379,26 +392,26 @@ const updatedAt = new Date().toLocaleString();
 function updatePost(posts) {
     // Get the card element corresponding to the item
     const cardElement = document.querySelector(`.card[data-item-id="${posts._id}"]`);
-    
+
     // Retrieve updated values from input fields or elements
     const updatedDescription = cardElement.querySelector('p.class_post_description').textContent;
     const updatedAt = new Date().toLocaleString();
-    
-        // Compare with the original values of the item
-        if (
-            updatedDescription !== posts.description
-        ) {
-            // Values were updated, so perform the PUT request
-            fetch(`http://localhost:8000/posts/${posts._id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    description: updatedDescription,
-                    updatedAt: updatedAt
-                })
+
+    // Compare with the original values of the item
+    if (
+        updatedDescription !== posts.description
+    ) {
+        // Values were updated, so perform the PUT request
+        fetch(`http://localhost:8000/posts/${posts._id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                description: updatedDescription,
+                updatedAt: updatedAt
             })
+        })
             .then(response => {
                 if (response.ok) {
                     console.log('posts updated successfully');
@@ -413,10 +426,10 @@ function updatePost(posts) {
             .catch(error => {
                 console.error('Error updating posts:', error);
             });
-        } else {
-            console.log('No changes to update');
-        }
+    } else {
+        console.log('No changes to update');
     }
+}
 
 
 
@@ -450,30 +463,30 @@ const createItemsBtn = document.getElementById('createItemsBtn');
 const closeModal = document.querySelector('.close');
 
 // When the user clicks the button, OPEN the modal
-createItemsBtn.addEventListener('click', function() {
-event.preventDefault();
-  modal1.style.display = 'block';
+createItemsBtn.addEventListener('click', function () {
+    event.preventDefault();
+    modal1.style.display = 'block';
 });
 
 // When the user clicks on <span> (x), CLOSE the modal
-closeModal.addEventListener('click', function() {
-  modal1.style.display = 'none';
-  modal2.style.display = 'none';
+closeModal.addEventListener('click', function () {
+    modal1.style.display = 'none';
+    modal2.style.display = 'none';
 });
 
 // When the user clicks anywhere outside of the modal, CLOSE it
-window.addEventListener('click', function(event) {
-  if (event.target === modal1 || event.target === modal2) {
-    modal1.style.display = 'none';
-    modal2.style.display = 'none';
-  }
+window.addEventListener('click', function (event) {
+    if (event.target === modal1 || event.target === modal2) {
+        modal1.style.display = 'none';
+        modal2.style.display = 'none';
+    }
 });
 
 // Handle form submission -- CREATE ITEM
 const createItemForm = document.getElementById('createItemForm');
 
-createItemForm.addEventListener('submit', function(event) {
-  event.preventDefault();
+createItemForm.addEventListener('submit', function (event) {
+    event.preventDefault();
 
   // Retrieve form data
   const title = document.getElementById('title').value;
@@ -498,28 +511,28 @@ createItemForm.addEventListener('submit', function(event) {
     images: reader_image
   };
 
-  // Send POST request to Items Table
-  fetch('http://localhost:8000/items', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(newItem)
-  })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return response.json();
-  })
-  .then(data => {
-    // Handle successful response from the server
-    console.log('Item created successfully:', data);
-  })
-  .catch(error => {
-    // Handle errors
-    console.error('Error creating item:', error.message);
-  });
+    // Send POST request to Items Table
+    fetch('http://localhost:8000/items', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newItem)
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Handle successful response from the server
+            console.log('Item created successfully:', data);
+        })
+        .catch(error => {
+            // Handle errors
+            console.error('Error creating item:', error.message);
+        });
 
     };   reader.onerror = function (error) {
       console.log('Error: ', error);
@@ -530,24 +543,24 @@ createItemForm.addEventListener('submit', function(event) {
   // Close the modal after submitting the form
   modal1.style.display = 'none';
 
-  // Optionally, you can reset the form fields here
-  createItemForm.reset();
+    // Optionally, you can reset the form fields here
+    createItemForm.reset();
 });
 
 // Get the button that opens the modal
 const createPostsBtn = document.getElementById('createPostsBtn');
 
 // When the user clicks the button, open the modal
-createPostsBtn.addEventListener('click', function() {
+createPostsBtn.addEventListener('click', function () {
     event.preventDefault();
-  modal2.style.display = 'block';
+    modal2.style.display = 'block';
 });
 
 // Handle form submission -- CREATE POSTS
 const createPostForm = document.getElementById('createPostForm');
 
-createPostForm.addEventListener('submit', function(event) {
-  event.preventDefault();
+createPostForm.addEventListener('submit', function (event) {
+    event.preventDefault();
 
   // Retrieve form data
   const title = document.getElementById('post_title').value;
@@ -597,14 +610,14 @@ createPostForm.addEventListener('submit', function(event) {
   }
   getBase64(images);
 
-  // Close the modal after submitting the form
-  modal2.style.display = 'none';
+    // Close the modal after submitting the form
+    modal2.style.display = 'none';
 
-  // Optionally, you can reset the form fields here
-  createPostForm.reset();
+    // Optionally, you can reset the form fields here
+    createPostForm.reset();
 });
 
 
 
 
-  
+
