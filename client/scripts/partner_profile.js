@@ -116,6 +116,9 @@ function generateCards(items) {
         }
 
         image.alt = item.title; // Assuming item object has a 'title' property
+        image.style.objectFit = "cover";
+        image.style.height = "240px";
+        image.style.width = "100%";
 
         const cardBody = document.createElement('div');
         cardBody.classList.add('card-body');
@@ -229,6 +232,9 @@ function generatePostCards(items) {
             image.src = '../assets/images/default_image.png';
         }
         image.alt = item.title; // Assuming item object has a 'title' property
+        image.style.objectFit = "cover";
+        image.style.height = "240px";
+        image.style.width = "100%";
 
         const cardBody = document.createElement('div');
         cardBody.classList.add('card-body');
@@ -475,14 +481,21 @@ createItemForm.addEventListener('submit', function(event) {
   const price = parseFloat(document.getElementById('price').value);
   const quantity = parseInt(document.getElementById('quantity').value);
   const images = document.getElementById('image').files[0];
+  var reader_image = "";
 
-  // Create the item object
+  function getBase64(file) {
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+        reader_image = reader.result;
+          // Create the item object
   const newItem = {
     title: title,
     description: description,
     price: price,
     quantity: quantity,
-    images: images
+    partnerId: partner_id,
+    images: reader_image
   };
 
   // Send POST request to Items Table
@@ -507,6 +520,12 @@ createItemForm.addEventListener('submit', function(event) {
     // Handle errors
     console.error('Error creating item:', error.message);
   });
+
+    };   reader.onerror = function (error) {
+      console.log('Error: ', error);
+    };
+  }
+    getBase64(images);
 
   // Close the modal after submitting the form
   modal1.style.display = 'none';
@@ -534,16 +553,24 @@ createPostForm.addEventListener('submit', function(event) {
   const title = document.getElementById('post_title').value;
   const description = document.getElementById('post_description').value;
   const images = document.getElementById('post_image').files[0];
+  var reader_image = "";
+
+  function getBase64(file) {
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+        reader_image = reader.result;
 
   // Create the post object
   const newPost = {
     title: title,
     description: description,
-    image: images
+    imageUrl: reader_image
   };
-
+  console.log(newPost);
+  const url = `http://localhost:8000/posts/${partner_id}`;
   // Send POST request to Posts Table
-  fetch('http://localhost:8000/posts', {
+  fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -564,6 +591,11 @@ createPostForm.addEventListener('submit', function(event) {
     // Handle errors
     console.error('Error creating item:', error.message);
   });
+};   reader.onerror = function (error) {
+    console.log('Error: ', error);
+  };
+  }
+  getBase64(images);
 
   // Close the modal after submitting the form
   modal2.style.display = 'none';

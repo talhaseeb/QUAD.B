@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
 
 body {
-  background: #c0c0c0; 
+  background: #f3f2ef; 
   /* font-family: Raleway, sans-serif; */
   font-family: Poppins, sans-serif;
   color: #121212;
@@ -101,3 +101,44 @@ body {
 .login a:hover {
   text-decoration: underline;
 }
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+input[type="file"], textarea {
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+
+/* Style for the select element */
+select {
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 16px;
+  font-family: Raleway, sans-serif;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+/* Style for the select when hovered */
+select:hover {
+  border-color: #045be6;
+}
+
+/* Style for the options */
+option {
+  padding: 10px;
+  font-size: 16px;
+  background-color: #fff;
+}
+
