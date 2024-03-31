@@ -5,6 +5,8 @@ if (!userId) window.location.href = "/client/pages/log-in.html"
 else console.log(userId, isPartner);
 
 let posts = [], partners = [];
+let cartCount = 0;
+let cartItems = [];
 
 let feed = document.getElementById("feed");
 let innerfeed = document.getElementById("innerfeed");
@@ -16,6 +18,78 @@ let tabclearance = document.getElementById("tabclearance");
 let featuredrestaurants = document.getElementById("featuredrestaurants");
 let partnerdonations = document.getElementById("partnerdonations");
 let tab = 1;
+
+const itemsList = document.getElementById('items-list');
+const fetchItemsBtn = document.getElementById('fetch-items-btn');
+const cartCountElement = document.getElementById('cart-count');
+let ptype = document.getElementById("ptype");
+let pid = document.getElementById("pid");
+
+var pArr = [], selectedPid = pid.value;
+
+const setOptValue = (optValue) => {
+    if (optValue == "restaurant") {
+        pid.innerHTML = "";
+        pArr = partners?.filter(p => p?.partnerType == "restaurant");
+    } else if (optValue == "store") {
+        pid.innerHTML = "";
+        pArr = partners?.filter(p => p?.partnerType == "store");
+    } else if (optValue == "dcentre") {
+        pid.innerHTML = "";
+        pArr = partners?.filter(p => p?.partnerType == "donation center");
+    }
+    const optionElement = document.createElement("option");
+    optionElement.value = null;
+    optionElement.textContent = "Select";
+    pid.appendChild(optionElement)
+    pArr.forEach(item => {
+        const optionElement = document.createElement("option");
+        optionElement.value = item?._id;
+        optionElement.textContent = item?.userId?.name;
+        pid.appendChild(optionElement);
+    });
+    console.log(selectedPid);
+    pid.onchange = (event) => {
+        selectedPid = event.target.value;
+        console.log(selectedPid);
+        if (selectedPid != null && selectedPid != "") {
+            onSelectPid();
+        }
+    }
+}
+
+let optVal = ptype.value;
+ptype.onchange = (event) => {
+    optVal = event.target.value;
+    setOptValue(optVal);
+}
+
+const onSelectPid = async () => {
+    try {
+        const response = await fetch(`http://localhost:8000/items/partner/${selectedPid}`, {
+            method: 'GET',
+            headers: { "Content-Type": "application/json" }
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            const pItems = data;
+            if (pItems?.items?.length == 0) {
+                itemsList.innerHTML = "";
+                document.getElementById("noItems").innerText = "No items to display!"
+            } else {
+                document.getElementById("noItems").innerText = ""
+                displayItems(pItems?.items);
+            }
+        } else {
+            console.log("Error", response.status);
+        }
+    } catch (error) {
+        console.log("Error", error);
+    }
+}
+
+pid.classList.add("p-2", "cursor-pointer", "w-56");
 
 // document.getElementById('uploadForm').addEventListener('submit', async (event) => {
 //     event.preventDefault();
@@ -56,8 +130,27 @@ async function loadHTMLFile(url) {
             throw new Error('Failed to fetch HTML file');
         }
         const htmlContent = await response.text();
-
         clearance.innerHTML = htmlContent;
+
+        // Find all script tags in the loaded HTML content
+        const scriptTags = clearance.querySelectorAll('script');
+
+        // Dynamically load and execute each script
+        scriptTags.forEach(async script => {
+            const src = script.getAttribute('src');
+            if (src) {
+                // Fetch and execute external JavaScript files
+                const jsResponse = await fetch(src);
+                if (!jsResponse.ok) {
+                    throw new Error(`Failed to fetch JavaScript file: ${src}`);
+                }
+                const jsContent = await jsResponse.text();
+                eval(jsContent); // Execute the JavaScript code
+            } else {
+                // Execute inline JavaScript
+                eval(script.textContent);
+            }
+        });
     } catch (error) {
         console.error('Error loading HTML file:', error);
     }
@@ -98,11 +191,35 @@ async function getPartners() {
             let stores = partners?.filter(p => p?.partnerType == "store");
             let restaurants = partners?.filter(p => p?.partnerType == "restaurant");
             populateDiscover(donationCentres, stores, restaurants);
+            setOptValue(ptype.value)
         } else {
             console.log("Error", response.status);
         }
     } catch (error) {
         console.log("Error", error);
+    }
+}
+
+const getItems = async () => {
+    try {
+        const itemsResponse = await fetch('http://localhost:8000/items', {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        });
+        const itemsData = await itemsResponse.json();
+
+        if (itemsResponse.ok) {
+            console.log(itemsData);
+            if (itemsData?.items.length == 0) {
+                document.getElementById("noItems").innerText = "No items to display!"
+            } else {
+                displayItems(itemsData?.items);
+            }
+        } else {
+            console.error('Failed to fetch items:', itemsData.message);
+        }
+    } catch (error) {
+        console.error('Error fetching data:', error.message);
     }
 }
 
@@ -175,7 +292,7 @@ function updateFeed() {
         feed.style.display = "none";
         discover.style.display = "none";
         clearance.style.display = "block";
-        loadHTMLFile('../pages/clearance.html');
+        // loadHTMLFile('../pages/clearance.html');
     }
 }
 
@@ -206,7 +323,7 @@ function populateDiscover(donationCentres, stores, restaurants) {
             let postTitle = document.createElement("div");
             postTitle.innerText = idx?.userId?.name;
             postTitle.classList.add("text-xl", "leading-none", "font-semibold", "tracking-wide", "pt-1", "px-2.5", "cursor-pointer");
-            let navigateUrl = "http://localhost:5500/client/pages/partner_profile.html?id=" + idx?._id;
+            let navigateUrl = "../pages/partner_profile.html?id=" + idx?._id;
             postTitle.onclick = () => window.location.href = navigateUrl;
             let address = document.createElement("p");
             address.innerText = idx?.userId?.address;
@@ -219,6 +336,50 @@ function populateDiscover(donationCentres, stores, restaurants) {
         mainDiv.appendChild(horizontalScrollable);
         discover.appendChild(mainDiv);
     })
+}
+
+function displayItems(itemsData) {
+    itemsList.innerHTML = ''; // Clear previous items
+    itemsData.forEach(item => {
+        const productItem = `
+                <div class="col-lg-4 col-md-6">
+                    <div class="product__item bg-white my-1.5 rounded-md overflow-hidden min-w-[250px]">
+                        <div class="product__item__pic !h-32" >
+                            <img class="product__item__pic set-bg !h-32 w-full" src="../assets/images/test_images/biryani.jpg" alt="biryani">
+                            <ul class="product__hover">
+                                <li><a href="img/biryani.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
+                                <li><a href="#" class="add-to-cart" data-item='${JSON.stringify(item)}'><span class="icon_bag_alt"></span></a></li>
+                            </ul>
+                        </div>
+                        <div class="product__item__text p-3">
+                            <h6 class="!mb-2"><a href="#" class="!text-xl leading-none">${item.title}</a></h6>
+                            <p>${item.description}</p>
+                            <div class="product__price">$ ${item.price}</div>
+                        </div>
+                    </div>
+                </div>`;
+        itemsList.innerHTML += productItem;
+    });
+
+    // Add event listeners for add to cart buttons
+    const addToCartButtons = document.querySelectorAll('.add-to-cart');
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', (event) => {
+            const item = JSON.parse(event.currentTarget.dataset.item);
+            addToCart(item);
+        });
+    });
+
+    function addToCart(item) {
+        cartCount++;
+        cartCountElement.textContent = cartCount;
+
+        // Store item details in cartItems array
+        cartItems.push(item);
+
+        // Store cartItems in localStorage
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    }
 }
 
 window.addEventListener('load', () => {
@@ -283,4 +444,5 @@ window.addEventListener('load', () => {
 
     getPosts();
     getPartners();
+    getItems();
 });
