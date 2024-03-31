@@ -18,7 +18,7 @@ exports.createUser = async (req, res) => {
             isPartner: req.body.isPartner || false // Default to false if isPartner not provided
         });
         await newUser.save();
-
+        let partnerId = null;
         // Check if user should be a partner
         if (req.body.isPartner) {
             // Validate partner type
@@ -40,9 +40,10 @@ exports.createUser = async (req, res) => {
             // Update user to be a partner
             newUser.isPartner = true;
             await newUser.save();
+            partnerId = newPartner._id
         }
 
-        res.status(201).json(newUser);
+        res.status(201).json({ ...newUser, partnerId });
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
