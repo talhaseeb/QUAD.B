@@ -33,6 +33,9 @@ exports.createUser = async (req, res) => {
                 logo: req.body.logo || null,
                 socials: req.body.socials || null,
                 partnerType: partnerType,
+                tags: req.body.tags || [],
+                short_description: req.body.short_description || null,
+                description: req.body.description || null,
                 userId: newUser._id // Assign the user's ID
             });
             await newPartner.save();
