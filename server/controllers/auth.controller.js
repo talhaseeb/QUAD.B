@@ -1,4 +1,5 @@
 const User = require('../models/user.model');
+const Partner = require('../models/partner.model');
 const bcrypt = require('bcrypt');
 
 exports.login = async (req, res) => {
@@ -14,7 +15,7 @@ exports.login = async (req, res) => {
         }
 
         // Compare the provided password with the hashed password stored in the database
-        bcrypt.compare(password, user.password, (err, result) => {
+        bcrypt.compare(password, user.password, async (err, result) => {
             if (err) {
                 console.error('Error comparing passwords:', err);
                 // Send 500 Internal Server Error status code
@@ -23,7 +24,15 @@ exports.login = async (req, res) => {
             if (result) {
                 // If passwords match, send 200 OK status code
                 const { _id, isPartner } = user;
-                return res.status(200).json({ message: 'Login successful', _id, isPartner });
+                let partner = await Partner.findOne({ userId: _id })
+                return res.status(200).json({
+                    message: 'Login successful',
+                    _id,
+                    isPartner,
+                    partnerId: partner
+                        ? partner._id
+                        : null
+                });
             } else {
                 // If passwords do not match, send 401 Unauthorized status code
                 return res.status(401).send('Invalid credentials');

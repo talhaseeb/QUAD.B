@@ -129,8 +129,7 @@ function handleLoginFormSubmit(event) {
                     localStorage.setItem('isPartner', isPartner);
                     // Redirect to index.html or perform other actions as needed
                     if (isPartner) {
-                        console.log(data)
-                        //window.location.href = '../pages/partner_profile.html?id=' + partnerId;
+                        window.location.href = '../pages/partner_profile.html?id=' + data?.partnerId;
                     }
                     else
                         window.location.href = '../pages/feed.html';
