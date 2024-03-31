@@ -1,11 +1,6 @@
 /* Inline CSS to style the logo */
 /* Inline CSS to style the logo */
-img.logo {
-    display: block;
-    margin: 0 auto;
-    width: 800px; /* Adjust the width as needed */
-    height: auto; /* Maintain aspect ratio */
-}
+
 
 /* Center the heading */
 .heading {
