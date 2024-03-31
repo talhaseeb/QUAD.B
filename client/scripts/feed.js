@@ -1,18 +1,10 @@
-let posts = [], partners = [];
+let userId = localStorage.getItem("userId");
+let isPartner = localStorage.getItem("isPartner");
 
-let navbar = document.getElementById("navbar");
-navbar.innerHTML += `
-<div class="w-screen flex items-center justify-between gap-x-6 py-3 px-6 min-h-[50px] bg-gray-800 text-white">
-    <div class="text-xl leading-none">QUAD.B</div>
-    <div class="flex items-center gap-x-5 text-base leading-none">
-        <div class="cursor-pointer">About</div>
-        <div class="cursor-pointer">Contact</div>
-        <div class="cursor-pointer">Signin</div>
-        <div class="cursor-pointer">Signup</div>
-        <div class="cursor-pointer">Predict</div>
-    </div>
-</div>
-`
+if (!userId) window.location.href = "/client/pages/log-in.html"
+else console.log(userId, isPartner);
+
+let posts = [], partners = [];
 
 let feed = document.getElementById("feed");
 let innerfeed = document.getElementById("innerfeed");
@@ -56,6 +48,20 @@ let tab = 1;
 //         alert('Failed to upload image');
 //     }
 // });
+
+async function loadHTMLFile(url) {
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('Failed to fetch HTML file');
+        }
+        const htmlContent = await response.text();
+
+        clearance.innerHTML = htmlContent;
+    } catch (error) {
+        console.error('Error loading HTML file:', error);
+    }
+}
 
 async function getPosts() {
     try {
@@ -168,7 +174,8 @@ function updateFeed() {
     } else if (tab == 3) {
         feed.style.display = "none";
         discover.style.display = "none";
-        clearance.style.display = "flex";
+        clearance.style.display = "block";
+        loadHTMLFile('../pages/clearance.html');
     }
 }
 
@@ -199,7 +206,7 @@ function populateDiscover(donationCentres, stores, restaurants) {
             let postTitle = document.createElement("div");
             postTitle.innerText = idx?.userId?.name;
             postTitle.classList.add("text-xl", "leading-none", "font-semibold", "tracking-wide", "pt-1", "px-2.5", "cursor-pointer");
-            let navigateUrl = "http://localhost:5500/client/partner_profile.html?id=" + idx?._id;
+            let navigateUrl = "http://localhost:5500/client/pages/partner_profile.html?id=" + idx?._id;
             postTitle.onclick = () => window.location.href = navigateUrl;
             let address = document.createElement("p");
             address.innerText = idx?.userId?.address;

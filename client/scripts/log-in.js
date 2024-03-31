@@ -25,7 +25,7 @@ const initialFormHTML = '<h1>Register</h1>' +
     '</div>';
 
 // Add event listener to the register link
-document.getElementById('registerLink').addEventListener('click', function(event) {
+document.getElementById('registerLink').addEventListener('click', function (event) {
     event.preventDefault(); // Prevent default link behavior
 
     // Replace the form content with the initial HTML
@@ -65,7 +65,7 @@ function handleDropdownChange() {
         // Add event listener to the "Back" button
         document.getElementById('backButton').addEventListener('click', handleBackButtonClick);
     }
-    
+
     // Add event listener to revert back to login form
     document.getElementById('loginLink').addEventListener('click', handleLoginLinkClick);
 }
@@ -73,12 +73,12 @@ function handleDropdownChange() {
 // Function to handle "Back" button click
 function handleBackButtonClick(event) {
     event.preventDefault();
-            // Store the values of the initial fields
-            storedValues.bannerImage = document.getElementById('bannerImage').value;
-            storedValues.socials = document.getElementById('socials').value;
-            storedValues.description = document.getElementById('description').value;
-            storedValues.short_description = document.getElementById('shortDescription').value;
-            console.log(storedValues);
+    // Store the values of the initial fields
+    storedValues.bannerImage = document.getElementById('bannerImage').value;
+    storedValues.socials = document.getElementById('socials').value;
+    storedValues.description = document.getElementById('description').value;
+    storedValues.short_description = document.getElementById('shortDescription').value;
+    console.log(storedValues);
     // // Restore the initial registration form
     // document.getElementById('loginForm').innerHTML = initialFormHTML;
     // Restore the initial registration form with stored values
@@ -120,25 +120,30 @@ function handleLoginFormSubmit(event) {
         },
         body: JSON.stringify({ email, password })
     })
-    .then(response => {
-        if (response.ok) {
-            // If login is successful, extract user data from response and save to local storage
-            response.json().then(data => {
-                const { _id, isPartner } = data;
-                localStorage.setItem('userId', _id);
-                localStorage.setItem('isPartner', isPartner);
-                // Redirect to index.html or perform other actions as needed
-                window.location.href = '/index.html';
-            });
-        } else {
-            // If login fails, handle error or redirect back to the login page
-            window.location.href = '/login.html';
-        }
-    })
-    .catch(error => {
-        console.error('Error logging in:', error);
-        // Handle error if needed
-    });
+        .then(response => {
+            if (response.ok) {
+                // If login is successful, extract user data from response and save to local storage
+                response.json().then(data => {
+                    const { _id, isPartner, partnerId } = data;
+                    localStorage.setItem('userId', _id);
+                    localStorage.setItem('isPartner', isPartner);
+                    // Redirect to index.html or perform other actions as needed
+                    if (isPartner) {
+                        console.log(data)
+                        //window.location.href = '../pages/partner_profile.html?id=' + partnerId;
+                    }
+                    else
+                        window.location.href = '../pages/feed.html';
+                });
+            } else {
+                // If login fails, handle error or redirect back to the login page
+                window.location.href = '/login.html';
+            }
+        })
+        .catch(error => {
+            console.error('Error logging in:', error);
+            // Handle error if needed
+        });
 }
 
 // Add event listener to the login form
