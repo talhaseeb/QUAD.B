@@ -35,6 +35,9 @@ const orderSchema = new mongoose.Schema({
     paymentStatus: {
         type: Boolean,
         required: true
+    },
+    uniqueOrderId: {
+        type: String
     }
 }, {
     timestamps: true

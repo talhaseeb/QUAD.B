@@ -29,17 +29,19 @@
         </div>
         <div class="navbar-center">
             <ul>
-                <li><a href="" class="active-link"><img src="../assets/images/test_images/icons/home.png"><span>Home</span></a></li>
+                <li><a href="" class="active-link"><img
+                            src="../assets/images/test_images/icons/home.png"><span>Home</span></a></li>
                 <li><a href=""><img src="../assets/images/test_images/icons/network.png"><span>About</span></a></li>
                 <li><a href=""><img src="../assets/images/test_images/icons/jobs.png"><span>Leaderboard</span></a></li>
                 <li><a href=""><img src="../assets/images/test_images/icons/message.png"><span>Feed</span></a></li>
-                <li><a href=""><img src="../assets/images/test_images/icons/notification.png"><span>Discover</span></a></li>
+                <li><a href=""><img src="../assets/images/test_images/icons/notification.png"><span>Discover</span></a>
+                </li>
             </ul>
         </div>
         <div class="navbar-right">
             <div class="online">
-                <img src="../assets/images/test_images/logo_starbucks.png"
-                    class="nav-profile-img" onclick="toggleMenu()">
+                <img src="../assets/images/test_images/logo_starbucks.png" class="nav-profile-img"
+                    onclick="toggleMenu()">
             </div>
         </div>
         <div class="profile-menu-wrap" id="profileMenu">
@@ -74,59 +76,59 @@
     <div class="container">
         <div class="profile-main">
             <div class="profile-container">
-                <img src=""
-                    width="100%" class="bannerImage">
+                <img src="" width="100%" class="bannerImage">
                 <div class="profile-container-inner">
-                    <img src=""
-                        class="profile-pic">
+                    <img src="" class="profile-pic">
                     <h1 class="partnerName"></h1>
                     <b class="shortDescription"></b>
                     <p class="partnerAddress"> &middot; <a href="">Contact Info</a></p>
                     <div id="createItemModal" class="modal">
                         <div class="modal-content">
-                          <span class="close">&times;</span>
-                          <h2>Create Item</h2>
-                          <form id="createItemForm">
-                            <label for="title">Title:</label>
-                            <input type="text" id="title" name="title" required><br>
-                      
-                            <label for="description">Description:</label>
-                            <textarea id="description" name="description" required></textarea><br>
+                            <span class="close">&times;</span>
+                            <h2>Create Item</h2>
+                            <form id="createItemForm">
+                                <label for="title">Title:</label>
+                                <input type="text" id="title" name="title" required><br>
 
-                            <label for="image">Image:</label>
-                            <input type="file" id="image" name="image" accept="image/*" required><br>
-                      
-                            <label for="price">Price:</label>
-                            <input type="number" id="price" name="price" step="0.01" min="0" required><br>
-                      
-                            <label for="quantity">Quantity:</label>
-                            <input type="number" id="quantity" name="quantity" min="0" required><br>
-                      
-                            <button type="submit">Create</button>
-                          </form>
+                                <label for="description">Description:</label>
+                                <textarea id="description" name="description" required></textarea><br>
+
+                                <label for="image">Image:</label>
+                                <input type="file" id="image" name="image" accept="image/*" required><br>
+
+                                <label for="price">Price:</label>
+                                <input type="number" id="price" name="price" step="0.01" min="0" required><br>
+
+                                <label for="quantity">Quantity:</label>
+                                <input type="number" id="quantity" name="quantity" min="0" required><br>
+
+                                <button type="submit">Create</button>
+                            </form>
                         </div>
-                      </div>
-                      <div id="createPostModal" class="modal">
+                    </div>
+                    <div id="createPostModal" class="modal">
                         <div class="modal-content">
-                          <span class="close">&times;</span>
-                          <h2>Create Modal</h2>
-                          <form id="createPostForm">
-                            <label for="post_title">Title:</label>
-                            <input type="text" id="post_title" name="post_title" required><br>
-                      
-                            <label for="post_description">Description:</label>
-                            <textarea id="post_description" name="post_description" required></textarea><br>
+                            <span class="close">&times;</span>
+                            <h2>Create Modal</h2>
+                            <form id="createPostForm">
+                                <label for="post_title">Title:</label>
+                                <input type="text" id="post_title" name="post_title" required><br>
 
-                            <label for="post_image">Image:</label>
-                            <input type="file" id="post_image" name="post_image" accept="image/*" required><br>
-                                            
-                            <button type="submit">Create</button>
-                          </form>
+                                <label for="post_description">Description:</label>
+                                <textarea id="post_description" name="post_description" required></textarea><br>
+
+                                <label for="post_image">Image:</label>
+                                <input type="file" id="post_image" name="post_image" accept="image/*" required><br>
+
+                                <button type="submit">Create</button>
+                            </form>
                         </div>
-                      </div>
-                    <div class="profile-btn">
-                        <a href="" class="primary-btn" id="createItemsBtn"><img src="../assets/images/test_images/icons/connect.png" alt="">Create Items</a>
-                        <a href="" id="createPostsBtn"><img src="../assets/images/test_images/icons/message.png" alt="">Create Posts</a>
+                    </div>
+                    <div class="profile-btn" id="profile-btns">
+                        <a href="" class="primary-btn" id="createItemsBtn"><img
+                                src="../assets/images/test_images/icons/connect.png" alt="">Create Items</a>
+                        <a href="" id="createPostsBtn"><img src="../assets/images/test_images/icons/message.png"
+                                alt="">Create Posts</a>
                     </div>
                 </div>
             </div>
@@ -148,9 +150,9 @@
                     <!-- Tab 3 -->
                     <!-- <input type="radio" name="tabset" id="tab3" aria-controls="dunkles">
                     <label for="tab3">Dunkles Bock</label> -->
-                    
+
                     <div class="tab-panels">
-                      <section id="items" class="tab-panel">
+                        <section id="items" class="tab-panel">
                             <div class="card-container" id="itemsCardContainer">
                                 <!-- <div class="card">
                                     <img src="../assets/images/test_images/logo_starbucks.png" alt="item_image">
@@ -177,22 +179,22 @@
                                     </div>
                                 </div> -->
                             </div>
-                    </section>
-                    <section id="posts" class="tab-panel">
-                        <div class="card-container" id="postsCardContainer">
-                            
-                        </div>
-                </section>
-                      <!-- <section id="dunkles" class="tab-panel">
+                        </section>
+                        <section id="posts" class="tab-panel">
+                            <div class="card-container" id="postsCardContainer">
+
+                            </div>
+                        </section>
+                        <!-- <section id="dunkles" class="tab-panel">
                         <h2>6C. Dunkles Bock</h2>
                         <p><strong>Overall Impression:</strong> A dark, strong, malty German lager beer that emphasizes the malty-rich and somewhat toasty qualities of continental malts without being sweet in the finish.</p>
                         <p><strong>History:</strong> Originated in the Northern German city of Einbeck, which was a brewing center and popular exporter in the days of the Hanseatic League (14th to 17th century). Recreated in Munich starting in the 17th century. The name “bock” is based on a corruption of the name “Einbeck” in the Bavarian dialect, and was thus only used after the beer came to Munich. “Bock” also means “Ram” in German, and is often used in logos and advertisements.</p>
                       </section> -->
                     </div>
-                    
-                  </div>
-                  
-                  <!-- <p><small>Source: <cite><a href="https://www.bjcp.org/stylecenter.php">BJCP Style Guidelines</a></cite></small></p> -->
+
+                </div>
+
+                <!-- <p><small>Source: <cite><a href="https://www.bjcp.org/stylecenter.php">BJCP Style Guidelines</a></cite></small></p> -->
             </div>
             <div class="profile-description profile-description-tags">
             </div>
@@ -209,7 +211,8 @@
                     <img src="../assets/images/user_profile_default.jpg">
                     <div>
                         <h2><b>Abdul Rahman</b></h2>
-                        <p>The coffee here is top-notch! Loved the ambiance too, perfect for catching up with friends.</p>
+                        <p>The coffee here is top-notch! Loved the ambiance too, perfect for catching up with friends.
+                        </p>
                     </div>
                 </div>
                 <div class="sidebar-people-row">
@@ -242,20 +245,20 @@
                 </div>
                 <!-- <a href="#" class="lang-btn">CSS 3</a> -->
             </div>
-            
+
         </div>
         <div class="profile-sidebar">
-            <div class="sidebar-ad">
+            <div class="sidebar-ad" id="active-orders">
                 <b style="font-size: medium;">Check out upcoming orders</b>
-                <span style="color: #2D72FC;">*Verification and Validation of Unique QUAD.B ID is necessary prior to order completion</span>
+                <span style="color: #2D72FC;">*Verification and Validation of Unique QUAD.B ID is necessary prior to
+                    order completion</span>
                 <div>
-                    <img src="../assets/images/test_images/icons/message.png"
-                        alt="">
+                    <img src="../assets/images/test_images/icons/message.png" alt="">
                     <img src="../assets/images/test_images/icons/send.png" alt="">
                 </div>
                 <a href="" class="ad-link">Active Orders</a>
             </div>
-            <div class="sidebar-people">
+            <div class="sidebar-people" id="trending-posts">
                 <h3>My Posts - Trending in Feed</h3>
                 <div class="card">
                     <img src="../assets/images/test_images/logo_starbucks.png" alt="item_image">
@@ -265,7 +268,7 @@
                         <a href="https://www.linkedin.com/in/mohammad-saad-ali-33074123a/" target="_blank">+ Add</a>
                     </div>
                 </div>
-                
+
 
             </div>
         </div>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Feed | QUAD.B</title>
+</head>
+
+<body class="h-screen w-screen bg-[#f3f2ef] text-gray-800 flex flex-col items-center gap-0 justify-start" id="body"
+    style="scrollbar-width: none; font-family: Poppins, sans-serif;">
+    <div id="navbar"></div>
+    <div class="min-h-[100%-64px] w-[80%] flex flex-col overflow-hidden pt-3 px-12">
+        <div class="w-full min-h-[50px] max-h-16 flex items-center border-b-[0.5px] rounded overflow-hidden bg-white">
+            <div class="w-1/3 h-full tracking-wide text-base leading-none flex items-center justify-center cursor-pointer"
+                id="tabfeed">Feed</div>
+            <div class="w-1/3 h-full tracking-wide text-base leading-none flex items-center justify-center cursor-pointer"
+                id="tabdiscover">
+                Discover</div>
+            <div class="w-1/3 h-full tracking-wide text-base leading-none flex items-center justify-center cursor-pointer"
+                id="tabclearance">
+                Clearance</div>
+        </div>
+        <div id="feed" class="h-[calc(100%-50px)] w-full flex items-center justify-between gap-x-0">
+            <div class="bg-transparent h-full min-w-[27.5%] max-w-[27.5%] py-3 px-2 flex flex-col gap-y-4">
+                <div class="text-lg leading-none font-semibold text-center pt-1">
+                    FEATURED RESTAURANTS
+                </div>
+                <div id="featuredrestaurants" class="flex flex-col gap-y-3 items-center h-full overflow-y-auto"
+                    style="scrollbar-width: none;"></div>
+            </div>
+            <div id="innerfeed"
+                class="h-full flex-1 bg-transparent overflow-y-auto py-4 px-2 grid grid-cols-1 place-items-center gap-4"
+                style="scrollbar-width: none;"></div>
+            <div class="bg-transparent h-full min-w-[27.5%] max-w-[27.5%] py-3 px-2 flex flex-col gap-y-4">
+                <div class="text-lg leading-none font-semibold text-center pt-1">
+                    DONATE
+                </div>
+                <div id="partnerdonations" class="flex flex-col gap-y-3 items-center h-full overflow-y-auto"
+                    style="scrollbar-width: none;"></div>
+            </div>
+        </div>
+        <div id="discover" class="h-[calc(100%-50px)] w-full overflow-y-auto py-4 px-2 flex flex-col gap-y-4"
+            style="scrollbar-width: none;">
+        </div>
+        <div id="clearance" class="h-full w-full overflow-y-auto p-6">
+            <!-- Call another html file here -->
+        </div>
+    </div>
+    <div id="footer"></div>
+    <script src="../scripts/feed.js"></script>
+    <script src="../scripts/navbar.js"></script>
+</body>
+
+</html>
