@@ -8,7 +8,7 @@ navbar.innerHTML += `
 <nav class="navbar">
 <div class="navbar-left">
     <a href="index.html">
-        <img src="../assets/images/test_images/icons/love.png" class="logo">
+        <img src="../assets/images/quadb_logo.png" class="logo">
     </a>
 </div>
 <div class="navbar-center">
