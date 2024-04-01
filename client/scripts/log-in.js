@@ -75,7 +75,7 @@ function handleDropdownChange() {
             '<option value="">Select Partner Type</option>' +
             '<option value="store">Store</option>' +
             '<option value="restaurant">Restaurant</option>' +
-            '<option value="donationCenter">Donation Center</option>' +
+            '<option value="donation center">Donation Center</option>' +
             '</select>' +
             '<input type="text" placeholder="Tags (separated by commas or spaces)" id="tags" required />' +
             '<label for="logo">Logo: </label>' +
@@ -272,10 +272,13 @@ async function handleRegistrationFormSubmit(event) {
                 });
 
                 if (response.ok) {
-                    console.log("Registration successful");
+                    console.log("Registration successful - Partner");
+                    window.location.href = '../pages/partner_profile.html?id=' + data?.partnerId;
                     // Redirect to login page or perform other actions
                 } else {
                     console.error('Registration failed');
+                    document.getElementById('registerMessage').style.display = 'block';
+
                 }
             } catch (error) {
                 console.error('Error registering:', error);
@@ -315,7 +318,7 @@ async function handleRegistrationFormSubmit(event) {
 
             if (response.ok) {
                 console.log("Registration successful");
-                // Redirect to login page or perform other actions
+                window.location.href = '../pages/feed.html';
             } else {
                 console.error('Registration failed');
             }
