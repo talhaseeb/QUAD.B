@@ -1,18 +1,21 @@
 let userId = localStorage.getItem("userId");
+let partnerId = localStorage.getItem("partnerId");
 let isPartner = localStorage.getItem("isPartner");
+let paramsUrl = new URLSearchParams(window.location.search);
+let pId = paramsUrl.get('id');
+console.log(partnerId, typeof partnerId, pId, typeof pId);
 
-window.onload = () => {
-    let activeOrders = document.getElementById("active-orders");
-    let trendingPosts = document.getElementById("trending-posts");
-    let profileBtns = document.getElementById("profile-btns");
-    isPartner = localStorage.getItem("isPartner");
-    console.log("OnLoad", isPartner);
-    if (isPartner === "false") {
-        activeOrders.style.display = "none";
-        trendingPosts.style.marginTop = "0px";
-        profileBtns.style.display = "none";
-    }
-};
+let activeOrders = document.getElementById("active-orders");
+let trendingPosts = document.getElementById("trending-posts");
+let profileBtns = document.getElementById("profile-btns");
+isPartner = localStorage.getItem("isPartner");
+pId = paramsUrl.get('id');
+console.log(partnerId, typeof partnerId, pId, typeof pId);
+if (isPartner === "false" || pId !== partnerId) {
+    activeOrders.style.display = "none";
+    trendingPosts.style.marginTop = "0px";
+    profileBtns.style.display = "none";
+}
 
 function populatePartnerInfo(partner_id) {
     // Fetch data from the API using the partner_id
@@ -219,7 +222,7 @@ function generateCards(items) {
         cardBody.appendChild(quantityContainer);
         cardBody.appendChild(priceContainer);
         cardBody.appendChild(updatedAtContainer);
-        if (isPartner)
+        if (isPartner && pId === partnerId)
             cardBody.appendChild(editIcon);
         // Append image and card body to card div
         cardDiv.appendChild(image);
