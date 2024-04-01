@@ -177,7 +177,7 @@ function handleLoginFormSubmit(event) {
                     });
                 } else {
                     // If login fails, handle error or redirect back to the login page
-                    window.location.href = '/login.html';
+                    document.getElementById('loginMessage').style.display = 'block';
                 }
             })
             .catch(error => {

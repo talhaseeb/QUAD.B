@@ -1,7 +1,7 @@
 let uId = localStorage.getItem("userId");
 let partId = localStorage.getItem("partnerId");
 
-const navigateToHome = () => window.location.href = "../index.html"
+const navigateToHome = () => window.location.href = "../home.html"
 const navigateToAbout = () => window.location.href = "../pages/about.html"
 const navigateToSignin = () => window.location.href = "../pages/log-in.html"
 const navigateToSignup = () => window.location.href = "../pages/log-in.html"
@@ -15,7 +15,7 @@ let navbar = document.getElementById("navbar");
 navbar.innerHTML += `
 <nav class="navbar">
 <div class="navbar-left">
-    <a href="index.html">
+    <a href="../pages/home.html">
         <img src="../assets/images/test_images/quadb.png" style="height: 45px; width: auto;" class="logo">
     </a>
 </div>
