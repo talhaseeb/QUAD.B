@@ -305,8 +305,10 @@ function generatePostCards(items) {
 
         // Add edit icon
         const editIcon = document.createElement('i');
-        editIcon.classList.add('fas', 'fa-pencil-alt', 'edit-icon');
-        editIcon.addEventListener('click', () => toggleEditMode(editIcon, profileBtnDiv));
+        if (isPartner && pId === partnerId) {
+            editIcon.classList.add('fas', 'fa-pencil-alt', 'edit-icon');
+            editIcon.addEventListener('click', () => toggleEditMode(editIcon, profileBtnDiv));
+        }
 
         // Add delete icon
         const handlePostDelete = async () => {
@@ -335,8 +337,10 @@ function generatePostCards(items) {
             }
         }
         const deleteIcon = document.createElement('i');
-        deleteIcon.classList.add('fas', 'fa-trash-alt', 'delete-icon');
-        deleteIcon.addEventListener('click', () => handlePostDelete());
+        if (isPartner && pId === partnerId) {
+            deleteIcon.classList.add('fas', 'fa-trash-alt', 'delete-icon');
+            deleteIcon.addEventListener('click', () => handlePostDelete());
+        }
 
 
         // Create the profile-btn div
