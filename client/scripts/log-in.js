@@ -272,13 +272,14 @@ async function handleRegistrationFormSubmit(event) {
                 });
 
                 if (response.ok) {
-                    console.log("Registration successful - Partner");
-                    window.location.href = '../pages/partner_profile.html?id=' + data?.partnerId;
-                    // Redirect to login page or perform other actions
+                    response.json().then(data => {
+                        const {partnerId } = data;
+                        console.log("Registration successful - Partner");
+                        window.location.href = '../pages/partner_profile.html?id=' + data?.partnerId;
+                    });
                 } else {
                     console.error('Registration failed');
                     document.getElementById('registerMessage').style.display = 'block';
-
                 }
             } catch (error) {
                 console.error('Error registering:', error);
