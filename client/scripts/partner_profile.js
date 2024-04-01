@@ -194,6 +194,38 @@ function generateCards(items) {
         editIcon.classList.add('fas', 'fa-pencil-alt', 'edit-icon');
         editIcon.addEventListener('click', () => toggleEditMode(editIcon, profileBtnDiv));
 
+        // Add delete icon
+        const handleDelete = async () => {
+            let confirmDelete = window.confirm("Are you sure you want to delete?");
+            if (confirmDelete) {
+                try {
+                    const response = await fetch(`http://localhost:8000/items/${item._id}`, {
+                        method: 'DELETE',
+                    });
+                    if (response.ok) {
+                        // Item deleted successfully
+                        console.log('Item deleted successfully');
+                        window.location.reload();
+                    } else {
+                        // Handle server error
+                        const errorMessage = await response.text();
+                        console.error(errorMessage);
+                    }
+                } catch (error) {
+                    // Handle network error
+                    console.error('Error:', error);
+                }
+            } else {
+                // User cancelled deletion
+                console.log('Deletion cancelled');
+            }
+        }
+        const deleteIcon = document.createElement('i');
+        deleteIcon.classList.add('fas', 'fa-trash-alt', 'delete-icon');
+        deleteIcon.addEventListener('click', () => handleDelete());
+        
+
+
         // Create an anchor element
         const profileBtnDiv = document.createElement('div');
         const updateButton = document.createElement('a');
@@ -208,6 +240,7 @@ function generateCards(items) {
         updateButton.addEventListener('click', () => updateItem(item));
         profileBtnDiv.classList.add('profile-btn');
         profileBtnDiv.appendChild(updateButton);
+       
 
         // Append all elements to card body
         cardBody.appendChild(title);
@@ -215,8 +248,12 @@ function generateCards(items) {
         cardBody.appendChild(quantityContainer);
         cardBody.appendChild(priceContainer);
         cardBody.appendChild(updatedAtContainer);
-        if (isPartner)
+        if (isPartner) {
             cardBody.appendChild(editIcon);
+            cardBody.appendChild(document.createTextNode('\u00A0'));
+            cardBody.appendChild(document.createTextNode('\u00A0'));
+            cardBody.appendChild(deleteIcon);
+        }
         // Append image and card body to card div
         cardDiv.appendChild(image);
         cardDiv.appendChild(cardBody);
@@ -264,6 +301,37 @@ function generatePostCards(items) {
         editIcon.classList.add('fas', 'fa-pencil-alt', 'edit-icon');
         editIcon.addEventListener('click', () => toggleEditMode(editIcon, profileBtnDiv));
 
+        // Add delete icon
+        const handlePostDelete = async () => {
+            let confirmDelete = window.confirm("Are you sure you want to delete?");
+            if (confirmDelete) {
+                try {
+                    const response = await fetch(`http://localhost:8000/posts/${item._id}`, {
+                        method: 'DELETE',
+                    });
+                    if (response.ok) {
+                        // Item deleted successfully
+                        console.log('Post deleted successfully');
+                        window.location.reload();
+                    } else {
+                        // Handle server error
+                        const errorMessage = await response.text();
+                        console.error(errorMessage);
+                    }
+                } catch (error) {
+                    // Handle network error
+                    console.error('Error:', error);
+                }
+            } else {
+                // User cancelled deletion
+                console.log('Deletion cancelled');
+            }
+        }
+        const deleteIcon = document.createElement('i');
+        deleteIcon.classList.add('fas', 'fa-trash-alt', 'delete-icon');
+        deleteIcon.addEventListener('click', () => handlePostDelete());
+        
+
         // Create the profile-btn div
         const profileBtnDiv = document.createElement('div');
         const updateButton = document.createElement('a');
@@ -282,7 +350,12 @@ function generatePostCards(items) {
         // Append all elements to card body
         cardBody.appendChild(title);
         cardBody.appendChild(description);
-        cardBody.appendChild(editIcon);
+        if (isPartner) {
+            cardBody.appendChild(editIcon);
+            cardBody.appendChild(document.createTextNode('\u00A0'));
+            cardBody.appendChild(document.createTextNode('\u00A0'));
+            cardBody.appendChild(deleteIcon);
+        }
         // Append image and card body to card div
         cardDiv.appendChild(image);
         cardDiv.appendChild(cardBody);
@@ -456,6 +529,7 @@ if (partner_id) {
 const modal1 = document.getElementById('createItemModal');
 const modal2 = document.getElementById('createPostModal');
 
+
 //Create Item Modal
 const createItemsBtn = document.getElementById('createItemsBtn');
 
@@ -472,6 +546,7 @@ createItemsBtn.addEventListener('click', function () {
 closeModal.addEventListener('click', function () {
     modal1.style.display = 'none';
     modal2.style.display = 'none';
+    
 });
 
 // When the user clicks anywhere outside of the modal, CLOSE it
@@ -479,6 +554,7 @@ window.addEventListener('click', function (event) {
     if (event.target === modal1 || event.target === modal2) {
         modal1.style.display = 'none';
         modal2.style.display = 'none';
+       
     }
 });
 
@@ -616,6 +692,9 @@ createPostForm.addEventListener('submit', function (event) {
     // Optionally, you can reset the form fields here
     createPostForm.reset();
 });
+
+
+
 
 
 
