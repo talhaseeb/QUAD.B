@@ -1,150 +1,347 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
+<html>
+
+<head lang="en">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form</title>
-    <link rel="stylesheet" href="../ui/home.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    </head>
-    <body>
-    <header>
-        <img src="quadb_logo.png" alt="logo" class="logo">
-    </header>
-    <div class="container">
-        <h3 class="mt-4">About Us</h3>
-        <p>
-            At QUAD.B, we're committed to revolutionizing food consumption and waste management through innovative technology. Our diverse team combines expertise in technology, sustainability, and community engagement to address pressing global challenges. With a deep-rooted commitment to sustainability and social responsibility, we empower communities to make a difference. We recognize food waste as both a logistical challenge and a moral imperative, especially in the face of global food insecurity and environmental degradation. Driven by innovation, collaboration, and integrity, we aim to foster a global movement towards a more sustainable and equitable food system. Through our platform, we empower individuals, businesses, and communities to make informed choices and take meaningful action towards reducing food waste. By leveraging technology and community engagement, we envision a future where every meal serves not only the body but also the planet. Join us in our mission to create a brighter, more sustainable future.
-        </p>
-        <h3 class="mt-4">Vision</h3>
-        <ul>
-            <li>Eliminate edible food waste by facilitating efficient redistribution to those in need.</li>
-            <li>Reduce food insecurity and promote a more equitable society.</li>
-            <li>Foster a culture of responsible consumption and environmental stewardship.</li>
-            <li>Empower individuals and businesses to take meaningful action towards sustainability.</li>
-            <li>Build a more sustainable food system for generations to come.</li>
-        </ul>
-    </div>
-    <div class = "container">
-        <h3 class="mt-4">Food Waste Prediction</h3>
-        <form id="myForm">
-            <div class="form-group row">
-            <label for="number_of_guests" class="col-2 col-form-label">Number of guests</label> 
-            <div class="col-8">
-                <input id="number_of_guests" name="number_of_guests" type="number" class="form-control">
-            </div>
-            </div>
-            <div class="form-group row">
-            <label for="quantity_of_food" class="col-2 col-form-label">Quantity of food</label> 
-            <div class="col-8">
-                <input id="quantity_of_food" name="quantity_of_food" type="number" class="form-control">
-            </div>
-            </div>
-            <div class="form-group row">
-            <label for="type_of_food" class="col-2 col-form-label">Type of food</label> 
-            <div class="col-8">
-                <select id="type_of_food" name="type_of_food" class="custom-select">
-                <option value="baked_goods">Baked Goods</option>
-                <option value="Dairy_products">Dairy Products</option>
-                <option value="Fruits">Fruits</option>
-                <option value="Meat">Meat</option>
-                <option value="Vegetables">Vegetables</option>
-                </select>
-            </div>
-            </div>
-            <!-- <div class="form-group row">
-                <label for="event_type" class="col-2 col-form-label">Event type</label> 
-                <div class="col-8">
-                    <select id="event_type" name="event_type" class="custom-select">
-                        <option value="Birthday">Birthday</option>
-                        <option value="Corporate">Corporate</option>
-                        <option value="Social Gathering">Social Gathering</option>
-                        <option value="Wedding">Wedding</option>
-                    </select>              
-                </div>
-            </div>  -->
-            <div class="form-group row">
-            <label for="storage_conditions" class="col-2 col-form-label">Storage conditions</label> 
-            <div class="col-8">
-                <select id="storage_conditions" name="storage_conditions" class="custom-select">
-                <option value="Refrigerated">Refrigerated</option>
-                <option value="Room Temperature">Room Temperature</option>
-                </select>
-            </div>
-            </div>
-            <div class="form-group row">
-            <label for="seasonality" class="col-2 col-form-label">Seasonality</label> 
-            <div class="col-8">
-                <select id="seasonality" name="seasonality" class="custom-select">
-                <option value="all_seasons">All Seasons</option>
-                <option value="summer">Summer</option>
-                <option value="winter">Winter</option>
-                </select>
-            </div>
-            </div>  
-            <div class="form-group row">
-                <label for="preparation_method" class="col-2 col-form-label">Preparation Method</label> 
-                <div class="col-8">
-                    <select id="preparation_method" name="preparation_method" class="custom-select">
-                        <option value="Buffet">Buffet</option>
-                        <option value="Finger Food">Finger Food</option>
-                        <option value="Sit-down Dinner">Sit-down Dinner</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="geographical_location" class="col-2 col-form-label">Geographical Location</label> 
-                <div class="col-8">
-                    <select id="geographical_location" name="geographical_location" class="custom-select">
-                        <option value="Rural">Rural</option>
-                        <option value="Suburban">Suburban</option>
-                        <option value="Urban">Urban</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="pricing" class="col-2 col-form-label">Pricing</label> 
-                <div class="col-8">
-                    <select id="pricing" name="pricing" class="custom-select">
-                        <option value="High">High</option>
-                        <option value="Low">Low</option>
-                        <option value="Moderate">Moderate</option>
-                    </select>
-                </div>
-            </div>            
-            <div class="form-group row">
-            <div class="offset-4 col-8">
-                <button name="submit" type="submit" class="btn btn-primary">Submit</button>
-            </div>
-            </div>
-        </form>
-    </div>
-    <div class = "container">
-        <div class="form-group row">
-            <label for="prediction" class="col-2 col-form-label">Prediction</label>
-            <div class="col-8">
-                <input id="prediction_output" name="prediction" type="text" class="form-control">
-            </div>
+    <title>QUAD.B</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <link rel="shortcut icon" href="../assets/images/leaderboard.png" title="Favicon" />
+
+    <link rel="stylesheet" href="../styles/quadb.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/home.css">
+    <link rel="stylesheet" href="../styles/font-awesome.min_1.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="../styles/animate.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+    <link href="../styles/navbar.css" rel="stylesheet">
+    <!--Navbar css-->
+</head>
+
+<body>
+    <div id="navbar"></div>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div id="status" class="la-ball-triangle-path">
+            <div></div>
+            <div></div>
+            <div></div>
         </div>
     </div>
+    <!--End of Preloader-->
 
-  <!-- <script src="https://www.gstatic.com/firebasejs/9.0.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.0.1/firebase-storage.js"></script> -->
+    <div id="wrapper">
 
-  <script src="../ui/home.js"></script>
+        <header id="banner" class="scrollto clearfix" data-enllax-ratio=".5">
 
-  <!-- <script type="module">
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js'
+            <!--Banner Content-->
+            <div id="banner-content" class="row clearfix">
+                <div class="col-38">
+                    <div class="section-heading">
+                        <h1>QUAD.B</h1>
+                        <h2>Making a difference, 1 meal at a time</h2>
+                    </div>
 
-    // If you enabled Analytics in your project, add the Firebase SDK for Google Analytics
-    import { getAnalytics } from 'https://www.gstatic.com/firebasejs/10.9.0/firebase-analytics.js'
+                    <!--Call to Action-->
+                    <a href="#" class="button">GRAB THE BEST DEALS!</a>
+                    <!--End Call to Action-->
 
-    // Add Firebase products that you want to use
-    import { getAuth } from 'https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js'
-    import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js'
-  </script>
+                </div>
 
-  <script src="../ui/image.js"></script> -->
+            </div>
+            <!--End of Row-->
+        </header>
+
+        <!--Main Content Area-->
+        <main id="content">
+
+            <!--Introduction-->
+            <section id="about" class="introduction scrollto">
+
+                <div class="row clearfix">
+
+                    <div class="col-3">
+                        <div class="section-heading">
+                            <h3>VISION</h3>
+                            <h2 class="section-title">Empowering <span style="color: #045BE6;">YOU</span> to make a
+                                difference</h2>
+                            <p class="section-subtitle" style="text-align: justify;">With a steadfast commitment to
+                                ending hunger globally,
+                                QUAD.B envisions a future where every individual has access to nutritious food. </p>
+                        </div>
+                    </div>
+
+                    <div class="col-2-3">
+
+                        <!--Icon Block-->
+                        <div class="col-2 icon-block icon-top wow fadeInUp" data-wow-delay="0.1s">
+                            <!--Icon-->
+                            <div class="icon">
+                                <i class="fa fa-close fa-2x"></i>
+                            </div>
+                            <!--Icon Block Description-->
+                            <div class="icon-block-description">
+                                <h4>ELIMINATE</h4>
+                                <p>Edible food waste by facilitating efficient redistribution to those in need.</p>
+                            </div>
+                        </div>
+                        <!--End of Icon Block-->
+
+                        <!--Icon Block-->
+                        <div class="col-2 icon-block icon-top wow fadeInUp" data-wow-delay="0.3s">
+                            <!--Icon-->
+                            <div class="icon">
+                                <i class="fa fa-arrow-down fa-2x"></i>
+                            </div>
+                            <!--Icon Block Description-->
+                            <div class="icon-block-description">
+                                <h4>REDUCE</h4>
+                                <p>Food insecurity and promote a more equitable society.</p>
+                            </div>
+                        </div>
+                        <!--End of Icon Block-->
+
+                        <!--Icon Block-->
+                        <div class="col-2 icon-block icon-top wow fadeInUp" data-wow-delay="0.5s">
+                            <!--Icon-->
+                            <div class="icon">
+                                <i class="fa fa-group fa-2x"></i>
+                            </div>
+                            <!--Icon Block Description-->
+                            <div class="icon-block-description">
+                                <h4>FOSTER</h4>
+                                <p>A culture of responsible consumption and environmental stewardship</p>
+                            </div>
+                        </div>
+                        <!--End of Icon Block-->
+
+                        <!--Icon Block-->
+                        <div class="col-2 icon-block icon-top wow fadeInUp" data-wow-delay="0.5s">
+                            <!--Icon-->
+                            <div class="icon">
+                                <i class="fa fa-rocket fa-2x"></i>
+                            </div>
+                            <!--Icon Block Description-->
+                            <div class="icon-block-description">
+                                <h4>EMPOWER</h4>
+                                <p>Individuals and businesses to take meaningful action towards sustainability</p>
+                            </div>
+                        </div>
+                        <!--End of Icon Block-->
+
+                    </div>
+
+                </div>
+
+
+            </section>
+            <!--End of Introduction-->
+
+            <!--Content Section-->
+            <div id="services" class="scrollto clearfix">
+
+                <div class="row no-padding-bottom clearfix">
+
+
+                    <!--Content Left Side-->
+                    <div class="col-3">
+                        <!--User Testimonial-->
+                        <blockquote class="testimonial text-right bigtest">
+                            <q>Ending hunger is not a charity, it's an act of justice.</q>
+                            <footer>— Ellen Gustafson</footer>
+                        </blockquote>
+                        <!-- End of Testimonial-->
+
+                    </div>
+                    <!--End Content Left Side-->
+
+                    <!--Content of the Right Side-->
+                    <div class="col-3">
+                        <div class="section-heading">
+                            <h3>WHO ARE WE</h3>
+                            <h2 class="section-title">Focusing On What Matters Most</h2>
+                            <p class="section-subtitle" style="text-align: justify;">At QUAD.B, we're committed to
+                                revolutionizing food consumption and waste management through innovative technology.
+                                Our diverse team combines expertise in technology, sustainability, and community
+                                engagement to address pressing global challenges.
+
+                            </p>
+                        </div>
+                        <p style="text-align: justify;">
+                            Driven by innovation, collaboration, and integrity, we aim to foster a global movement
+                            towards a more sustainable and equitable food system.
+                            Through our platform, we empower individuals, businesses, and communities to make informed
+                            choices and take meaningful action towards reducing food waste.
+                            By leveraging technology and community engagement, we envision a future where every meal
+                            serves not only the body but also the planet.
+                            Join us in our mission to create a brighter, more sustainable future.
+                        </p>
+                        <!-- Just replace the Video ID "UYJ5IjBRlW8" with the ID of your video on YouTube (Found within the URL) -->
+                        <a href="#" data-videoid="UYJ5IjBRlW8" data-videosite="youtube"
+                            class="button video link-lightbox">
+                            JOIN US <i class="fa fa-group" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <!--End Content Right Side-->
+
+                    <div class="col-3">
+                        <img src="../assets/images/about.png" style="margin-top: 200px;" alt="Dancer" />
+                    </div>
+
+                </div>
+
+
+            </div>
+            <!--End of Content Section-->
+
+            <!-- <div class = "container"> -->
+            <section id="about" class="introduction scrollto">
+                <div class="row clearfix">
+                    <div class="col-3">
+                        <div class="section-heading">
+                            <h2 class="section-title">Wastage Prediction AI</h2>
+                        </div>
+                    </div>
+                    <div class="col-3-4">
+                        <form id="myForm">
+
+                            <label for="number_of_guests" class="col-2 col-form-label">Number of guests</label>
+                            <div class="col-8">
+                                <input id="number_of_guests" name="number_of_guests" type="number" class="form-control">
+                            </div>
+
+                            <label for="quantity_of_food" class="col-2 col-form-label">Quantity of food (kg)</label>
+                            <div class="col-8">
+                                <input id="quantity_of_food" name="quantity_of_food" type="number" class="form-control">
+                            </div>
+
+                            <label for="type_of_food" class="col-2 col-form-label">Type of food</label>
+                            <div class="col-8">
+                                <select id="type_of_food" name="type_of_food" class="custom-select">
+                                    <option value="baked_goods">Baked Goods</option>
+                                    <option value="Dairy_products">Dairy Products</option>
+                                    <option value="Fruits">Fruits</option>
+                                    <option value="Meat">Meat</option>
+                                    <option value="Vegetables">Vegetables</option>
+                                </select>
+                            </div>
+
+                            <label for="storage_conditions" class="col-2 col-form-label">Storage conditions</label>
+                            <div class="col-8">
+                                <select id="storage_conditions" name="storage_conditions" class="custom-select">
+                                    <option value="Refrigerated">Refrigerated</option>
+                                    <option value="Room Temperature">Room Temperature</option>
+                                </select>
+                            </div>
+
+                            <label for="seasonality" class="col-2 col-form-label">Seasonality</label>
+                            <div class="col-8">
+                                <select id="seasonality" name="seasonality" class="custom-select">
+                                    <option value="all_seasons">All Seasons</option>
+                                    <option value="summer">Summer</option>
+                                    <option value="winter">Winter</option>
+                                </select>
+                            </div>
+
+                            <label for="preparation_method" class="col-2 col-form-label">Preparation Method</label>
+                            <div class="col-8">
+                                <select id="preparation_method" name="preparation_method" class="custom-select">
+                                    <option value="Buffet">Buffet</option>
+                                    <option value="Finger Food">Finger Food</option>
+                                    <option value="Sit-down Dinner">Sit-down Dinner</option>
+                                </select>
+                            </div>
+
+                            <label for="geographical_location" class="col-2 col-form-label">Geographical
+                                Location</label>
+                            <div class="col-8">
+                                <select id="geographical_location" name="geographical_location" class="custom-select">
+                                    <option value="Rural">Rural</option>
+                                    <option value="Suburban">Suburban</option>
+                                    <option value="Urban">Urban</option>
+                                </select>
+                            </div>
+                            <label for="pricing" class="col-2 col-form-label">Pricing</label>
+                            <div class="col-8">
+                                <select id="pricing" name="pricing" class="custom-select">
+                                    <option value="High">High</option>
+                                    <option value="Low">Low</option>
+                                    <option value="Moderate">Moderate</option>
+                                </select>
+                            </div>
+
+                            <div class="col-8">
+                                <button name="submit" type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                        <br>
+                        <label for="prediction" class="col-2 col-form-label">PREDICTED FOOD WASTAGE</label>
+                        <div class="col-8">
+                            <input id="prediction_output" name="prediction" type="text" class="form-control">
+                        </div>
+                    </div>
+
+
+                </div>
+            </section>
+
+
+        </main>
+
+        <!--Footer-->
+        <footer id="landing-footer" class="clearfix">
+            <div class="row clearfix">
+
+                <p id="copyright" class="col-2">Made with love team QUAD.B</p>
+
+                <!--Social Icons in Footer-->
+                <ul class="col-2 social-icons">
+                    <li>
+                        <a target="_blank" title="linkedin" href="https://www.linkedin.com/in/mohd-abdul-rahman/">
+                            <i class="fa fa-linkedin fa-1x"></i><span>linkedin</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank" title="linkedin+" href="https://www.linkedin.com/in/arnab-sinha-093944147/">
+                            <i class="fa fa-linkedin-square fa-1x"></i><span>linkedin+</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank" title="linkedin" href="https://www.linkedin.com/in/talhaseeb/">
+                            <i class="fa fa-linkedin"></i><span>linkedin</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank" title="linkedin" href="https://linkedin.com/in/rudra14/">
+                            <i class="fa fa-linkedin-square"></i><span>linkedin</span>
+                        </a>
+                    </li>
+                </ul>
+                <!--End of Social Icons in Footer-->
+            </div>
+        </footer>
+        <!--End of Footer-->
+
+    </div>
+
+    <!-- Include JavaScript resources -->
+    <script src="../scripts/js_home/jquery.1.8.3.min.js"></script>
+    <script src="../scripts/js_home/wow.min.js"></script>
+    <script src="../scripts/js_home/featherlight.min.js"></script>
+    <script src="../scripts/js_home/featherlight.gallery.min.js"></script>
+    <script src="../scripts/js_home/jquery.enllax.min.js"></script>
+    <script src="../scripts/js_home/jquery.scrollUp.min.js"></script>
+    <script src="../scripts/js_home/jquery.easing.min.js"></script>
+    <script src="../scripts/js_home/jquery.stickyNavbar.min.js"></script>
+    <script src="../scripts/js_home/jquery.waypoints.min.js"></script>
+    <script src="../scripts/js_home/images-loaded.min.js"></script>
+    <script src="../scripts/js_home/lightbox.min.js"></script>
+    <script src="../scripts/js_home/site.js"></script>
+    <script src="../scripts/navbar.js"></script>
+    <script src="../scripts/home.js"></script>
+
+
+
 </body>
+
 </html>

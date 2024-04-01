@@ -52,7 +52,7 @@ window.addEventListener('load', async () => {
                         <div class="product__item__pic !h-32" >
                             <img class="product__item__pic set-bg !h-32 w-full" src="../assets/images/test_images/biryani.jpg" alt="biryani">
                             <ul class="product__hover">
-                                <li><a href="img/biryani.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
+
                                 <li><a href="#" class="add-to-cart" data-item='${JSON.stringify(item)}'><span class="icon_bag_alt"></span></a></li>
                             </ul>
                         </div>
@@ -65,7 +65,7 @@ window.addEventListener('load', async () => {
                 </div>`;
             itemsList.innerHTML += productItem;
         });
-
+//                              <!--  <li><a href="img/biryani.jpg" class="image-popup"><span class="arrow_expand"></span></a></li> -->
         // Add event listeners for add to cart buttons
         const addToCartButtons = document.querySelectorAll('.add-to-cart');
         addToCartButtons.forEach(button => {

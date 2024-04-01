@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,17 +8,21 @@
     <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald|Overpass+Mono&display=swap"> -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../styles/leaderboard.css">
+    <link rel="stylesheet" href="../styles/navbar.css">
 </head>
-<body>
+
+<body class="">
+    <div id="navbar"></div>
     <div class="l-wrapper">
         <div class="c-header">
-            <img class="c-logo" src="../assets/images/leaderboard.png" draggable="false"/>
-            <button class="c-button c-button--primary" style="color: white;">Send Kudos</button>
+            <img class="c-logo" style="height: 64px; width: auto;" src="../assets/images/leaderboard.png"
+                draggable="false" />
+            <button class="c-button c-button--primary" style="color: white;">Pick your vote</button>
         </div>
         <p class="c-subheader">
-            *Discover the Leaders: Recognizing restaurants and stores making 
-            significant contributions towards eradicating hunger, 
-            reducing waste, and fostering societal well-being.          
+            *Discover the Leaders: Recognizing restaurants and stores making
+            significant contributions towards eradicating hunger,
+            reducing waste, and fostering societal well-being.
         </p>
         <div class="l-grid">
             <div class="l-grid__item l-grid__item--sticky">
@@ -65,5 +70,7 @@
         </div>
     </div>
     <script src="../scripts/leaderboard.js"></script>
+    <script src="../scripts/navbar.js"></script>
 </body>
+
 </html>
