@@ -20,4 +20,6 @@ router.put('/:itemId', itemController.updateItem);
 //Route for deleting an item by itemID
 router.delete('/:itemId', itemController.deleteItem);
 
+router.delete('/', itemController.deleteAllItems);
+
 module.exports = router;
