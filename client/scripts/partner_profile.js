@@ -1,14 +1,18 @@
 let userId = localStorage.getItem("userId");
 let isPartner = localStorage.getItem("isPartner");
 
-let activeOrders = document.getElementById("active-orders");
-let trendingPosts = document.getElementById("trending-posts");
-let profileBtns = document.getElementById("profile-btns");
-if (!isPartner) {
-    activeOrders.style.display = "none";
-    trendingPosts.style.marginTop = "0px";
-    profileBtns.style.display = "none";
-}
+window.onload = () => {
+    let activeOrders = document.getElementById("active-orders");
+    let trendingPosts = document.getElementById("trending-posts");
+    let profileBtns = document.getElementById("profile-btns");
+    isPartner = localStorage.getItem("isPartner");
+    console.log("OnLoad", isPartner);
+    if (isPartner === "false") {
+        activeOrders.style.display = "none";
+        trendingPosts.style.marginTop = "0px";
+        profileBtns.style.display = "none";
+    }
+};
 
 function populatePartnerInfo(partner_id) {
     // Fetch data from the API using the partner_id
@@ -488,60 +492,60 @@ const createItemForm = document.getElementById('createItemForm');
 createItemForm.addEventListener('submit', function (event) {
     event.preventDefault();
 
-  // Retrieve form data
-  const title = document.getElementById('title').value;
-  const description = document.getElementById('description').value;
-  const price = parseFloat(document.getElementById('price').value);
-  const quantity = parseInt(document.getElementById('quantity').value);
-  const images = document.getElementById('image').files[0];
-  var reader_image = "";
+    // Retrieve form data
+    const title = document.getElementById('title').value;
+    const description = document.getElementById('description').value;
+    const price = parseFloat(document.getElementById('price').value);
+    const quantity = parseInt(document.getElementById('quantity').value);
+    const images = document.getElementById('image').files[0];
+    var reader_image = "";
 
-  function getBase64(file) {
-    var reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = function () {
-        reader_image = reader.result;
-          // Create the item object
-  const newItem = {
-    title: title,
-    description: description,
-    price: price,
-    quantity: quantity,
-    partnerId: partner_id,
-    images: reader_image
-  };
+    function getBase64(file) {
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            reader_image = reader.result;
+            // Create the item object
+            const newItem = {
+                title: title,
+                description: description,
+                price: price,
+                quantity: quantity,
+                partnerId: partner_id,
+                images: reader_image
+            };
 
-    // Send POST request to Items Table
-    fetch('http://localhost:8000/items', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(newItem)
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            // Handle successful response from the server
-            console.log('Item created successfully:', data);
-        })
-        .catch(error => {
-            // Handle errors
-            console.error('Error creating item:', error.message);
-        });
+            // Send POST request to Items Table
+            fetch('http://localhost:8000/items', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newItem)
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Handle successful response from the server
+                    console.log('Item created successfully:', data);
+                })
+                .catch(error => {
+                    // Handle errors
+                    console.error('Error creating item:', error.message);
+                });
 
-    };   reader.onerror = function (error) {
-      console.log('Error: ', error);
-    };
-  }
+        }; reader.onerror = function (error) {
+            console.log('Error: ', error);
+        };
+    }
     getBase64(images);
 
-  // Close the modal after submitting the form
-  modal1.style.display = 'none';
+    // Close the modal after submitting the form
+    modal1.style.display = 'none';
 
     // Optionally, you can reset the form fields here
     createItemForm.reset();
@@ -562,53 +566,53 @@ const createPostForm = document.getElementById('createPostForm');
 createPostForm.addEventListener('submit', function (event) {
     event.preventDefault();
 
-  // Retrieve form data
-  const title = document.getElementById('post_title').value;
-  const description = document.getElementById('post_description').value;
-  const images = document.getElementById('post_image').files[0];
-  var reader_image = "";
+    // Retrieve form data
+    const title = document.getElementById('post_title').value;
+    const description = document.getElementById('post_description').value;
+    const images = document.getElementById('post_image').files[0];
+    var reader_image = "";
 
-  function getBase64(file) {
-    var reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = function () {
-        reader_image = reader.result;
+    function getBase64(file) {
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            reader_image = reader.result;
 
-  // Create the post object
-  const newPost = {
-    title: title,
-    description: description,
-    imageUrl: reader_image
-  };
-  console.log(newPost);
-  const url = `http://localhost:8000/posts/${partner_id}`;
-  // Send POST request to Posts Table
-  fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(newPost)
-  })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
+            // Create the post object
+            const newPost = {
+                title: title,
+                description: description,
+                imageUrl: reader_image
+            };
+            console.log(newPost);
+            const url = `http://localhost:8000/posts/${partner_id}`;
+            // Send POST request to Posts Table
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newPost)
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Handle successful response from the server
+                    console.log('Item created successfully:', data);
+                })
+                .catch(error => {
+                    // Handle errors
+                    console.error('Error creating item:', error.message);
+                });
+        }; reader.onerror = function (error) {
+            console.log('Error: ', error);
+        };
     }
-    return response.json();
-  })
-  .then(data => {
-    // Handle successful response from the server
-    console.log('Item created successfully:', data);
-  })
-  .catch(error => {
-    // Handle errors
-    console.error('Error creating item:', error.message);
-  });
-};   reader.onerror = function (error) {
-    console.log('Error: ', error);
-  };
-  }
-  getBase64(images);
+    getBase64(images);
 
     // Close the modal after submitting the form
     modal2.style.display = 'none';
@@ -616,8 +620,3 @@ createPostForm.addEventListener('submit', function (event) {
     // Optionally, you can reset the form fields here
     createPostForm.reset();
 });
-
-
-
-
-
