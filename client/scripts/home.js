@@ -11,17 +11,19 @@ document.getElementById('myForm').addEventListener('submit', function(event) {
   
     // Collect data from dropdown lists
     document.querySelectorAll('select').forEach(select => {
-      // Set all options to 0 initially
+      // Set all options to 0 initially, except the one with empty value
       Array.from(select.options).forEach(option => {
-        formData[select.id + '_' + option.value.toLowerCase().replace(/\s+/g, '_')] = 0;
+          if (option.value !== "") {
+              formData[select.id + '_' + option.value.toLowerCase().replace(/\s+/g, '_')] = 0;
+          }
       });
   
-      // Set selected option to 1
+      // Set selected option to 1 if it's not an empty string
       const selectedOption = select.options[select.selectedIndex];
-      if (selectedOption) {
-        formData[select.id + '_' + selectedOption.value.toLowerCase().replace(/\s+/g, '_')] = 1;
+      if (selectedOption && selectedOption.value !== "") {
+          formData[select.id + '_' + selectedOption.value.toLowerCase().replace(/\s+/g, '_')] = 1;
       }
-    });
+  });
     
     console.log(formData);
     // Send form data to the backend API
@@ -45,7 +47,7 @@ document.getElementById('myForm').addEventListener('submit', function(event) {
         const maxWastage = predictionValue + 5;
 
         // Set the innerHTML of the output div to the wastage range message
-        outputDiv.value = minWastage + " to " + maxWastage + " kg's";
+        outputDiv.value = minWastage + " to " + maxWastage + " kgs";
     })
     .catch(error => {
       console.error('Error:', error);

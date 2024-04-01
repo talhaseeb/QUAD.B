@@ -611,6 +611,7 @@ createItemForm.addEventListener('submit', function (event) {
                 .then(data => {
                     // Handle successful response from the server
                     console.log('Item created successfully:', data);
+                    location.reload();
                 })
                 .catch(error => {
                     // Handle errors
@@ -681,11 +682,12 @@ createPostForm.addEventListener('submit', function (event) {
                 })
                 .then(data => {
                     // Handle successful response from the server
-                    console.log('Item created successfully:', data);
+                    console.log('Post created successfully:', data);
+                    location.reload();
                 })
                 .catch(error => {
                     // Handle errors
-                    console.error('Error creating item:', error.message);
+                    console.error('Error creating post:', error.message);
                 });
         }; reader.onerror = function (error) {
             console.log('Error: ', error);
