@@ -45,7 +45,7 @@ document.getElementById('myForm').addEventListener('submit', function(event) {
         const maxWastage = predictionValue + 5;
 
         // Set the innerHTML of the output div to the wastage range message
-        outputDiv.value = "Wastage between " + minWastage + " to " + maxWastage + " kgs";
+        outputDiv.value = minWastage + " to " + maxWastage + " kg's";
     })
     .catch(error => {
       console.error('Error:', error);

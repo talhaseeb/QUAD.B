@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>QUAD.B</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-    <link rel="shortcut icon" href="../assets/images/leaderboard.png" title="Favicon" />
+    <link rel="shortcut icon" href="../assets/images/test_images/quadb.png" title="Favicon" />
 
     <link rel="stylesheet" href="../styles/quadb.css">
     <link rel="stylesheet" href="../styles/main.css">
@@ -43,7 +43,7 @@
                     </div>
 
                     <!--Call to Action-->
-                    <a href="#" class="button">GRAB THE BEST DEALS!</a>
+                    <a href="../pages/feed.html" class="button">GRAB THE BEST DEALS!</a>
                     <!--End Call to Action-->
 
                 </div>
@@ -135,27 +135,20 @@
 
 
             </section>
-            <!--End of Introduction-->
 
-            <!--Content Section-->
             <div id="services" class="scrollto clearfix">
 
                 <div class="row no-padding-bottom clearfix">
 
 
-                    <!--Content Left Side-->
                     <div class="col-3">
-                        <!--User Testimonial-->
                         <blockquote class="testimonial text-right bigtest">
                             <q>Ending hunger is not a charity, it's an act of justice.</q>
                             <footer>— Ellen Gustafson</footer>
                         </blockquote>
-                        <!-- End of Testimonial-->
 
                     </div>
-                    <!--End Content Left Side-->
 
-                    <!--Content of the Right Side-->
                     <div class="col-3">
                         <div class="section-heading">
                             <h3>WHO ARE WE</h3>
@@ -177,7 +170,7 @@
                             Join us in our mission to create a brighter, more sustainable future.
                         </p>
                         <!-- Just replace the Video ID "UYJ5IjBRlW8" with the ID of your video on YouTube (Found within the URL) -->
-                        <a href="#" data-videoid="UYJ5IjBRlW8" data-videosite="youtube"
+                        <a href="../pages/log-in.html" data-videoid="UYJ5IjBRlW8" data-videosite="youtube"
                             class="button video link-lightbox">
                             JOIN US <i class="fa fa-group" aria-hidden="true"></i>
                         </a>
@@ -218,6 +211,7 @@
                             <label for="type_of_food" class="col-2 col-form-label">Type of food</label>
                             <div class="col-8">
                                 <select id="type_of_food" name="type_of_food" class="custom-select">
+                                    <option value="">Select Food Type</option>
                                     <option value="baked_goods">Baked Goods</option>
                                     <option value="Dairy_products">Dairy Products</option>
                                     <option value="Fruits">Fruits</option>
@@ -229,6 +223,7 @@
                             <label for="storage_conditions" class="col-2 col-form-label">Storage conditions</label>
                             <div class="col-8">
                                 <select id="storage_conditions" name="storage_conditions" class="custom-select">
+                                    <option value="">Select Storage Condition</option>
                                     <option value="Refrigerated">Refrigerated</option>
                                     <option value="Room Temperature">Room Temperature</option>
                                 </select>
@@ -237,6 +232,7 @@
                             <label for="seasonality" class="col-2 col-form-label">Seasonality</label>
                             <div class="col-8">
                                 <select id="seasonality" name="seasonality" class="custom-select">
+                                    <option value="">Select Season</option>
                                     <option value="all_seasons">All Seasons</option>
                                     <option value="summer">Summer</option>
                                     <option value="winter">Winter</option>
@@ -246,6 +242,7 @@
                             <label for="preparation_method" class="col-2 col-form-label">Preparation Method</label>
                             <div class="col-8">
                                 <select id="preparation_method" name="preparation_method" class="custom-select">
+                                    <option value="">Select Method</option>
                                     <option value="Buffet">Buffet</option>
                                     <option value="Finger Food">Finger Food</option>
                                     <option value="Sit-down Dinner">Sit-down Dinner</option>
@@ -256,6 +253,7 @@
                                 Location</label>
                             <div class="col-8">
                                 <select id="geographical_location" name="geographical_location" class="custom-select">
+                                    <option value="">Select Location</option>
                                     <option value="Rural">Rural</option>
                                     <option value="Suburban">Suburban</option>
                                     <option value="Urban">Urban</option>
@@ -264,13 +262,14 @@
                             <label for="pricing" class="col-2 col-form-label">Pricing</label>
                             <div class="col-8">
                                 <select id="pricing" name="pricing" class="custom-select">
+                                    <option value="">Select Pricing</option>
                                     <option value="High">High</option>
                                     <option value="Low">Low</option>
                                     <option value="Moderate">Moderate</option>
                                 </select>
                             </div>
 
-                            <div class="col-8">
+                            <div class="col-8" style="padding: 100px;">
                                 <button name="submit" type="submit" class="btn btn-primary">Submit</button>
                             </div>
                         </form>

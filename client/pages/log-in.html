@@ -13,6 +13,12 @@
 <body>
     <div id="navbar"></div>
     <form class="login" id="loginForm">
+        <div id="loginMessage" style=" display: none; color: red;">
+            *Login failed - invalid credentials
+        </div>
+        <div id="registerMessage" style=" display: none; color: red;">
+            *Registration failed - Please try again.
+        </div>
         <h1>Log in</h1>
         <input type="email" name="email" placeholder="Email" required />
         <input type="password" name="password" placeholder="Password" required />
