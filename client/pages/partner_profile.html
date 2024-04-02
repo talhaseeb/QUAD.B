@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile | QUAD.B</title>
+    <link rel="shortcut icon" href="../assets/images/test_images/quadb.png" title="Favicon" />
+    <title>Profile - QUAD.B</title>
     <!-- favicon -->
     <!-- <link rel="icon" href=""> -->
     <link rel="stylesheet" href="../styles/partner_profile.css">
@@ -83,7 +84,7 @@
                 <h2>Description</h2>
                 <p class="description">
                 </p>
-                <a class="see-more-link" onclick="show()">See <span id="more">More...</span></a>
+                <!-- <a class="see-more-link" id="hidden" onclick="show()">See <span id="more">More...</span></a> -->
             </div>
 
             <div class="profile-description">
@@ -217,6 +218,7 @@
             profileMenu.classList.toggle("open-menu");
         }
         function show() {
+            console.log("test");
             if (seeMore.style.display == "none") {
                 seeMore.style.display = "inline-block"
                 document.getElementById('more').innerHTML = "Less..."
