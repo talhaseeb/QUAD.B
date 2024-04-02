@@ -91,38 +91,6 @@ const onSelectPid = async () => {
 
 pid.classList.add("p-2", "cursor-pointer", "w-56");
 
-// document.getElementById('uploadForm').addEventListener('submit', async (event) => {
-//     event.preventDefault();
-
-//     const formData = new FormData();
-//     formData.append('image', document.getElementById('imageInput').files[0]);
-//     let title = document.getElementById("postTitle").value;
-//     let desc = document.getElementById("postDesc").value;
-//     console.log(title, desc, formData)
-//     try {
-//         const response = await fetch('http://localhost:8000/posts/6605c78acda7c35228f4a003', {
-//             method: 'POST',
-//             body: JSON.stringify({
-//                 title: title,
-//                 description: desc,
-//                 imageUrl: formData
-//             })
-//         });
-
-//         if (response.ok) {
-//             const imageData = await response.blob(); // Convert response to Blob
-//             const imageUrl = URL.createObjectURL(imageData); // Create URL for Blob
-//             document.getElementById('uploadedImage').src = imageUrl; // Set img src to display the uploaded image
-//             alert('Post success!')
-//         } else {
-//             alert('Failed to post!');
-//         }
-//     } catch (error) {
-//         console.error('Error uploading image:', error);
-//         alert('Failed to upload image');
-//     }
-// });
-
 async function loadHTMLFile(url) {
     try {
         const response = await fetch(url);
@@ -196,33 +164,30 @@ async function getPartners() {
             //     $('#creditCardModal').modal('show');
             // });
 
-            // Get the modal element
             const modal = document.getElementById("creditCardModal");
 
-            // Get the button that opens the modal
-            const donateBttn = document.getElementById("donateBtn");
+// Get the button that opens the modal
+const donateBttn = document.getElementById("donateBtn");
 
-            // Get the <span> element that closes the modal
-            const closeBtn = document.getElementById("closeModal");
+// Get the <span> element that closes the modal
+const closeBtn = document.getElementById("closeModal");
 
-            // When the user clicks the button, open the modal
-            donateBttn.addEventListener("click", () => {
-            modal.style.display = "block";
-            });
+// When the user clicks the button, open the modal
+donateBttn.addEventListener("click", () => {
+modal.style.display = "block";
+});
 
-            // When the user clicks on <span> (x), close the modal
-            closeBtn.addEventListener("click", () => {
-            modal.style.display = "none";
-            });
+// When the user clicks on <span> (x), close the modal
+closeBtn.addEventListener("click", () => {
+modal.style.display = "none";
+});
 
-            // When the user clicks anywhere outside of the modal, close it
-            window.addEventListener("click", (event) => {
-            if (event.target === modal) {
-                modal.style.display = "none";
-            }
-            });
-
-
+// When the user clicks anywhere outside of the modal, close it
+window.addEventListener("click", (event) => {
+if (event.target === modal) {
+    modal.style.display = "none";
+}
+});
 
         } else {
             console.log("Error", response.status);
@@ -265,7 +230,8 @@ function donatePartners(dc) {
         resImage.src = partner?.bannerImage;
         resImage.classList.add("h-32", "w-full", "rounded-md", "object-cover")
         restName.innerText = partner?.userId?.name;
-        restName.classList.add("text-base", "py-1", "px-2", "leading-none", "font-semibold", "tracking-wide");
+        restName.classList.add("text-base", "py-1", "px-2", "leading-none", "font-semibold", "tracking-wide", "cursor-pointer");
+        restName.onclick = () => window.location.href = `../pages/partner_profile.html?id=${partner?._id}`
         div.appendChild(resImage);
         div.appendChild(restName);
         let donateBtn = document.createElement("button");
@@ -274,10 +240,9 @@ function donatePartners(dc) {
         donateBtn.setAttribute("id", "donateBtn");
         div.appendChild(donateBtn);
         partnerdonations.appendChild(div);
-
+                            
     })
 }
-
      
 function updateFeaturedRestaurants() {
     featuredrestaurants.innerHTML = "";
@@ -359,7 +324,7 @@ function populateDiscover(donationCentres, stores, restaurants) {
         horizontalScrollable.style.scrollbarWidth = 'none';
         p?.forEach(idx => {
             let cardDiv = document.createElement("div");
-            cardDiv.classList.add("rounded-md", "flex", "flex-col", "gap-y-2", "bg-white", "border", "border-gray-300");
+            cardDiv.classList.add("rounded-md", "flex", "flex-col", "gap-y-2", "bg-white", "border", "border-gray-300", "w-96");
             let postImage = document.createElement("img");
             postImage.classList.add("h-40", "min-w-96", "max-w-96", "rounded-md", "object-cover");
             postImage.src = idx?.bannerImage;
@@ -370,7 +335,7 @@ function populateDiscover(donationCentres, stores, restaurants) {
             postTitle.onclick = () => window.location.href = navigateUrl;
             let address = document.createElement("p");
             address.innerText = idx?.userId?.address;
-            address.classList.add("px-2.5", "text-blue-700", "pb-3", "text-sm", "tracking-wide");
+            address.classList.add("px-2.5", "w-full", "text-blue-700", "pb-3", "text-sm", "tracking-wide", "truncate", "whitespace-nowrap");
             cardDiv.appendChild(postImage);
             cardDiv.appendChild(postTitle);
             cardDiv.appendChild(address);
@@ -389,7 +354,7 @@ function displayItems(itemsData) {
                 <div class="col-lg-4 col-md-6">
                     <div class="product__item bg-white my-1.5 rounded-md overflow-hidden min-w-[250px]">
                         <div class="product__item__pic !h-32" >
-                            <img class="product__item__pic set-bg !h-32 w-full" src="../assets/images/test_images/biryani.jpg" alt="biryani">
+                            <img class="product__item__pic set-bg !h-32 w-full" src="${item?.images[0]}" alt="biryani">
                             ${item?.partnerId === lsPartnerId ? '' : `
                             <ul class="product__hover" id="ul-hover">
                                 <li id="cart-logo"><a href="#" class="add-to-cart" data-item='${JSON.stringify(item)}'><span class="icon_bag_alt"></span></a></li>
