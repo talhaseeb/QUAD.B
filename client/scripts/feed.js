@@ -196,33 +196,30 @@ async function getPartners() {
             //     $('#creditCardModal').modal('show');
             // });
 
-            // Get the modal element
             const modal = document.getElementById("creditCardModal");
 
-            // Get the button that opens the modal
-            const donateBttn = document.getElementById("donateBtn");
+// Get the button that opens the modal
+const donateBttn = document.getElementById("donateBtn");
 
-            // Get the <span> element that closes the modal
-            const closeBtn = document.getElementById("closeModal");
+// Get the <span> element that closes the modal
+const closeBtn = document.getElementById("closeModal");
 
-            // When the user clicks the button, open the modal
-            donateBttn.addEventListener("click", () => {
-            modal.style.display = "block";
-            });
+// When the user clicks the button, open the modal
+donateBttn.addEventListener("click", () => {
+modal.style.display = "block";
+});
 
-            // When the user clicks on <span> (x), close the modal
-            closeBtn.addEventListener("click", () => {
-            modal.style.display = "none";
-            });
+// When the user clicks on <span> (x), close the modal
+closeBtn.addEventListener("click", () => {
+modal.style.display = "none";
+});
 
-            // When the user clicks anywhere outside of the modal, close it
-            window.addEventListener("click", (event) => {
-            if (event.target === modal) {
-                modal.style.display = "none";
-            }
-            });
-
-
+// When the user clicks anywhere outside of the modal, close it
+window.addEventListener("click", (event) => {
+if (event.target === modal) {
+    modal.style.display = "none";
+}
+});
 
         } else {
             console.log("Error", response.status);
@@ -274,10 +271,9 @@ function donatePartners(dc) {
         donateBtn.setAttribute("id", "donateBtn");
         div.appendChild(donateBtn);
         partnerdonations.appendChild(div);
-
+                            
     })
 }
-
      
 function updateFeaturedRestaurants() {
     featuredrestaurants.innerHTML = "";
@@ -389,7 +385,7 @@ function displayItems(itemsData) {
                 <div class="col-lg-4 col-md-6">
                     <div class="product__item bg-white my-1.5 rounded-md overflow-hidden min-w-[250px]">
                         <div class="product__item__pic !h-32" >
-                            <img class="product__item__pic set-bg !h-32 w-full" src="../assets/images/test_images/biryani.jpg" alt="biryani">
+                            <img class="product__item__pic set-bg !h-32 w-full" src="${item?.images[0]}" alt="biryani">
                             ${item?.partnerId === lsPartnerId ? '' : `
                             <ul class="product__hover" id="ul-hover">
                                 <li id="cart-logo"><a href="#" class="add-to-cart" data-item='${JSON.stringify(item)}'><span class="icon_bag_alt"></span></a></li>
