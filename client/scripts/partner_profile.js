@@ -172,7 +172,7 @@ function generateCards(items) {
 
         const priceContainer = document.createElement('span');
         const priceLabel = document.createElement('strong');
-        priceLabel.textContent = 'Price: $';
+        priceLabel.textContent = 'Price: CAD ';
         const priceValue = document.createElement('p');
         priceValue.textContent = item.price; // Assuming item object has a 'price' property
         priceValue.setAttribute('contenteditable', 'false'); // Make price editable
