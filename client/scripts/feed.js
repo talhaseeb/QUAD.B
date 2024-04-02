@@ -166,28 +166,28 @@ async function getPartners() {
 
             const modal = document.getElementById("creditCardModal");
 
-// Get the button that opens the modal
-const donateBttn = document.getElementById("donateBtn");
+            // Get the button that opens the modal
+            const donateBttn = document.getElementById("donateBtn");
 
-// Get the <span> element that closes the modal
-const closeBtn = document.getElementById("closeModal");
+            // Get the <span> element that closes the modal
+            const closeBtn = document.getElementById("closeModal");
 
-// When the user clicks the button, open the modal
-donateBttn.addEventListener("click", () => {
-modal.style.display = "block";
-});
+            // When the user clicks the button, open the modal
+            donateBttn.addEventListener("click", () => {
+                modal.style.display = "block";
+            });
 
-// When the user clicks on <span> (x), close the modal
-closeBtn.addEventListener("click", () => {
-modal.style.display = "none";
-});
+            // When the user clicks on <span> (x), close the modal
+            closeBtn.addEventListener("click", () => {
+                modal.style.display = "none";
+            });
 
-// When the user clicks anywhere outside of the modal, close it
-window.addEventListener("click", (event) => {
-if (event.target === modal) {
-    modal.style.display = "none";
-}
-});
+            // When the user clicks anywhere outside of the modal, close it
+            window.addEventListener("click", (event) => {
+                if (event.target === modal) {
+                    modal.style.display = "none";
+                }
+            });
 
         } else {
             console.log("Error", response.status);
@@ -240,13 +240,40 @@ function donatePartners(dc) {
         donateBtn.setAttribute("id", "donateBtn");
         div.appendChild(donateBtn);
         partnerdonations.appendChild(div);
-                            
+
     })
 }
-     
+
+function calculateLeaderboard(partners) {
+    const w1 = 0.3; // Weight for item count
+    const w2 = 0.4; // Weight for order count
+    const w3 = 0.4; // Weight for vote count
+    const maxVotes = Math.max(...partners.map(partner => 1));
+    const maxItems = Math.max(...partners.map(partner => partner.netItemsCount));
+    const maxOrders = Math.max(...partners.map(partner => partner.ordersPlaced));
+
+    partners.forEach(partner => {
+        const maxItemsDenominator = maxItems !== 0 ? maxItems : 1; // Avoid division by zero
+        const maxOrdersDenominator = maxOrders !== 0 ? maxOrders : 1; // Avoid division by zero
+        const maxVotesDenominator = maxVotes !== 0 ? maxVotes : 1; // Avoid division by zero
+
+        const normalizedItemCount = isNaN(partner.netItemsCount) ? 0 : (partner.netItemsCount - 0) / maxItemsDenominator;
+        const normalizedOrderCount = isNaN(partner.ordersPlaced) ? 0 : (partner.ordersPlaced - 0) / maxOrdersDenominator;
+        const normalizedVoteCount = (1 - 0) / maxVotesDenominator; // Denominator for votes count is always 1
+
+        partner.leaderboardRanking = 100 * ((w1 * normalizedItemCount) + (w2 * normalizedOrderCount) + (w3 * normalizedVoteCount));
+    });
+
+    // Sort partners based on leaderboard ranking
+    partners.sort((a, b) => b.leaderboardRanking - a.leaderboardRanking);
+    return partners;
+}
+
 function updateFeaturedRestaurants() {
     featuredrestaurants.innerHTML = "";
-    partners.forEach(partner => {
+    let resPartners = partners?.filter(pnt => pnt?.partnerType == "restaurant")
+    resPartners = calculateLeaderboard(resPartners);
+    resPartners.forEach(partner => {
         let div = document.createElement("div");
         let restName = document.createElement("div");
         let resImage = document.createElement("img");
