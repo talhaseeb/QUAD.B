@@ -37,9 +37,9 @@ function calculateLeaderboard(partners) {
 }
 
 const randomEmoji = () => {
-	const emojis = ['👏','👍','🙌','🤩','🔥','⭐️','🏆','💯'];
-	let randomNumber = Math.floor(Math.random() * emojis.length);
-	return emojis[randomNumber]
+    const emojis = ['👏', '👍', '🙌', '🤩', '🔥', '⭐️', '🏆', '💯'];
+    let randomNumber = Math.floor(Math.random() * emojis.length);
+    return emojis[randomNumber]
 }
 
 // Render leaderboard with updated data
@@ -62,6 +62,13 @@ async function renderLeaderboard() {
     `;
     // Append the headings row to the list
     list.appendChild(headingRow);
+
+    let topPick = document.getElementById("top-pick");
+    let score = document.getElementById("score");
+    topPick.innerText = rankedPartners[0]?.userId?.name;
+    topPick.style.fontSize = "20px";
+    score.innerText = rankedPartners[0]?.leaderboardRanking.toFixed(2);
+    score.style.fontSize = "20px";
 
     // Loop through ranked partners and render each partner
     rankedPartners.forEach((partner, index) => {
