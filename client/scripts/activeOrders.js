@@ -1,11 +1,26 @@
+let pntrId = localStorage.getItem("partnerId");
+let usrId = localStorage.getItem("userId");
+let paramsUrl = new URLSearchParams(window.location.search);
+let pId = paramsUrl.get('id');
+
+if (usrId == null) {
+    window.location.href = "../pages/log-in.html";
+} else if (pId != pntrId) {
+    window.location.href = `../pages/activeOrders.html?id=${pntrId}`
+}
+
 const fetchOrdersBtn = document.getElementById('fetch-orders-btn');
 const ordersContainer = document.getElementById('orders-container');
 
 function displayOrders(ordersData) {
     ordersContainer.innerHTML = ''; // Clear previous orders
 
-    ordersData.forEach((order, index) => {
-        const orderHtml = `
+    let filteredPartners = ordersData?.filter(prtn => prtn?.partnerId == pntrId);
+    if (filteredPartners.length == 0) {
+        ordersContainer.innerText = "No orders for this partner!";
+    } else {
+        filteredPartners?.forEach((order, index) => {
+            const orderHtml = `
                 <div class="col-md-4 mb-4">
                     <main class="orderMain">
                         <section class="orderSection">
@@ -32,8 +47,9 @@ function displayOrders(ordersData) {
                     </main>
                 </div>
             `;
-        ordersContainer.insertAdjacentHTML('beforeend', orderHtml);
-    });
+            ordersContainer.insertAdjacentHTML('beforeend', orderHtml);
+        });
+    }
 }
 
 window.addEventListener('load', async () => {
