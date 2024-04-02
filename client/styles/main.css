@@ -142,7 +142,7 @@ a:hover, #header.nav-solid nav a:hover {
 
 #banner {
     background: url("../assets/images/banner-images/background_2.png") no-repeat right top;
-    background-size:cover;
+    /* background-size:cover; */
 }
 
 

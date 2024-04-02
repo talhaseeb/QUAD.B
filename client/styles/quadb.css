@@ -158,7 +158,7 @@ section {
 .row {
     max-width: 1245px;
     margin: 0 auto;
-    padding: 75px 0;
+    padding: 45px 0;
     position: relative;
 }
 
@@ -749,12 +749,12 @@ h6 {
 /*------------------------------------------------------------------------------------------*/
 
 #banner {
-    background-size: cover;
+    background-size: contain;
 }
 
 #banner-content.row {
     padding-top: 170px;
-    padding-bottom: 100px;
+    /* padding-bottom: 100px; */
 }
 
 #banner h1 {
