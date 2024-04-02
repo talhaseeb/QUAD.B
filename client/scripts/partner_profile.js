@@ -108,6 +108,7 @@ function getPostsByPartnerId(partnerId) {
         .then(data => {
             // Call function to generate cards
             generatePostCards(data);
+            generatePostCard(data);
         })
         .catch(error => console.error('Error fetching items:', error));
 }
@@ -375,6 +376,54 @@ function generatePostCards(items) {
         cardContainer.appendChild(cardDiv);
     });
 }
+
+function generatePostCard(item) {
+    // const heading1 = document.getElementById('trending-posts2');
+    // heading1.innerHTML = "My Posts - Trending in Feed";
+
+    const cardContainer = document.getElementById('trending-posts');
+    cardContainer.innerHTML = ''; // Clear previous content
+
+    const cardDiv = document.createElement('div');
+    cardDiv.classList.add('card');
+    cardDiv.setAttribute('data-item-id', item._id); // Set data attribute with item ID
+
+    const images = item[0].image; // Image URL
+
+    const image = document.createElement('img');
+    if (images) {
+        image.src = images;
+    } else {
+        // Default image if no image available
+        image.src = '../assets/images/default_image.png';
+    }
+    image.alt = item.title; // Assuming item object has a 'title' property
+    image.style.objectFit = "cover";
+    image.style.height = "240px";
+    image.style.width = "100%";
+
+    const cardBody = document.createElement('div');
+    cardBody.classList.add('card-body');
+
+    const title = document.createElement('h2');
+    title.textContent = item[0].title; // Assuming item object has a 'title' property
+
+    const description = document.createElement('p');
+    description.textContent = item[0].description; // Assuming item object has a 'description' property
+    description.classList.add('class_post_description');
+
+    // Append all elements to card body
+    cardBody.appendChild(title);
+    cardBody.appendChild(description);
+
+    // Append image and card body to card div
+    cardDiv.appendChild(image);
+    cardDiv.appendChild(cardBody);
+
+    // Append card div to card container
+    cardContainer.appendChild(cardDiv);
+}
+
 
 // Function to generate tags dynamically
 async function generateTags(partnerData) {

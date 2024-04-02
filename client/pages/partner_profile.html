@@ -180,16 +180,17 @@
                 </div>
                 <a href="./activeOrders.html" class="ad-link">Active Orders</a>
             </div>
+            <h3 class="sidebar-people" style="font-size: large; position: sticky; top: 0;" id="trending-posts2"></h3>
             <div class="sidebar-people" id="trending-posts">
-                <h3>My Posts - Trending in Feed</h3>
-                <div class="card">
+               
+                <!-- <div class="card">
                     <img src="../assets/images/test_images/logo_starbucks.png" alt="item_image">
                     <div class="card-body">
                         <h2>French Vanilla</h2>
                         <p>Chocolate Topping</p>
                         <a href="https://www.linkedin.com/in/mohammad-saad-ali-33074123a/" target="_blank">+ Add</a>
                     </div>
-                </div>
+                </div> -->
 
 
             </div>
@@ -206,6 +207,9 @@
             <a href="">More</a>
         </div>
     </div>
+
+    
+
     <script>
         var profileMenu = document.getElementById('profileMenu')
         var seeMore = document.getElementById('hidden')
@@ -222,6 +226,12 @@
                 document.getElementById('more').innerHTML = "More..."
             }
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const heading1 = document.getElementById('trending-posts2');
+            heading1.innerHTML = "My Posts - Trending in Feed";
+            console.log(heading1);
+        });
     </script>
     <script src="../scripts/partner_profile.js"></script>
     <script src="../scripts/navbar.js"></script>
