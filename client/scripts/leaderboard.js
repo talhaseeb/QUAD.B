@@ -25,11 +25,16 @@ function calculateLeaderboard(partners) {
     const maxOrders = Math.max(...partners.map(partner => partner.ordersPlaced));
 
     partners.forEach(partner => {
-        const normalizedItemCount = (partner.netItemsCount - 0) / (maxItems - 0);
-        const normalizedOrderCount = (partner.ordersPlaced - 0) / (maxOrders - 0);
-        const normalizedVoteCount = (1 - 0) / (maxVotes - 0);
+        const maxItemsDenominator = maxItems !== 0 ? maxItems : 1; // Avoid division by zero
+        const maxOrdersDenominator = maxOrders !== 0 ? maxOrders : 1; // Avoid division by zero
+        const maxVotesDenominator = maxVotes !== 0 ? maxVotes : 1; // Avoid division by zero
+    
+        const normalizedItemCount = isNaN(partner.netItemsCount) ? 0 : (partner.netItemsCount - 0) / maxItemsDenominator;
+        const normalizedOrderCount = isNaN(partner.ordersPlaced) ? 0 : (partner.ordersPlaced - 0) / maxOrdersDenominator;
+        const normalizedVoteCount = (1 - 0) / maxVotesDenominator; // Denominator for votes count is always 1
+    
         partner.leaderboardRanking = 100 * ((w1 * normalizedItemCount) + (w2 * normalizedOrderCount) + (w3 * normalizedVoteCount));
-    });
+    });    
 
     // Sort partners based on leaderboard ranking
     partners.sort((a, b) => b.leaderboardRanking - a.leaderboardRanking);
@@ -74,7 +79,7 @@ async function renderLeaderboard() {
                     <img class="c-avatar c-media__img" src="${partner.logo ?? ''}" />
                     <div class="c-media__content">
                         <div class="c-media__title">${partner.userId?.name ?? ''}</div>
-                        <a class="c-media__link u-text--small" href="https://instagram.com/${partner.socials ?? ''}" target="_blank">@${partner.socials ?? ''}</a>
+                        <a class="c-media__link u-text--small" href="${partner.socials ?? ''}" target="_blank">@${partner.socials ?? ''}</a>
                     </div>
                 </div>
                 <div class="u-text--right c-quadb_ratio">
@@ -97,10 +102,11 @@ async function renderLeaderboard() {
         list.appendChild(newRow);
     });
 
-    // Find the partner with the highest order count
+ // Find the partner with the highest order count
     const partnerWithMaxOrders = rankedPartners.reduce((prevPartner, currentPartner) => {
         return prevPartner.ordersPlaced > currentPartner.ordersPlaced ? prevPartner : currentPartner;
-    }, {});
+    }, { ordersPlaced: -Infinity });
+
 
     // Render winner card with the partner who has the highest order count
     const winnerCard = document.getElementById('winner');

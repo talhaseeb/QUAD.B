@@ -51,7 +51,7 @@
                     <div class="c-card__header">
                         <h3>Featured Partners</h3>
                         <select class="c-select">
-                            <option selected="selected">Sunday, Feb. 23 - Sunday, Feb. 30</option>
+                            <option id="dateOption" selected="">Sunday, Feb. 23 - Sunday, Feb. 30</option>
                         </select>
                     </div>
                     <div class="c-card__body">
@@ -71,6 +71,32 @@
     </div>
     <script src="../scripts/leaderboard.js"></script>
     <script src="../scripts/navbar.js"></script>
+    <script> 
+        // Get reference to the dateOption element
+        const dateOption = document.getElementById('dateOption');
+
+        // Function to get the current date in the specified format
+        function getCurrentDate() {
+            const today = new Date();
+            const startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay() + 1);
+            const endDate = new Date(startDate);
+            endDate.setDate(startDate.getDate() + 6);
+
+            const startMonth = startDate.toLocaleString('default', { month: 'short' });
+            const endMonth = endDate.toLocaleString('default', { month: 'short' });
+
+            return `${getDayName(startDate.getDay())}, ${startMonth}. ${startDate.getDate()} - ${getDayName(endDate.getDay())}, ${endMonth}. ${endDate.getDate()}`;
+        }
+
+        // Function to get day name from day index
+        function getDayName(dayIndex) {
+            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            return days[dayIndex];
+        }
+
+        // Update the dateOption element with current date
+        dateOption.textContent = getCurrentDate();
+    </script>
 </body>
 
 </html>
