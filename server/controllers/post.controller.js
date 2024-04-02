@@ -5,7 +5,17 @@ const Notification = require('../models/notification.model');
 
 exports.getAllPosts = async (req, res) => {
     try {
-        const posts = await Post.find({}).sort({ createdAt: -1 });
+        const posts = await Post.find({})
+            .populate({
+                path: 'partnerId',
+                model: 'Partner',
+                populate: {
+                    path: 'userId',
+                    model: 'User',
+                    select: 'name'
+                }
+            })
+            .sort({ createdAt: -1 });
         return res.status(200).json(posts);
     } catch (error) {
         res.status(500).json({ error: "Error: " + error });
