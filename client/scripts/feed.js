@@ -192,6 +192,38 @@ async function getPartners() {
             let restaurants = partners?.filter(p => p?.partnerType == "restaurant");
             populateDiscover(donationCentres, stores, restaurants);
             setOptValue(ptype.value)
+            // document.getElementById("donateBtn").addEventListener("click", function() {
+            //     $('#creditCardModal').modal('show');
+            // });
+
+            // Get the modal element
+            const modal = document.getElementById("creditCardModal");
+
+            // Get the button that opens the modal
+            const donateBttn = document.getElementById("donateBtn");
+
+            // Get the <span> element that closes the modal
+            const closeBtn = document.getElementById("closeModal");
+
+            // When the user clicks the button, open the modal
+            donateBttn.addEventListener("click", () => {
+            modal.style.display = "block";
+            });
+
+            // When the user clicks on <span> (x), close the modal
+            closeBtn.addEventListener("click", () => {
+            modal.style.display = "none";
+            });
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.addEventListener("click", (event) => {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+            });
+
+
+
         } else {
             console.log("Error", response.status);
         }
@@ -239,11 +271,14 @@ function donatePartners(dc) {
         let donateBtn = document.createElement("button");
         donateBtn.innerText = "Donate";
         donateBtn.classList.add("py-1", "px-2", "mt-1", "m-2", "rounded", "bg-blue-500", "text-gray-100", "w-calc(100%-8px)");
+        donateBtn.setAttribute("id", "donateBtn");
         div.appendChild(donateBtn);
         partnerdonations.appendChild(div);
+
     })
 }
 
+     
 function updateFeaturedRestaurants() {
     featuredrestaurants.innerHTML = "";
     partners.forEach(partner => {
@@ -347,17 +382,10 @@ function displayItems(itemsData) {
                 <div class="col-lg-4 col-md-6">
                     <div class="product__item bg-white my-1.5 rounded-md overflow-hidden min-w-[250px]">
                         <div class="product__item__pic !h-32" >
-<<<<<<< HEAD
-                            <img class="product__item__pic set-bg !h-32 w-full" src="${item?.images[0]}" alt="biryani">
-                            <ul class="product__hover">
-                             <!--   <li><a href="img/biryani.jpg" class="image-popup"><span class="arrow_expand"></span></a></li> -->
-                                <li><a href="#" class="add-to-cart" data-item='${JSON.stringify(item)}'><span class="icon_bag_alt"></span></a></li>
-=======
                             <img class="product__item__pic set-bg !h-32 w-full" src="../assets/images/test_images/biryani.jpg" alt="biryani">
                             ${item?.partnerId === lsPartnerId ? '' : `
                             <ul class="product__hover" id="ul-hover">
                                 <li id="cart-logo"><a href="#" class="add-to-cart" data-item='${JSON.stringify(item)}'><span class="icon_bag_alt"></span></a></li>
->>>>>>> origin
                             </ul>
                             `}
                         </div >
@@ -455,4 +483,6 @@ window.addEventListener('load', () => {
     getPosts();
     getPartners();
     getItems();
+
+
 });
