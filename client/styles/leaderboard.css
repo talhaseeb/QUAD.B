@@ -239,7 +239,7 @@ button, select {
     transition: all 120ms ease-out 0s;
 }
 .c-select:hover {
-    background: var(--darkest);
+    background: var(--primary-trans);
 }
 .c-flag {
     display: inline-flex;
