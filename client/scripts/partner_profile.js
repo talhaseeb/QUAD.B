@@ -17,6 +17,9 @@ if (isPartner === "false" || pId !== partnerId) {
     profileBtns.style.display = "none";
 }
 
+let activeOrderLink = document.getElementById("active-order-link");
+activeOrderLink.setAttribute("href", `../pages/activeOrders.html?id=${partnerId}`)
+
 function populatePartnerInfo(partner_id) {
     // Fetch data from the API using the partner_id
     fetch(`http://localhost:8000/partners/${partner_id}`)
