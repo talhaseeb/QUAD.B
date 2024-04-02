@@ -9,7 +9,10 @@ console.log(cartItems[0]);
 const total = document.getElementById('cart-total');
 // Display cart items
 const cartItemsContainer = document.getElementById('cart-items');
+const subtotalElement = document.querySelector('.subtotal');
+const totalElement = document.querySelector('.total');
 let subtotal = 0;
+let totalPrice = 0;
 if (cartItems && cartItems.length > 0) {
 
     let totalPrice = 0;
@@ -26,7 +29,7 @@ if (cartItems && cartItems.length > 0) {
     <td class="cart__quantity">
     <div class="pro-qty">
     <span class="dec qtybtn">-</span>
-    <input type="number" class="quantity-input" value="1" min="1" max="${item.quantity}">
+    <input id="quantity" type="number" class="quantity-input" value="1" min="1" max="${item.quantity}">
     <span class="inc qtybtn">+</span>
 </div>
     </td>
@@ -35,52 +38,95 @@ if (cartItems && cartItems.length > 0) {
         `;
         cartItemsContainer.appendChild(cartItemElement);
         // Calculate subtotal and total
-        subtotal += item.price * 1; // Multiply by quantity, assuming quantity is always 1 for now
-        totalPrice += item.price * 1; // Multiply by quantity, assuming quantity is always 1 for now
+        // subtotal += item.price * 1; // Multiply by quantity, assuming quantity is always 1 for now
+        // totalPrice += item.price * 1; // Multiply by quantity, assuming quantity is always 1 for now
+
+        // Update subtotal and total when quantity changes
+        const quantityInput = cartItemElement.querySelector('.quantity-input');
+        const decButton = cartItemElement.querySelector('.qtybtn.dec');
+        const incButton = cartItemElement.querySelector('.qtybtn.inc');
+        const cartTotalElement = cartItemElement.querySelector('.cart__total');
+        // Add item price to initial subtotal and total
+        subtotal += item.price;
+        totalPrice += item.price;
+        subtotalElement.textContent = `$ ${subtotal.toFixed(2)}`;
+        totalElement.textContent = `$ ${totalPrice.toFixed(2)}`;
+
+        decButton.addEventListener('click', () => {
+            let value = parseInt(quantityInput.value);
+            if (value > 1) {
+                quantityInput.value = value - 1;
+                updateSubtotalAndTotal(item.price, -1);
+            }
+        });
+
+        incButton.addEventListener('click', () => {
+            let value = parseInt(quantityInput.value);
+            if (value < parseInt(quantityInput.getAttribute('max'))) {
+                quantityInput.value = value + 1;
+                updateSubtotalAndTotal(item.price, 1);
+            }
+        });
+
+        // Calculate subtotal and total for each item based on quantity
+        const updateSubtotalAndTotal = (price, quantityChange) => {
+            const quantity = parseInt(quantityInput.value);
+            const itemSubtotalChange = price * quantityChange;
+            subtotal += itemSubtotalChange;
+            totalPrice += itemSubtotalChange;
+
+            // Update subtotal and total in HTML
+            subtotalElement.textContent = `$ ${subtotal.toFixed(2)}`;
+            totalElement.textContent = `$ ${totalPrice.toFixed(2)}`;
+
+            const itemTotal = price * quantity;
+            cartTotalElement.textContent = `$ ${itemTotal.toFixed(2)}`;
+        };
     });
 
-    // Select the input element
-    const quantityInput = document.querySelector('.quantity-input');
 
-    // Select the increment and decrement buttons
-    const incButton = document.querySelector('.qtybtn.inc');
-    const decButton = document.querySelector('.qtybtn.dec');
+    // // Select the input element
+    // const quantityInput = document.querySelector('.quantity-input');
 
-    // Add event listener for the increment button
-    incButton.addEventListener('click', () => {
-        // Get the current value of the input
-        let value = parseInt(quantityInput.value);
-        // Increment the value
-        value++;
-        // Ensure the value does not exceed the maximum
-        value = Math.min(value, parseInt(quantityInput.getAttribute('max')));
-        // Update the input value
-        quantityInput.value = value;
-    });
+    // // Select the increment and decrement buttons
+    // const incButton = document.querySelector('.qtybtn.inc');
+    // const decButton = document.querySelector('.qtybtn.dec');
 
-    // Add event listener for the decrement button
-    decButton.addEventListener('click', () => {
-        // Get the current value of the input
-        let value = parseInt(quantityInput.value);
-        // Decrement the value
-        value--;
-        // Ensure the value does not go below the minimum
-        value = Math.max(value, parseInt(quantityInput.getAttribute('min')));
-        // Update the input value
-        quantityInput.value = value;
-    });
+    // // Add event listener for the increment button
+    // incButton.addEventListener('click', () => {
+    //     // Get the current value of the input
+    //     let value = parseInt(quantityInput.value);
+    //     // Increment the value
+    //     value++;
+    //     // Ensure the value does not exceed the maximum
+    //     value = Math.min(value, parseInt(quantityInput.getAttribute('max')));
+    //     // Update the input value
+    //     quantityInput.value = value;
+    // });
+
+    // // Add event listener for the decrement button
+    // decButton.addEventListener('click', () => {
+    //     // Get the current value of the input
+    //     let value = parseInt(quantityInput.value);
+    //     // Decrement the value
+    //     value--;
+    //     // Ensure the value does not go below the minimum
+    //     value = Math.max(value, parseInt(quantityInput.getAttribute('min')));
+    //     // Update the input value
+    //     quantityInput.value = value;
+    // });
 
 
-    // Update subtotal in HTML
-    const subtotalElement = document.querySelector('.subtotal');
-    subtotalElement.textContent = `$ ${subtotal.toFixed(2)}`;
+    // // Update subtotal in HTML
+    // const subtotalElement = document.querySelector('.subtotal');
+    // subtotalElement.textContent = `$ ${subtotal.toFixed(2)}`;
 
-    // Calculate total (assuming subtotal is the same as total for now)
-    // const total = subtotal;
+    // // Calculate total (assuming subtotal is the same as total for now)
+    // // const total = subtotal;
 
-    // Update total in HTML
-    const totalElement = document.querySelector('.total');
-    totalElement.textContent = `$ ${subtotal.toFixed(2)}`;
+    // // Update total in HTML
+    // const totalElement = document.querySelector('.total');
+    // totalElement.textContent = `$ ${subtotal.toFixed(2)}`;
 
 } else {
     cartItemsContainer.innerHTML = '<p>No items in the cart</p>';
