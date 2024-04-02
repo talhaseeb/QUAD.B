@@ -1,5 +1,8 @@
 // cart.js
-
+let userId = localStorage.getItem("userId");
+if (userId == null) {
+    window.location.href = "../pages/log-in.html"
+}
 // Retrieve cartItems from localStorage
 const cartItems = JSON.parse(localStorage.getItem('cartItems'));
 console.log(cartItems[0]);

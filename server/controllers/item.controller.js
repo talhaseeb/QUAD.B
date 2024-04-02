@@ -117,3 +117,14 @@ exports.deleteItem = async (req, res) => {
     }
 };
 
+exports.deleteAllItems = async (req, res) => {
+    try {
+        const result = await Item.deleteMany({});
+        if (result.deletedCount === 0) {
+            return res.status(404).json({ message: 'No items found to delete' });
+        }
+        res.status(200).json({ message: 'All items deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};

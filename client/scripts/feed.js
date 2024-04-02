@@ -255,6 +255,7 @@ function updateFeaturedRestaurants() {
         resImage.classList.add("h-32", "w-full", "rounded-md", "object-cover")
         restName.innerText = partner?.userId?.name;
         restName.classList.add("text-base", "leading-none", "pt-2", "pb-3", "px-2", "tracking-wide", "cursor-pointer", "font-semibold");
+        restName.onclick = () => window.location.href = `../pages/partner_profile.html?id=${partner?._id}`
         div.appendChild(resImage);
         div.appendChild(restName);
         featuredrestaurants.appendChild(div);
@@ -340,24 +341,33 @@ function populateDiscover(donationCentres, stores, restaurants) {
 
 function displayItems(itemsData) {
     itemsList.innerHTML = ''; // Clear previous items
+    let lsPartnerId = localStorage.getItem("partnerId");
     itemsData.forEach(item => {
         const productItem = `
                 <div class="col-lg-4 col-md-6">
                     <div class="product__item bg-white my-1.5 rounded-md overflow-hidden min-w-[250px]">
                         <div class="product__item__pic !h-32" >
+<<<<<<< HEAD
                             <img class="product__item__pic set-bg !h-32 w-full" src="${item?.images[0]}" alt="biryani">
                             <ul class="product__hover">
                              <!--   <li><a href="img/biryani.jpg" class="image-popup"><span class="arrow_expand"></span></a></li> -->
                                 <li><a href="#" class="add-to-cart" data-item='${JSON.stringify(item)}'><span class="icon_bag_alt"></span></a></li>
+=======
+                            <img class="product__item__pic set-bg !h-32 w-full" src="../assets/images/test_images/biryani.jpg" alt="biryani">
+                            ${item?.partnerId === lsPartnerId ? '' : `
+                            <ul class="product__hover" id="ul-hover">
+                                <li id="cart-logo"><a href="#" class="add-to-cart" data-item='${JSON.stringify(item)}'><span class="icon_bag_alt"></span></a></li>
+>>>>>>> origin
                             </ul>
-                        </div>
-                        <div class="product__item__text p-3">
-                            <h6 class="!mb-2"><a href="#" class="!text-xl leading-none">${item.title}</a></h6>
-                            <p>${item.description}</p>
-                            <div class="product__price">$ ${item.price}</div>
-                        </div>
-                    </div>
-                </div>`;
+                            `}
+                        </div >
+        <div class="product__item__text p-3">
+            <h6 class="!mb-2"><a href="#" class="!text-xl leading-none">${item.title}</a></h6>
+            <p>${item.description}</p>
+            <div class="product__price">$ ${item.price}</div>
+        </div>
+                    </div >
+                </div > `;
         itemsList.innerHTML += productItem;
     });
 

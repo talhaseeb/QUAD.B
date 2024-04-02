@@ -24,11 +24,11 @@ let storedValues = {
 const initialFormHTML = '<h1>Register</h1>' +
     '<input type="text" placeholder="Full Name" id="name" />' +
     '<input type="email" placeholder="Email" id="email" />' +
-    '<input type="text" placeholder="Address" id="address"/>'+
-    '<input type="tel" placeholder="Contact" id="phone"/>'+
+    '<input type="text" placeholder="Address" id="address"/>' +
+    '<input type="tel" placeholder="Contact" id="phone"/>' +
     '<input type="password" placeholder="Password" id="password" />' +
     '<select id="partnerDropdown">' +
-    '<option value="">Select User Type</option>'+
+    '<option value="">Select User Type</option>' +
     '<option value="true">Customer</option>' +
     '<option value="false">Partner</option>' +
     '</select>' +
@@ -65,26 +65,26 @@ function handleDropdownChange() {
         storedValues.isPartner = true;
 
         // Add partner-specific fields
-        let partnerFieldsHTML = 
-    '<label for="bannerImage">Banner Image:</label>'+
-    '<input type="file" accept="image/*" id="bannerImage" required />' +
-    '<input type="text" placeholder="Socials" id="socials" required />' +
-    '<textarea placeholder="Description" id="description" required></textarea>' +
-    '<input type="text" placeholder="Short Description" id="short_description" required />' +
-    '<select id="partnerType" required>' +
-    '<option value="">Select Partner Type</option>'+
-    '<option value="store">Store</option>' +
-    '<option value="restaurant">Restaurant</option>' +
-    '<option value="donationCenter">Donation Center</option>' +
-    '</select>' +
-    '<input type="text" placeholder="Tags (separated by commas or spaces)" id="tags" required />' +
-    '<label for="logo">Logo: </label>'+
-    '<input type="file" accept="image/*" id="logo" required />' +
-    '<input type="submit" id="registerLink" value="Register" />' +
-    '<input type="button" id="backButton" value="Back" />' +
-    '<div class="links">' +
-    '<a href="#" id="loginLink">Log in</a>' +
-    '</div>';
+        let partnerFieldsHTML =
+            '<label for="bannerImage">Banner Image:</label>' +
+            '<input type="file" accept="image/*" id="bannerImage" required />' +
+            '<input type="text" placeholder="Socials" id="socials" required />' +
+            '<textarea placeholder="Description" id="description" required></textarea>' +
+            '<input type="text" placeholder="Short Description" id="short_description" required />' +
+            '<select id="partnerType" required>' +
+            '<option value="">Select Partner Type</option>' +
+            '<option value="store">Store</option>' +
+            '<option value="restaurant">Restaurant</option>' +
+            '<option value="donation center">Donation Center</option>' +
+            '</select>' +
+            '<input type="text" placeholder="Tags (separated by commas or spaces)" id="tags" required />' +
+            '<label for="logo">Logo: </label>' +
+            '<input type="file" accept="image/*" id="logo" required />' +
+            '<input type="submit" id="registerLink" value="Register" />' +
+            '<input type="button" id="backButton" value="Back" />' +
+            '<div class="links">' +
+            '<a href="#" id="loginLink">Log in</a>' +
+            '</div>';
 
         // Update the form content with the partner-specific HTML
         document.getElementById('loginForm').innerHTML = partnerFieldsHTML;
@@ -117,8 +117,8 @@ function handleBackButtonClick(event) {
     storedValues.description = document.getElementById('description').value;
     storedValues.short_description = document.getElementById('short_description').value;
     storedValues.logo = document.getElementById('logo').files[0];
-    storedValues.tags = tagsArray;  
-    storedValues.partnerType = document.getElementById('partnerType').value;          
+    storedValues.tags = tagsArray;
+    storedValues.partnerType = document.getElementById('partnerType').value;
     storedValues.isPartner = true;
     console.log(storedValues);
 
@@ -132,7 +132,7 @@ function handleBackButtonClick(event) {
 
     // Reattach event listener to the dropdown change
     document.getElementById('partnerDropdown').addEventListener('change', handleDropdownChange);
-    
+
     // Add event listener to revert back to login form
     document.getElementById('loginLink').addEventListener('click', handleLoginLinkClick);
 }
@@ -145,8 +145,8 @@ function handleLoginLinkClick(event) {
 
 // Function to handle login form submission
 function handleLoginFormSubmit(event) {
-    if(registerUser == false){
-            event.preventDefault();
+    if (registerUser == false) {
+        event.preventDefault();
         // Get the form data
         const formData = new FormData(event.target);
         const email = formData.get('email');
@@ -160,29 +160,30 @@ function handleLoginFormSubmit(event) {
             },
             body: JSON.stringify({ email, password })
         })
-        .then(response => {
-            if (response.ok) {
-                // If login is successful, extract user data from response and save to local storage
-                response.json().then(data => {
-                    const { _id, isPartner, partnerId } = data;
-                    localStorage.setItem('userId', _id);
-                    localStorage.setItem('isPartner', isPartner);
-                    // Redirect to index.html or perform other actions as needed
-                    if (isPartner) {
-                        window.location.href = '../pages/partner_profile.html?id=' + data?.partnerId;
-                    }
-                    else
-                        window.location.href = '../pages/feed.html';
-                });
-            } else {
-                // If login fails, handle error or redirect back to the login page
-                window.location.href = '/login.html';
-            }
-        })
-        .catch(error => {
-            console.error('Error logging in:', error);
-            // Handle error if needed
-        });
+            .then(response => {
+                if (response.ok) {
+                    // If login is successful, extract user data from response and save to local storage
+                    response.json().then(data => {
+                        const { _id, isPartner, partnerId } = data;
+                        localStorage.setItem('userId', _id);
+                        localStorage.setItem('partnerId', partnerId);
+                        localStorage.setItem('isPartner', isPartner);
+                        // Redirect to index.html or perform other actions as needed
+                        if (isPartner) {
+                            window.location.href = '../pages/partner_profile.html?id=' + data?.partnerId;
+                        }
+                        else
+                            window.location.href = '../pages/feed.html';
+                    });
+                } else {
+                    // If login fails, handle error or redirect back to the login page
+                    document.getElementById('loginMessage').style.display = 'block';
+                }
+            })
+            .catch(error => {
+                console.error('Error logging in:', error);
+                // Handle error if needed
+            });
     }
 }
 
@@ -271,10 +272,14 @@ async function handleRegistrationFormSubmit(event) {
                 });
 
                 if (response.ok) {
-                    console.log("Registration successful");
-                    // Redirect to login page or perform other actions
+                    response.json().then(data => {
+                        const {partnerId } = data;
+                        console.log("Registration successful - Partner");
+                        window.location.href = '../pages/partner_profile.html?id=' + data?.partnerId;
+                    });
                 } else {
                     console.error('Registration failed');
+                    document.getElementById('registerMessage').style.display = 'block';
                 }
             } catch (error) {
                 console.error('Error registering:', error);
@@ -285,24 +290,24 @@ async function handleRegistrationFormSubmit(event) {
             // Handle error if needed
         }
     }
-    else{
+    else {
         registerUser = true;
         const formData = new FormData(event.target);
-        const name = formData.get('name') || document.getElementById('name').value ;
-            const email = formData.get('email') || document.getElementById('email').value;
-            const address = formData.get('address') || document.getElementById('address').value;
-            const phone = formData.get('phone') || document.getElementById('phone').value;
-            const password = formData.get('password') || document.getElementById('password').value;
-            const isPartner = storedValues.isPartner;
+        const name = formData.get('name') || document.getElementById('name').value;
+        const email = formData.get('email') || document.getElementById('email').value;
+        const address = formData.get('address') || document.getElementById('address').value;
+        const phone = formData.get('phone') || document.getElementById('phone').value;
+        const password = formData.get('password') || document.getElementById('password').value;
+        const isPartner = storedValues.isPartner;
 
-            const registrationData = {
-                name,
-                email,
-                address,
-                phone,
-                password,
-                isPartner,
-            }
+        const registrationData = {
+            name,
+            email,
+            address,
+            phone,
+            password,
+            isPartner,
+        }
         try {
             const response = await fetch('http://localhost:8000/users', {
                 method: 'POST',
@@ -314,7 +319,7 @@ async function handleRegistrationFormSubmit(event) {
 
             if (response.ok) {
                 console.log("Registration successful");
-                // Redirect to login page or perform other actions
+                window.location.href = '../pages/feed.html';
             } else {
                 console.error('Registration failed');
             }
@@ -326,7 +331,7 @@ async function handleRegistrationFormSubmit(event) {
 }
 
 
-if(registerUser == false){
+if (registerUser == false) {
     // Add event listener to the login form
     const loginForm = document.getElementById('loginForm');
     loginForm.addEventListener('submit', handleLoginFormSubmit);
