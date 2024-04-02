@@ -17,6 +17,8 @@ if (cartItems && cartItems.length > 0) {
 
     let totalPrice = 0;
     cartItems.forEach(item => {
+        console.log("Item is : "+JSON.stringify(item));
+        console.log("Item is : "+typeof item.price);
         const cartItemElement = document.createElement('tr');
         cartItemElement.innerHTML = `
         <td class="cart__product__item">
@@ -33,7 +35,7 @@ if (cartItems && cartItems.length > 0) {
     <span class="inc qtybtn">+</span>
 </div>
     </td>
-    <td class="cart__total">${item.price}</td>
+    <td class="cart__total">$ ${item.price}</td>
     
         `;
         cartItemsContainer.appendChild(cartItemElement);
@@ -47,8 +49,8 @@ if (cartItems && cartItems.length > 0) {
         const incButton = cartItemElement.querySelector('.qtybtn.inc');
         const cartTotalElement = cartItemElement.querySelector('.cart__total');
         // Add item price to initial subtotal and total
-        subtotal += item.price;
-        totalPrice += item.price;
+        subtotal += parseFloat(item.price);
+        totalPrice += parseFloat(item.price);
         subtotalElement.textContent = `$ ${subtotal.toFixed(2)}`;
         totalElement.textContent = `$ ${totalPrice.toFixed(2)}`;
 

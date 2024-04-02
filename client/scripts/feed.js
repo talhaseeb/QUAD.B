@@ -357,11 +357,16 @@ function displayItems(itemsData) {
                             <img class="product__item__pic set-bg !h-32 w-full" style="object-fit: cover;" src="${item?.images[0]}" alt="biryani">
                             ${item?.partnerId === lsPartnerId ? '' : `
                             <ul class="product__hover" id="ul-hover">
-                                <li id="cart-logo"><a href="#" class="add-to-cart" data-item='${JSON.stringify(item)}'><span class="icon_bag_alt"></span></a></li>
+                                <li id="cart-logo"><a href="#" class="add-to-cart" 
+                                data-id="${item._id}" 
+                                data-quantity="${item.quantity}" 
+                                data-title="${item.title}" 
+                                data-price="${item.price}">
+                                <span class="icon_bag_alt"></span></a></li>
                             </ul>
                             `}
                         </div >
-        <div class="product__item__text p-3">
+        <div class="product__item__text p-3">   
             <h6 class="!mb-2"><a href="#" class="!text-xl leading-none">${item.title}</a></h6>
             <p>${item.description}</p>
             <div class="product__price">$ ${item.price}</div>
@@ -375,7 +380,19 @@ function displayItems(itemsData) {
     const addToCartButtons = document.querySelectorAll('.add-to-cart');
     addToCartButtons.forEach(button => {
         button.addEventListener('click', (event) => {
-            const item = JSON.parse(event.currentTarget.dataset.item);
+            //console.log("String item is :"+event.currentTarget.dataset.item);
+            const itemId = event.currentTarget.dataset.id;
+        const itemQuantity = event.currentTarget.dataset.quantity;
+        const itemTitle = event.currentTarget.dataset.title;
+        const itemPrice = event.currentTarget.dataset.price;
+        
+        // Create a new object using the extracted properties
+        const item = {
+            _id: itemId,
+            quantity: itemQuantity,
+            title: itemTitle,
+            price: itemPrice
+        };
             addToCart(item);
         });
     });
