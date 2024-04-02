@@ -354,7 +354,7 @@ function displayItems(itemsData) {
                 <div class="col-lg-4 col-md-6">
                     <div class="product__item bg-white my-1.5 rounded-md overflow-hidden min-w-[250px]">
                         <div class="product__item__pic !h-32" >
-                            <img class="product__item__pic set-bg !h-32 w-full" src="${item?.images[0]}" alt="biryani">
+                            <img class="product__item__pic set-bg !h-32 w-full" style="object-fit: cover;" src="${item?.images[0]}" alt="biryani">
                             ${item?.partnerId === lsPartnerId ? '' : `
                             <ul class="product__hover" id="ul-hover">
                                 <li id="cart-logo"><a href="#" class="add-to-cart" data-item='${JSON.stringify(item)}'><span class="icon_bag_alt"></span></a></li>
